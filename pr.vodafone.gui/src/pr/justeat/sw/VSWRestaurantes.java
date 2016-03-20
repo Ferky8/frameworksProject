@@ -17,6 +17,14 @@ import javax.swing.WindowConstants;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
+
+import pr.justeat.dao.dto.Restaurante;
+import pr.justeat.dao.dto.RestauranteList;
+
 import javax.swing.SwingUtilities;
 
 
@@ -55,6 +63,8 @@ public class VSWRestaurantes extends javax.swing.JFrame {
 	private JTextField cajaNombre;
 	private JPanel jPanel3;
 	private JPanel jPanel2;
+	
+	private RestauranteList restaurantes;
 
 	/**
 	* Auto-generated main method to display this JFrame
@@ -251,6 +261,8 @@ public class VSWRestaurantes extends javax.swing.JFrame {
 	
 	private void botonEditar(){
 		
+		int restauranteRow = tablaRestaurantes.getSelectedRow();
+		
 	}
 	
 	private void botonCargar(){		
@@ -259,6 +271,55 @@ public class VSWRestaurantes extends javax.swing.JFrame {
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			File fichero = jfc.getSelectedFile();
 			System.out.println(fichero.getAbsolutePath());
+			
+			try {
+				// create a JAXBContext capable of handling classes generated into
+	            // the primer.po package
+	            JAXBContext jc = JAXBContext.newInstance(RestauranteList.class);
+	            
+	            // create an Unmarshaller
+	            Unmarshaller u = jc.createUnmarshaller();
+	            System.out.println(u);
+	            System.out.println(fichero);
+	            // unmarshal a po instance document into a tree of Java content
+	            // objects composed of classes from the primer.po package.
+	            restaurantes = (RestauranteList)u.unmarshal(fichero);
+
+	            
+	            DefaultTableModel jTable1Model = 
+	            		new DefaultTableModel() {
+	    			private static final long serialVersionUID = 1L;
+
+	    			@Override
+	    			public boolean isCellEditable(int row, int column) {
+	    				//All cells can`t be edited
+	    				return false;
+	    			}
+	    		};
+	    		
+	    		jTable1Model.addColumn("Id");
+	    		jTable1Model.addColumn("Nombre");
+	    		jTable1Model.addColumn("Tipo comida");
+	    		jTable1Model.addColumn("Puntuación");
+	            
+	            
+	            
+	            for(Restaurante restaurante : restaurantes.getRestauranteList()) {
+	            	Object[] fila = new Object[4];
+	            	fila[0] = restaurante.getIdRestaurante();
+	            	fila[1] = restaurante.getNombre();
+	            	fila[2] = restaurante.getTipoComida();
+	            	fila[3] = restaurante.getPuntuacion();
+	            	jTable1Model.addRow(fila);
+	            }
+	            
+	            tablaRestaurantes.setModel(jTable1Model);
+	            
+	           
+	            
+	        } catch( JAXBException je ) {
+	            je.printStackTrace();
+	        }
 		}
 	}
 	
