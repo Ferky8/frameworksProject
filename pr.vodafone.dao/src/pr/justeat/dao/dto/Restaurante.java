@@ -1,5 +1,10 @@
 package pr.justeat.dao.dto;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+//This statement means that class "Bookstore.java" is the root-element of our example
+@XmlRootElement(namespace = "de.vogella.xml.jaxb.model")
+
 public class Restaurante {
 	private String idRestaurante;
 	private String nombre;
@@ -9,9 +14,11 @@ public class Restaurante {
 	private float tiempoMedio;
 	private float ofertaActual;
 	
+	
 	public Restaurante() {
 		super();
 	}
+
 	public Restaurante(String idRestaurante, String nombre, String tipoComida, float precioMedio,
 			float puntuacion, float tiempoMedio, float ofertaActual) {
 		super();
@@ -23,6 +30,7 @@ public class Restaurante {
 		this.tiempoMedio = tiempoMedio;
 		this.ofertaActual = ofertaActual;
 	}
+
 	public String getIdRestaurante() {
 		return idRestaurante;
 	}

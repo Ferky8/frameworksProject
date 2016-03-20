@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:complexType name="Restaurante">
+    <xs:sequence>
+      <xs:element name="idRestaurante" type="xs:string" minOccurs="0"/>
+      <xs:element name="nombre" type="xs:string" minOccurs="0"/>
+      <xs:element name="tipoComida" type="xs:string" minOccurs="0"/>
+      <xs:element name="precioMedio" type="xs:float" minOccurs="0"/>
+      <xs:element name="puntuacion" type="xs:float" minOccurs="0"/>
+      <xs:element name="tiempoMedio" type="xs:float" minOccurs="0"/>
+      <xs:element name="ofertaActual" type="xs:float" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+
