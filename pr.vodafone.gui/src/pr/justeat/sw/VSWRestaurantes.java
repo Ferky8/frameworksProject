@@ -263,6 +263,14 @@ public class VSWRestaurantes extends javax.swing.JFrame {
 		
 		int restauranteRow = tablaRestaurantes.getSelectedRow();
 		
+		Restaurante res = restaurantes.getRestauranteList().get(restauranteRow);
+		cajaId.setText(res.getIdRestaurante());
+		cajaNombre.setText(res.getNombre());
+		cajaOfertaActual.setText(Float.toString(res.getOfertaActual()));
+		cajaPrecioMedio.setText(Float.toString(res.getPrecioMedio()));
+		cajaPuntuacion.setText(Float.toString(res.getPuntuacion()));
+		cajaTiempoMedio.setText(Float.toString(res.getTiempoMedio()));
+		cajaTipoComida.setText(res.getTipoComida());
 	}
 	
 	private void botonCargar(){		
