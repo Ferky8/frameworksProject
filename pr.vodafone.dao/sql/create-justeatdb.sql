@@ -88,7 +88,7 @@ CREATE TABLE `elementos` (
 
 LOCK TABLES `elementos` WRITE;
 /*!40000 ALTER TABLE `elementos` DISABLE KEYS */;
-INSERT INTO `elementos` VALUES (1,'2011-07-08','Junio',140,'666111000'),(2,'2011-06-08','Mayo',95,'666111000'),(3,'2011-05-08','Abril',80,'666111000'),(4,'2011-06-10','Enero, Febrero, Marzo',200,'666111111'),(5,'2011-04-03','Enero',300,'666222000'),(6,'2011-05-03','Enero',300,'666222000'),(7,'2011-03-03','Enero',300,'666222000'),(8,'2011-03-03','Enero',300,'666222000');
+INSERT INTO `elementos` VALUES (1,3,'Pinchos morunos',14.0,666111000),(2,2,'Gambas',9.5,666111000),(3,1,'Arroz',8.0,666111000),(4,2,'Pastinacas',20.0,666111111),(5,2,'Lentejas',30.0,666222000),(6,3,'Solomillos',30.0,666222000),(7,4,'Croquetas',30.0,666222000),(8,2,'Cardo',30.0,666222000);
 /*!40000 ALTER TABLE `elementos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -110,7 +110,9 @@ CREATE TABLE `pedidos` (
   `dni` varchar(8) NOT NULL,
   PRIMARY KEY  (`idPedido`),
   KEY `cliente` (`dni`),
-  CONSTRAINT `dni` FOREIGN KEY (`dni`) REFERENCES `clientes` (`dni`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `dni` FOREIGN KEY (`dni`) REFERENCES `clientes` (`dni`) ON DELETE CASCADE ON UPDATE CASCADE,
+  KEY `restaurante` (`restaurante`),
+  CONSTRAINT `restaurante` FOREIGN KEY (`restaurante`) REFERENCES `restaurantes` (`idRestaurante`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -120,7 +122,7 @@ CREATE TABLE `pedidos` (
 
 LOCK TABLES `pedidos` WRITE;
 /*!40000 ALTER TABLE `pedidos` DISABLE KEYS */;
-INSERT INTO `pedidos` VALUES ('666111000','2006-08-03',1,'@M','@M','Ninguna','111'),('666111111','2009-01-01',0,'Consumo','No','50% hasta 2012','111'),('666222000','2010-03-01',0,NULL,NULL,'Ninguna','222'),('666333000','2005-11-20',1,'@S','@S','Movil gratis en enero','333');
+INSERT INTO `pedidos` VALUES (666111000,'1','2006-08-03',1,'Urgente','Metalico','Ninguna','111'),(666111111,'2','2009-01-01',0,'Normal','Tarjeta','3 por 2','111'),(666222000,'1','2010-03-01',0,NULL,NULL,'Ninguna','222'),(666333000,'3','2005-11-20',1,'Horaria','Metalico','50% en verduras','333');
 /*!40000 ALTER TABLE `pedidos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -132,7 +134,7 @@ DROP TABLE IF EXISTS `restaurantes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `restaurantes` (
-  `idRestaurante` varchar(10) NOT NULL,
+  `idRestaurante` varchar(15) NOT NULL,
   `nombre` varchar(45) NOT NULL,
   `tipoComida` varchar(45) NOT NULL,
   `precioMedio` float NOT NULL,
@@ -149,7 +151,7 @@ CREATE TABLE `restaurantes` (
 
 LOCK TABLES `restaurantes` WRITE;
 /*!40000 ALTER TABLE `restaurantes` DISABLE KEYS */;
-INSERT INTO `restaurantes` VALUES ('1','Samsung','Galaxy S',300,29,89,169),('2','Apple','IPhone4',300,59,129,199),('3','HTC','HD7',250,0,39,99);
+INSERT INTO `restaurantes` VALUES ('1','Casa Paco','Tradicional',30.0,8.5,40,0.0),('2','Casa Vicky','Innovadora',20.0,9,50,0.1),('3','La mandarra','Experimental',25.0,9.5,40,0.05);
 /*!40000 ALTER TABLE `restaurantes` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

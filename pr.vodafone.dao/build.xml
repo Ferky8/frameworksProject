@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project basedir="." default="help" name="pr.vodafone.dao">
+<project basedir="." default="help" name="pr.justeat.dao">
 	
-	<property name="project.file" value="pr.vodafone.dao"/>
+	<property name="project.file" value="pr.justeat.dao"/>
     <property name="src.dir" value="src"/>
     <property name="build.dir" value="bin"/>
     <property name="lib.dir" value="lib"/>
@@ -41,7 +41,7 @@
 	</target>
 
     <target name="run" depends="build">                     
-        <java classname="pr.vodafone.dao.test.Test" classpathref="classpath" fork="true"/>
+        <java classname="pr.justeat.dao.test.Test" classpathref="classpath" fork="true"/>
     </target>
         
     <target name="help">

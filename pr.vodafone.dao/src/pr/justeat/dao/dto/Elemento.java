@@ -5,13 +5,13 @@ public class Elemento {
 	private int cantidad;
 	private String nombre;
 	private float importe;
-	private String pedido;
+	private int pedido;
 	
 	public Elemento(){
 		super();
 	}
 	public Elemento(int cantidad, String nombre, float importe,
-			String pedido) {
+			int pedido) {
 		super();
 		this.cantidad = cantidad;
 		this.nombre = nombre;
@@ -19,7 +19,7 @@ public class Elemento {
 		this.pedido = pedido;
 	}
 	public Elemento(int idElemento, int cantidad, String nombre, float importe,
-			String pedido) {
+			int pedido) {
 		super();
 		this.idElemento = idElemento;
 		this.cantidad = cantidad;
@@ -51,10 +51,10 @@ public class Elemento {
 	public void setImporte(float importe) {
 		this.importe = importe;
 	}
-	public String getPedido() {
+	public int getPedido() {
 		return pedido;
 	}
-	public void setPedido(String pedido) {
+	public void setPedido(int pedido) {
 		this.pedido = pedido;
 	}
 

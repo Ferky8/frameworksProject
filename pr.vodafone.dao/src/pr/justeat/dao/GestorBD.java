@@ -140,9 +140,9 @@ public class GestorBD {
         return numFilas;
     }
     
-    public Pedido obtenerPedido(String restaurante) throws SQLException{        
+    public Pedido obtenerPedido(int idPedido) throws SQLException{        
         Pedido pedido = null;
-    	String select = "select * from PEDIDOS where restaurante='" + restaurante + "'";
+    	String select = "select * from PEDIDOS where idPedido='" + idPedido + "'";
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(select);
         if (rs.next()){
@@ -246,7 +246,7 @@ public class GestorBD {
     
     public void insertarPedido(Pedido pedido) throws SQLException{
         String insert = "insert into PEDIDOS " +
-                        "(restaurante, cantidad, entregado, tipoEntrega, tipoPago, promocion, dni) " +
+                        "(restaurante, fecha, entregado, tipoEntrega, tipoPago, promocion, dni) " +
                         "VALUES ('" + pedido.getRestaurante() +
                         "','" + pedido.getFecha() +
                         "'," + pedido.isEntregado() +
@@ -259,7 +259,7 @@ public class GestorBD {
         stmt.close();        
     }
     
-    public void actualizarPedido(String restaurante, Pedido pedido) throws SQLException{
+    public void actualizarPedido(int idPedido, Pedido pedido) throws SQLException{
         String update = "update PEDIDOS set restaurante='" + pedido.getRestaurante() + 
         				"', fecha='" + pedido.getFecha() +
         				"', entregado=" + pedido.isEntregado() +
@@ -267,21 +267,21 @@ public class GestorBD {
         				"', tipoPago='" + pedido.getTipoPago() +
         				"', promocion='" + pedido.getPromocion() +
         				"', dni='" + pedido.getDni() +
-        				"' where restaurante='" + restaurante + "'";
+        				"' where idPedido='" + idPedido + "'";
         Statement stmt = con.createStatement();
         stmt.executeUpdate(update);
         stmt.close();                
     }
     
-    public void entregadorPedido(String restaurante, boolean entregado) throws SQLException{
-        String update = "update PEDIDOS set entregado=" + entregado + " where restaurante='" + restaurante + "'";
+    public void entregarPedido(int idPedido, boolean entregado) throws SQLException{
+        String update = "update PEDIDOS set entregado=" + entregado + " where idPedido='" + idPedido + "'";
         Statement stmt = con.createStatement();
         stmt.executeUpdate(update);
         stmt.close();                
     }
     
-    public void borrarPedido(String restaurante) throws SQLException{
-       	String delete = "delete from PEDIDOS where restaurante='" + restaurante + "'";
+    public void borrarPedido(int idPedido) throws SQLException{
+       	String delete = "delete from PEDIDOS where idPedido='" + idPedido + "'";
         Statement stmt = con.createStatement();
         stmt.executeUpdate(delete);
         stmt.close();	                  
@@ -306,85 +306,85 @@ public class GestorBD {
     }
 
     public Elemento obtenerElemento(int idElemento) throws SQLException{        
-        Elemento factura = null;
+        Elemento elemento = null;
     	String select = "select * from ELEMENTOS where idElemento=" + idElemento;
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(select);
         if (rs.next()){
-        	factura = new Elemento();
-        	factura.setIdElemento(rs.getInt("idElemento"));
-        	factura.setCantidad(rs.getInt("cantidad"));
-        	factura.setNombre(rs.getString("nombre"));
-        	factura.setImporte(rs.getFloat("importe"));
-        	factura.setPedido(rs.getString("pedido"));
+        	elemento = new Elemento();
+        	elemento.setIdElemento(rs.getInt("idElemento"));
+        	elemento.setCantidad(rs.getInt("cantidad"));
+        	elemento.setNombre(rs.getString("nombre"));
+        	elemento.setImporte(rs.getFloat("importe"));
+        	elemento.setPedido(rs.getInt("pedido"));
         }
         rs.close();
         stmt.close();  
-        return factura;
+        return elemento;
     }    
     public Vector<Elemento> obtenerElementos() throws SQLException{        
-        Vector<Elemento> facturas = new Vector<Elemento>();
+        Vector<Elemento> elementos = new Vector<Elemento>();
     	String select = "select * from ELEMENTOS order by cantidad desc";
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(select);
         while (rs.next()){
-        	Elemento factura = new Elemento();
-        	factura.setIdElemento(rs.getInt("idElemento"));
-        	factura.setCantidad(rs.getInt("cantidad"));
-        	factura.setNombre(rs.getString("nombre"));
-        	factura.setImporte(rs.getFloat("importe"));
-        	factura.setPedido(rs.getString("pedido"));
-        	facturas.add(factura);
+        	Elemento elemento = new Elemento();
+        	elemento.setIdElemento(rs.getInt("idElemento"));
+        	elemento.setCantidad(rs.getInt("cantidad"));
+        	elemento.setNombre(rs.getString("nombre"));
+        	elemento.setImporte(rs.getFloat("importe"));
+        	elemento.setPedido(rs.getInt("pedido"));
+        	elementos.add(elemento);
         }
         rs.close();
         stmt.close();  
-        return facturas;
+        return elementos;
     }    
-    public Vector<Elemento> obtenerElementosLinea(String pedido) throws SQLException{        
-        Vector<Elemento> facturas = new Vector<Elemento>();
-    	String select = "select * from ELEMENTOS where pedido='" + pedido + "' order by cantidad desc";
+    public Vector<Elemento> obtenerElementosPedido(int pedido) throws SQLException{        
+        Vector<Elemento> elementos = new Vector<Elemento>();
+    	String select = "select * from ELEMENTOS where pedido=" + pedido + " order by cantidad desc";
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(select);
         while (rs.next()){
-        	Elemento factura = new Elemento();
-        	factura.setIdElemento(rs.getInt("idElemento"));
-        	factura.setCantidad(rs.getInt("cantidad"));
-        	factura.setNombre(rs.getString("nombre"));
-        	factura.setImporte(rs.getFloat("importe"));
-        	factura.setPedido(rs.getString("pedido"));
-        	facturas.add(factura);
+        	Elemento elemento = new Elemento();
+        	elemento.setIdElemento(rs.getInt("idElemento"));
+        	elemento.setCantidad(rs.getInt("cantidad"));
+        	elemento.setNombre(rs.getString("nombre"));
+        	elemento.setImporte(rs.getFloat("importe"));
+        	elemento.setPedido(rs.getInt("pedido"));
+        	elementos.add(elemento);
         }
         rs.close();
         stmt.close();  
-        return facturas;
+        return elementos;
     }
 
     public Vector<Elemento> obtenerElementosCliente(String dni) throws SQLException{        
-        Vector<Elemento> facturas = new Vector<Elemento>();
-    	String select = "select * from ELEMENTOS as F, PEDIDOS as L where f.pedido=l.pedido and l.dni='" + dni + "' order by f.pedido, f.cantidad desc";
+        Vector<Elemento> elementos = new Vector<Elemento>();
+    	String select = "select * from ELEMENTOS as E, PEDIDOS as P where e.pedido=p.idPedido and p.dni='" + dni + "' order by e.pedido, e.cantidad desc";
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(select);
         while (rs.next()){
-        	Elemento factura = new Elemento();
-        	factura.setIdElemento(rs.getInt("idElemento"));
-        	factura.setCantidad(rs.getInt("cantidad"));
-        	factura.setNombre(rs.getString("nombre"));
-        	factura.setImporte(rs.getFloat("importe"));
-        	factura.setPedido(rs.getString("pedido"));
-        	facturas.add(factura);
+        	Elemento elemento = new Elemento();
+        	elemento.setIdElemento(rs.getInt("idElemento"));
+        	elemento.setCantidad(rs.getInt("cantidad"));
+        	elemento.setNombre(rs.getString("nombre"));
+        	elemento.setImporte(rs.getFloat("importe"));
+        	elemento.setPedido(rs.getInt("pedido"));
+        	elementos.add(elemento);
         }
         rs.close();
         stmt.close();  
-        return facturas;
+        return elementos;
     }
     
-    public int insertarElemento(Elemento factura) throws SQLException{
+    public int insertarElemento(Elemento elemento) throws SQLException{
         String insert = "insert into ELEMENTOS " +
                         "(cantidad, nombre, importe, pedido) " +
-                        "VALUES ('" + factura.getCantidad() +
-                        "','" + factura.getNombre() +
-                        "'," + factura.getImporte() +
-                        ",'"  + factura.getPedido() + "')";                        
+                        "VALUES ('" + elemento.getCantidad() +
+                        "','" + elemento.getNombre() +
+                        "'," + elemento.getImporte() +
+                        ",'"  + elemento.getPedido() + "')";                        
         Statement stmt = con.createStatement();
         stmt.executeUpdate(insert);
         stmt.close();
@@ -397,16 +397,16 @@ public class GestorBD {
         	id = rs.getInt("id");
         }
         stmt1.close();
-        factura.setIdElemento(id);
+        elemento.setIdElemento(id);
         return id;
     }
     
-    public void actualizarElemento(int idElemento, Elemento factura) throws SQLException{
-        String update = "update ELEMENTOS set idElemento=" + factura.getIdElemento() + 
-        				", cantidad='" + factura.getCantidad() +
-        				"', nombre='" + factura.getNombre() +
-        				"', importe=" + factura.getImporte() +
-        				", pedido='" + factura.getPedido() +
+    public void actualizarElemento(int idElemento, Elemento elemento) throws SQLException{
+        String update = "update ELEMENTOS set idElemento=" + elemento.getIdElemento() + 
+        				", cantidad='" + elemento.getCantidad() +
+        				"', nombre='" + elemento.getNombre() +
+        				"', importe=" + elemento.getImporte() +
+        				", pedido='" + elemento.getPedido() +
         				"' where idElemento=" + idElemento;
         Statement stmt = con.createStatement();
         stmt.executeUpdate(update);
@@ -439,133 +439,133 @@ public class GestorBD {
     }
   
     public Restaurante obtenerRestaurante(String idRestaurante) throws SQLException{        
-        Restaurante terminal = null;
+        Restaurante restaurante = null;
     	String select = "select * from RESTAURANTES where idRestaurante='" + idRestaurante + "'";
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(select);
         if (rs.next()){
-        	terminal = new Restaurante();
-        	terminal.setIdRestaurante(rs.getString("idRestaurante"));
-        	terminal.setNombre(rs.getString("nombre"));
-        	terminal.setTipoComida(rs.getString("tipoComida"));
-        	terminal.setPrecioMedio(rs.getFloat("precioMedio"));
-        	terminal.setPuntuacion(rs.getFloat("puntuacion"));
-        	terminal.setTiempoMedio(rs.getFloat("tiempoMedio"));
-        	terminal.setOfertaActual(rs.getFloat("ofertaActual"));        	
+        	restaurante = new Restaurante();
+        	restaurante.setIdRestaurante(rs.getString("idRestaurante"));
+        	restaurante.setNombre(rs.getString("nombre"));
+        	restaurante.setTipoComida(rs.getString("tipoComida"));
+        	restaurante.setPrecioMedio(rs.getFloat("precioMedio"));
+        	restaurante.setPuntuacion(rs.getFloat("puntuacion"));
+        	restaurante.setTiempoMedio(rs.getFloat("tiempoMedio"));
+        	restaurante.setOfertaActual(rs.getFloat("ofertaActual"));        	
         }
         rs.close();
         stmt.close();  
-        return terminal;
+        return restaurante;
     }
     
     public Vector<Restaurante> obtenerRestaurantes() throws SQLException{        
-        Vector<Restaurante> terminales = new Vector<Restaurante>();
+        Vector<Restaurante> restaurantees = new Vector<Restaurante>();
     	String select = "select * from RESTAURANTES order by precioMedio desc";
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(select);
         while (rs.next()){
-        	Restaurante terminal = new Restaurante();
-        	terminal.setIdRestaurante(rs.getString("idRestaurante"));
-        	terminal.setNombre(rs.getString("nombre"));
-        	terminal.setTipoComida(rs.getString("tipoComida"));
-        	terminal.setPrecioMedio(rs.getFloat("precioMedio"));
-        	terminal.setPuntuacion(rs.getFloat("puntuacion"));
-        	terminal.setTiempoMedio(rs.getFloat("tiempoMedio"));
-        	terminal.setOfertaActual(rs.getFloat("ofertaActual"));        	
-        	terminales.add(terminal);
+        	Restaurante restaurante = new Restaurante();
+        	restaurante.setIdRestaurante(rs.getString("idRestaurante"));
+        	restaurante.setNombre(rs.getString("nombre"));
+        	restaurante.setTipoComida(rs.getString("tipoComida"));
+        	restaurante.setPrecioMedio(rs.getFloat("precioMedio"));
+        	restaurante.setPuntuacion(rs.getFloat("puntuacion"));
+        	restaurante.setTiempoMedio(rs.getFloat("tiempoMedio"));
+        	restaurante.setOfertaActual(rs.getFloat("ofertaActual"));        	
+        	restaurantees.add(restaurante);
         }
         rs.close();
         stmt.close();  
-        return terminales;
+        return restaurantees;
     }
     
     public Vector<Restaurante> obtenerRestaurantesPorNombre(String nombre) throws SQLException{        
-        Vector<Restaurante> terminales = new Vector<Restaurante>();
+        Vector<Restaurante> restaurantees = new Vector<Restaurante>();
     	String select = "select * from RESTAURANTES where nombre like '%" + nombre + "%' order by precioMedio desc";
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(select);
         while (rs.next()){
-        	Restaurante terminal = new Restaurante();
-        	terminal.setIdRestaurante(rs.getString("idRestaurante"));
-        	terminal.setNombre(rs.getString("nombre"));
-        	terminal.setTipoComida(rs.getString("tipoComida"));
-        	terminal.setPrecioMedio(rs.getFloat("precioMedio"));
-        	terminal.setPuntuacion(rs.getFloat("puntuacion"));
-        	terminal.setTiempoMedio(rs.getFloat("tiempoMedio"));
-        	terminal.setOfertaActual(rs.getFloat("ofertaActual"));        	
-        	terminales.add(terminal);
+        	Restaurante restaurante = new Restaurante();
+        	restaurante.setIdRestaurante(rs.getString("idRestaurante"));
+        	restaurante.setNombre(rs.getString("nombre"));
+        	restaurante.setTipoComida(rs.getString("tipoComida"));
+        	restaurante.setPrecioMedio(rs.getFloat("precioMedio"));
+        	restaurante.setPuntuacion(rs.getFloat("puntuacion"));
+        	restaurante.setTiempoMedio(rs.getFloat("tiempoMedio"));
+        	restaurante.setOfertaActual(rs.getFloat("ofertaActual"));        	
+        	restaurantees.add(restaurante);
         }
         rs.close();
         stmt.close();  
-        return terminales;
+        return restaurantees;
     }
 
-    public Vector<Restaurante> obtenerRestauranteesPorTipoComida(String tipoComida) throws SQLException{        
-        Vector<Restaurante> terminales = new Vector<Restaurante>();
+    public Vector<Restaurante> obtenerRestaurantesPorTipoComida(String tipoComida) throws SQLException{        
+        Vector<Restaurante> restaurantees = new Vector<Restaurante>();
     	String select = "select * from RESTAURANTES where tipoComida like '%" + tipoComida + "%' order by precioMedio desc";
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(select);
         while (rs.next()){
-        	Restaurante terminal = new Restaurante();
-        	terminal.setIdRestaurante(rs.getString("idRestaurante"));
-        	terminal.setNombre(rs.getString("nombre"));
-        	terminal.setTipoComida(rs.getString("tipoComida"));
-        	terminal.setPrecioMedio(rs.getFloat("precioMedio"));
-        	terminal.setPuntuacion(rs.getFloat("puntuacion"));
-        	terminal.setTiempoMedio(rs.getFloat("tiempoMedio"));
-        	terminal.setOfertaActual(rs.getFloat("ofertaActual"));        	
-        	terminales.add(terminal);
+        	Restaurante restaurante = new Restaurante();
+        	restaurante.setIdRestaurante(rs.getString("idRestaurante"));
+        	restaurante.setNombre(rs.getString("nombre"));
+        	restaurante.setTipoComida(rs.getString("tipoComida"));
+        	restaurante.setPrecioMedio(rs.getFloat("precioMedio"));
+        	restaurante.setPuntuacion(rs.getFloat("puntuacion"));
+        	restaurante.setTiempoMedio(rs.getFloat("tiempoMedio"));
+        	restaurante.setOfertaActual(rs.getFloat("ofertaActual"));        	
+        	restaurantees.add(restaurante);
         }
         rs.close();
         stmt.close();  
-        return terminales;
+        return restaurantees;
     }
 
-    public Vector<Restaurante> obtenerRestaurantesPorPrecioMedioMedio(float min, float max) throws SQLException{        
-        Vector<Restaurante> terminales = new Vector<Restaurante>();
+    public Vector<Restaurante> obtenerRestaurantesPorPrecioMedio(float min, float max) throws SQLException{        
+        Vector<Restaurante> restaurantees = new Vector<Restaurante>();
     	String select = "select * from RESTAURANTES where precioMedio >= " + min + " AND precioMedio <= " + max + " order by precioMedio desc";
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(select);
         while (rs.next()){
-        	Restaurante terminal = new Restaurante();
-        	terminal.setIdRestaurante(rs.getString("idRestaurante"));
-        	terminal.setNombre(rs.getString("nombre"));
-        	terminal.setTipoComida(rs.getString("tipoComida"));
-        	terminal.setPrecioMedio(rs.getFloat("precioMedio"));
-        	terminal.setPuntuacion(rs.getFloat("puntuacion"));
-        	terminal.setTiempoMedio(rs.getFloat("tiempoMedio"));
-        	terminal.setOfertaActual(rs.getFloat("ofertaActual"));        	
-        	terminales.add(terminal);
+        	Restaurante restaurante = new Restaurante();
+        	restaurante.setIdRestaurante(rs.getString("idRestaurante"));
+        	restaurante.setNombre(rs.getString("nombre"));
+        	restaurante.setTipoComida(rs.getString("tipoComida"));
+        	restaurante.setPrecioMedio(rs.getFloat("precioMedio"));
+        	restaurante.setPuntuacion(rs.getFloat("puntuacion"));
+        	restaurante.setTiempoMedio(rs.getFloat("tiempoMedio"));
+        	restaurante.setOfertaActual(rs.getFloat("ofertaActual"));        	
+        	restaurantees.add(restaurante);
         }
         rs.close();
         stmt.close();  
-        return terminales;
+        return restaurantees;
     }
 
     
-    public void insertarRestaurante(Restaurante terminal) throws SQLException{
+    public void insertarRestaurante(Restaurante restaurante) throws SQLException{
         String insert = "insert into RESTAURANTES " +
                         "(idRestaurante, nombre, tipoComida, precioMedio, puntuacion, tiempoMedio, ofertaActual) " +
-                        "VALUES ('" + terminal.getIdRestaurante() +
-                        "','" + terminal.getNombre() +
-                        "','" + terminal.getTipoComida() +
-                        "'," + terminal.getPrecioMedio() +
-                        "," + terminal.getPuntuacion() +
-                        "," + terminal.getTiempoMedio() +
-                        ","  + terminal.getOfertaActual() + ")";                        
+                        "VALUES ('" + restaurante.getIdRestaurante() +
+                        "','" + restaurante.getNombre() +
+                        "','" + restaurante.getTipoComida() +
+                        "'," + restaurante.getPrecioMedio() +
+                        "," + restaurante.getPuntuacion() +
+                        "," + restaurante.getTiempoMedio() +
+                        ","  + restaurante.getOfertaActual() + ")";                        
         Statement stmt = con.createStatement();
         stmt.executeUpdate(insert);
         stmt.close();        
     }
     
-    public void actualizarRestaurante(String idRestaurante, Restaurante terminal) throws SQLException{
-        String update = "update RESTAURANTES set idRestaurante='" + terminal.getIdRestaurante() + 
-        				"', nombre='" + terminal.getNombre() +
-        				"', tipoComida='" + terminal.getTipoComida() +
-        				"', precioMedio=" + terminal.getPrecioMedio() +
-        				", puntuacion=" + terminal.getPuntuacion() +
-        				", tiempoMedio=" + terminal.getTiempoMedio() +
-        				", ofertaActual=" + terminal.getOfertaActual() +
+    public void actualizarRestaurante(String idRestaurante, Restaurante restaurante) throws SQLException{
+        String update = "update RESTAURANTES set idRestaurante='" + restaurante.getIdRestaurante() + 
+        				"', nombre='" + restaurante.getNombre() +
+        				"', tipoComida='" + restaurante.getTipoComida() +
+        				"', precioMedio=" + restaurante.getPrecioMedio() +
+        				", puntuacion=" + restaurante.getPuntuacion() +
+        				", tiempoMedio=" + restaurante.getTiempoMedio() +
+        				", ofertaActual=" + restaurante.getOfertaActual() +
         				" where idRestaurante='" + idRestaurante + "'";
         Statement stmt = con.createStatement();
         stmt.executeUpdate(update);

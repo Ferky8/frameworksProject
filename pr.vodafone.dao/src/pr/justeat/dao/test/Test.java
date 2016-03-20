@@ -6,9 +6,9 @@ import java.util.Vector;
 
 import pr.justeat.dao.GestorBD;
 import pr.justeat.dao.dto.Cliente;
-import pr.justeat.dao.dto.Factura;
-import pr.justeat.dao.dto.Linea;
-import pr.justeat.dao.dto.Terminal;
+import pr.justeat.dao.dto.Elemento;
+import pr.justeat.dao.dto.Pedido;
+import pr.justeat.dao.dto.Restaurante;
 
 
 public class Test {
@@ -17,12 +17,12 @@ public class Test {
 		GestorBD gbd = new GestorBD();
         try {
 			gbd.conectar();
-			Cliente cliente = new Cliente ("444", "Asier Perallos", "Calle YYY, Portugalete", "perallos@deusto.es");
+			Cliente cliente = new Cliente ("444", "Prueba prueba", "Calle YYY, Portugalete", "prueba@deusto.es");
 			gbd.insertarCliente(cliente);
 			cliente = gbd.obtenerCliente("444");
 			this.visualizarCliente(cliente);
 			
-			cliente.setNombre("Asier Perallos Ruiz");
+			cliente.setNombre("Prueba Test Prueba");
 			gbd.actualizarCliente("444", cliente);
 			cliente = gbd.obtenerCliente("444");
 			this.visualizarCliente(cliente);
@@ -47,38 +47,38 @@ public class Test {
 		}
     }
 	
-	public void testLineas(){
+	public void testPedidos(){
 		GestorBD gbd = new GestorBD();
         try {
 			gbd.conectar();
-			Linea linea = new Linea ("666444000", "2011-03-03", true, "@T", "@M", "Ninguna", "111");
-			gbd.insertarLinea(linea);
-			linea = gbd.obtenerLinea("666444000");
-			this.visualizarLinea(linea);
+			Pedido pedido = new Pedido (666444000, "1", "2011-03-03", true, "Urgente", "Metalico", "Ninguna", "111");
+			gbd.insertarPedido(pedido);
+			pedido = gbd.obtenerPedido(666444000);
+			this.visualizarPedido(pedido);
 			
-			linea.setPromocion("Todo gratis");
-			gbd.actualizarLinea("666444000", linea);
-			gbd.activarLinea("666444000", false);
-			linea = gbd.obtenerLinea("666444000");
-			this.visualizarLinea(linea);
+			pedido.setPromocion("Todo gratis");
+			gbd.actualizarPedido(666444000, pedido);
+			gbd.entregarPedido(666444000, false);
+			pedido = gbd.obtenerPedido(666444000);
+			this.visualizarPedido(pedido);
 			
-			gbd.borrarLinea("666444000");
+			gbd.borrarPedido(666444000);
 			
-			Vector<Linea> lineas;
-			lineas = gbd.obtenerLineas();
-			this.visualizarLineas(lineas);
+			Vector<Pedido> pedidos;
+			pedidos = gbd.obtenerPedidos();
+			this.visualizarPedidos(pedidos);
 			
-			lineas = gbd.obtenerLineasActivas(true);
-			this.visualizarLineas(lineas);
+			pedidos = gbd.obtenerPedidosEntregados(true);
+			this.visualizarPedidos(pedidos);
 			
-			lineas = gbd.obtenerLineasCliente("111");
-			this.visualizarLineas(lineas);
+			pedidos = gbd.obtenerPedidosCliente("111");
+			this.visualizarPedidos(pedidos);
 			
-			lineas = gbd.obtenerLineasActivasCliente("111", true);
-			this.visualizarLineas(lineas);
+			pedidos = gbd.obtenerPedidosEntregadosCliente("111", true);
+			this.visualizarPedidos(pedidos);
 			
-			int count = gbd.contarLineas();
-			System.out.println("Lineas = " + count);
+			int count = gbd.contarPedidos();
+			System.out.println("Pedidos = " + count);
             
             gbd.desconectar();
         } catch (ClassNotFoundException e) {
@@ -88,35 +88,35 @@ public class Test {
 		}
     }
 	
-	public void testFacturas(){
+	public void testElementos(){
 		GestorBD gbd = new GestorBD();
         try {
 			gbd.conectar();
-			Factura factura = new Factura ("2011-03-03", "Enero", 300, "666222000");
-			gbd.insertarFactura(factura);
+			Elemento elemento = new Elemento (3, "Perritos calientes", 15, 666222000);
+			gbd.insertarElemento(elemento);
 			
-			factura = gbd.obtenerFactura(1);
-			this.visualizarFactura(factura);
+			elemento = gbd.obtenerElemento(1);
+			this.visualizarElemento(elemento);
 			
-			factura.setImporte(factura.getImporte() + 10);
-			gbd.actualizarFactura(factura.getIdFactura(), factura);
-			factura = gbd.obtenerFactura(factura.getIdFactura());
-			this.visualizarFactura(factura);
+			elemento.setImporte(elemento.getImporte() + 10);
+			gbd.actualizarElemento(elemento.getIdElemento(), elemento);
+			elemento = gbd.obtenerElemento(elemento.getIdElemento());
+			this.visualizarElemento(elemento);
 			
-			//gbd.borrarFactura(3);
+			//gbd.borrarElemento(3);
 			
-			Vector<Factura> facturas;
-			facturas = gbd.obtenerFacturas();
-			this.visualizarFacturas(facturas);
+			Vector<Elemento> elementos;
+			elementos = gbd.obtenerElementos();
+			this.visualizarElementos(elementos);
 			
-			facturas = gbd.obtenerFacturasLinea("666111000");
-			this.visualizarFacturas(facturas);
+			elementos = gbd.obtenerElementosPedido(666111000);
+			this.visualizarElementos(elementos);
 			
-			facturas = gbd.obtenerFacturasCliente("111");
-			this.visualizarFacturas(facturas);
+			elementos = gbd.obtenerElementosCliente("111");
+			this.visualizarElementos(elementos);
 						
-			int count = gbd.contarFacturas();
-			System.out.println("Facturas = " + count);
+			int count = gbd.contarElementos();
+			System.out.println("Elementos = " + count);
             
             gbd.desconectar();
         } catch (ClassNotFoundException e) {
@@ -126,38 +126,38 @@ public class Test {
 		}
     }
 
-	public void testTerminales(){
+	public void testRestaurantees(){
 		GestorBD gbd = new GestorBD();
         try {
 			gbd.conectar();
-			Terminal terminal = new Terminal ("4", "Apple", "IPhone 5", 500, 400, 300, 200);
-			gbd.insertarTerminal(terminal);
+			Restaurante terminal = new Restaurante ("4", "Apple", "IPhone 5", 500, 400, 300, 200);
+			gbd.insertarRestaurante(terminal);
 			
-			terminal = gbd.obtenerTerminal("4");
-			this.visualizarTerminal(terminal);
+			terminal = gbd.obtenerRestaurante("4");
+			this.visualizarRestaurante(terminal);
 			
-			terminal.setPrecio(1000);
-			gbd.actualizarTerminal("4", terminal);
-			terminal = gbd.obtenerTerminal("4");
-			this.visualizarTerminal(terminal);
+			terminal.setPrecioMedio(1000);
+			gbd.actualizarRestaurante("4", terminal);
+			terminal = gbd.obtenerRestaurante("4");
+			this.visualizarRestaurante(terminal);
 			
-			gbd.borrarTerminal("4");
+			gbd.borrarRestaurante("4");
 			
-			Vector<Terminal> terminales;
-			terminales = gbd.obtenerTerminales();
-			this.visualizarTerminales(terminales);
+			Vector<Restaurante> terminales;
+			terminales = gbd.obtenerRestaurantes();
+			this.visualizarRestaurantees(terminales);
 			
-			terminales = gbd.obtenerTerminalesPorMarca("Apple");
-			this.visualizarTerminales(terminales);
+			terminales = gbd.obtenerRestaurantesPorNombre("Casa");
+			this.visualizarRestaurantees(terminales);
 			
-			terminales = gbd.obtenerTerminalesPorModelo("HD");
-			this.visualizarTerminales(terminales);
+			terminales = gbd.obtenerRestaurantesPorTipoComida("Tradicional");
+			this.visualizarRestaurantees(terminales);
 			
-			terminales = gbd.obtenerTerminalesPorPrecio(300, 400);
-			this.visualizarTerminales(terminales);
+			terminales = gbd.obtenerRestaurantesPorPrecioMedio(30, 40);
+			this.visualizarRestaurantees(terminales);
 									
-			int count = gbd.contarTerminales();
-			System.out.println("Terminales = " + count);
+			int count = gbd.contarRestaurantes();
+			System.out.println("Restaurantes = " + count);
             
             gbd.desconectar();
         } catch (ClassNotFoundException e) {
@@ -171,9 +171,9 @@ public class Test {
 		GestorBD gbd = new GestorBD();
         try {
 			gbd.conectar();
-	        gbd.borrarFacturas();
-	        gbd.borrarLineas();
-	        gbd.borrarTerminales();
+	        gbd.borrarElementos();
+	        gbd.borrarPedidos();
+	        gbd.borrarRestaurantes();
 	        gbd.borrarClientes();
             gbd.desconectar();
         } catch (ClassNotFoundException e) {
@@ -195,39 +195,39 @@ public class Test {
     	System.out.println(c.getDni()+ "\t" + c.getNombre()+ "\t" + c.getDireccion()+ "\t" + c.getEmail());
     }
     
-    private void visualizarLineas(Vector<Linea> v){
-    	Iterator<Linea> i = v.iterator();
+    private void visualizarPedidos(Vector<Pedido> v){
+    	Iterator<Pedido> i = v.iterator();
     	while(i.hasNext()){
-    		Linea linea = i.next();
-    		visualizarLinea(linea);
+    		Pedido pedido = i.next();
+    		visualizarPedido(pedido);
     	}
     }
     
-    private void visualizarLinea(Linea l){
-    	System.out.println(l.getTelefono() + "\t" + l.getAntiguedad() + "\t" + l.isActiva() + "\t" + l.getTarifaVoz() + "\t" + l.getTarifaDatos() + "\t" + l.getPromocion() + "\t" + l.getDni());
+    private void visualizarPedido(Pedido l){
+    	System.out.println(l.getIdPedido() + "\t" + l.getFecha() + "\t" + l.isEntregado() + "\t" + l.getTipoEntrega() + "\t" + l.getTipoPago() + "\t" + l.getPromocion() + "\t" + l.getDni());
     }
     
-    private void visualizarFactura(Factura f){
-    	System.out.println(f.getIdFactura() + "\t" + f.getFecha() + "\t" + f.getPeriodo() + "\t" + f.getImporte() + "\t" + f.getTelefono());
+    private void visualizarElemento(Elemento f){
+    	System.out.println(f.getIdElemento() + "\t" + f.getCantidad() + "\t" + f.getNombre() + "\t" + f.getImporte() + "\t" + f.getPedido());
     }
     
-    private void visualizarFacturas(Vector<Factura> v){
-    	Iterator<Factura> i = v.iterator();
+    private void visualizarElementos(Vector<Elemento> v){
+    	Iterator<Elemento> i = v.iterator();
     	while(i.hasNext()){
-    		Factura factura = i.next();
-    		visualizarFactura(factura);
+    		Elemento elemento = i.next();
+    		visualizarElemento(elemento);
     	}
     }
 
-    private void visualizarTerminal(Terminal t){
-    	System.out.println(t.getIdTerminal() + "\t" + t.getMarca() + "\t" + t.getModelo() + "\t" + t.getPrecio() + "\t" + t.getPromoOro() + "\t" + t.getPromoPlata() + "\t" + t.getPromoBronce());
+    private void visualizarRestaurante(Restaurante t){
+    	System.out.println(t.getIdRestaurante() + "\t" + t.getNombre() + "\t" + t.getTipoComida() + "\t" + t.getPrecioMedio() + "\t" + t.getPuntuacion() + "\t" + t.getTiempoMedio() + "\t" + t.getOfertaActual());
     }
     
-    private void visualizarTerminales(Vector<Terminal> v){
-    	Iterator<Terminal> i = v.iterator();
+    private void visualizarRestaurantees(Vector<Restaurante> v){
+    	Iterator<Restaurante> i = v.iterator();
     	while(i.hasNext()){
-    		Terminal terminal = i.next();
-    		visualizarTerminal(terminal);
+    		Restaurante terminal = i.next();
+    		visualizarRestaurante(terminal);
     	}
     }
 
@@ -235,8 +235,8 @@ public class Test {
     public static void main(String[] args) {
         Test test = new Test();
         test.testClientes();
-        test.testLineas();
-        //test.testFacturas();
+        test.testPedidos();
+        //test.testElementos();
         test.testBorrarTodo();
         System.out.println("Done!");
     }
