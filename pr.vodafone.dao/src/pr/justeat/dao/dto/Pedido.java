@@ -1,6 +1,7 @@
 package pr.justeat.dao.dto;
 
 public class Pedido {
+	private int idPedido;
 	private String restaurante;
 	private String fecha;
 	private boolean entregado;
@@ -23,6 +24,28 @@ public class Pedido {
 		this.promocion = promocion;
 		this.dni = dni;
 	}
+	
+	public Pedido(int idPedido, String restaurante, String fecha, boolean entregado,
+			String tipoEntrega, String tipoPago, String promocion, String dni) {
+		super();
+		this.idPedido = idPedido;
+		this.restaurante = restaurante;
+		this.fecha = fecha;
+		this.entregado = entregado;
+		this.tipoEntrega = tipoEntrega;
+		this.tipoPago = tipoPago;
+		this.promocion = promocion;
+		this.dni = dni;
+	}
+	
+	public int getIdPedido() {
+		return idPedido;
+	}
+	
+	public void setIdPedido(int idPedido) {
+		this.idPedido = idPedido;
+	}
+	
 	public String getRestaurante() {
 		return restaurante;
 	}

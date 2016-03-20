@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 5.5.9, for Win32 (x86)
 --
--- Host: localhost    Database: vodafone
+-- Host: localhost    Database: justeat
 -- ------------------------------------------------------
 -- Server version	5.0.51b-community-nt
 
@@ -20,22 +20,22 @@
 --
 
 --
--- Current Database: `vodafone`
+-- Current Database: `justeat`
 --
 
-CREATE DATABASE /*!32312 IF NOT EXISTS*/ `vodafone` /*!40100 DEFAULT CHARACTER SET latin1 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `justeat` /*!40100 DEFAULT CHARACTER SET latin1 */;
 
 GRANT ALTER, SELECT,INSERT,UPDATE,DELETE,CREATE,DROP
-           ON vodafone.*
+           ON justeat.*
            TO asf@'%'
            IDENTIFIED BY 'asf';
 
 GRANT ALTER, SELECT,INSERT,UPDATE,DELETE,CREATE,DROP
-           ON vodafone.*
+           ON justeat.*
            TO asf@localhost
            IDENTIFIED BY 'asf';
 
-USE `vodafone`;
+USE `justeat`;
 
 --
 -- Table structure for table `clientes`
@@ -64,92 +64,93 @@ INSERT INTO `clientes` VALUES ('111','Marta Lopez','C\\Iparraguirre 4','marta@gm
 UNLOCK TABLES;
 
 --
--- Table structure for table `facturas`
+-- Table structure for table `elementos`
 --
 
-DROP TABLE IF EXISTS `facturas`;
+DROP TABLE IF EXISTS `elementos`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `facturas` (
+CREATE TABLE `elementos` (
   `idFactura` int(11) NOT NULL auto_increment,
-  `fecha` varchar(10) NOT NULL,
-  `periodo` varchar(45) default NULL,
+  `cantidad` int(3) NOT NULL,
+  `nombre` varchar(45) default NULL,
   `importe` float NOT NULL,
-  `telefono` varchar(15) NOT NULL,
+  `pedido` int(11) NOT NULL,
   PRIMARY KEY  (`idFactura`),
-  KEY `telefono` (`telefono`),
-  CONSTRAINT `telefono` FOREIGN KEY (`telefono`) REFERENCES `lineas` (`telefono`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `pedido` (`pedido`),
+  CONSTRAINT `pedido` FOREIGN KEY (`pedido`) REFERENCES `pedidos` (`idPedido`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `facturas`
+-- Dumping data for table `elementos`
 --
 
-LOCK TABLES `facturas` WRITE;
-/*!40000 ALTER TABLE `facturas` DISABLE KEYS */;
-INSERT INTO `facturas` VALUES (1,'2011-07-08','Junio',140,'666111000'),(2,'2011-06-08','Mayo',95,'666111000'),(3,'2011-05-08','Abril',80,'666111000'),(4,'2011-06-10','Enero, Febrero, Marzo',200,'666111111'),(5,'2011-04-03','Enero',300,'666222000'),(6,'2011-05-03','Enero',300,'666222000'),(7,'2011-03-03','Enero',300,'666222000'),(8,'2011-03-03','Enero',300,'666222000');
-/*!40000 ALTER TABLE `facturas` ENABLE KEYS */;
+LOCK TABLES `elementos` WRITE;
+/*!40000 ALTER TABLE `elementos` DISABLE KEYS */;
+INSERT INTO `elementos` VALUES (1,'2011-07-08','Junio',140,'666111000'),(2,'2011-06-08','Mayo',95,'666111000'),(3,'2011-05-08','Abril',80,'666111000'),(4,'2011-06-10','Enero, Febrero, Marzo',200,'666111111'),(5,'2011-04-03','Enero',300,'666222000'),(6,'2011-05-03','Enero',300,'666222000'),(7,'2011-03-03','Enero',300,'666222000'),(8,'2011-03-03','Enero',300,'666222000');
+/*!40000 ALTER TABLE `elementos` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `lineas`
+-- Table structure for table `pedidos`
 --
 
-DROP TABLE IF EXISTS `lineas`;
+DROP TABLE IF EXISTS `pedidos`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `lineas` (
-  `telefono` varchar(15) NOT NULL,
-  `antiguedad` varchar(10) default NULL,
-  `activa` tinyint(1) NOT NULL,
-  `tarifaVoz` varchar(45) default NULL,
-  `tarifaDatos` varchar(45) default NULL,
+CREATE TABLE `pedidos` (
+  `idPedido` int(11) NOT NULL auto_increment,
+  `restaurante` varchar(15) NOT NULL,
+  `fecha` varchar(10) default NULL,
+  `entregado` tinyint(1) NOT NULL,
+  `tipoEntrega` varchar(45) default NULL,
+  `tipoPago` varchar(45) default NULL,
   `promocion` varchar(100) default NULL,
   `dni` varchar(8) NOT NULL,
-  PRIMARY KEY  (`telefono`),
+  PRIMARY KEY  (`idPedido`),
   KEY `cliente` (`dni`),
   CONSTRAINT `dni` FOREIGN KEY (`dni`) REFERENCES `clientes` (`dni`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `lineas`
+-- Dumping data for table `pedidos`
 --
 
-LOCK TABLES `lineas` WRITE;
-/*!40000 ALTER TABLE `lineas` DISABLE KEYS */;
-INSERT INTO `lineas` VALUES ('666111000','2006-08-03',1,'@M','@M','Ninguna','111'),('666111111','2009-01-01',0,'Consumo','No','50% hasta 2012','111'),('666222000','2010-03-01',0,NULL,NULL,'Ninguna','222'),('666333000','2005-11-20',1,'@S','@S','Movil gratis en enero','333');
-/*!40000 ALTER TABLE `lineas` ENABLE KEYS */;
+LOCK TABLES `pedidos` WRITE;
+/*!40000 ALTER TABLE `pedidos` DISABLE KEYS */;
+INSERT INTO `pedidos` VALUES ('666111000','2006-08-03',1,'@M','@M','Ninguna','111'),('666111111','2009-01-01',0,'Consumo','No','50% hasta 2012','111'),('666222000','2010-03-01',0,NULL,NULL,'Ninguna','222'),('666333000','2005-11-20',1,'@S','@S','Movil gratis en enero','333');
+/*!40000 ALTER TABLE `pedidos` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `terminales`
+-- Table structure for table `restaurantes`
 --
 
-DROP TABLE IF EXISTS `terminales`;
+DROP TABLE IF EXISTS `restaurantes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `terminales` (
-  `idTerminal` varchar(10) NOT NULL,
-  `marca` varchar(45) NOT NULL,
-  `modelo` varchar(45) NOT NULL,
-  `precio` float NOT NULL,
-  `promoOro` float default NULL,
-  `promoPlata` float default NULL,
-  `promoBronce` float default NULL,
-  PRIMARY KEY  (`idTerminal`)
+CREATE TABLE `restaurantes` (
+  `idRestaurante` varchar(10) NOT NULL,
+  `nombre` varchar(45) NOT NULL,
+  `tipoComida` varchar(45) NOT NULL,
+  `precioMedio` float NOT NULL,
+  `puntuacion` float default NULL,
+  `tiempoMedio` float default NULL,
+  `ofertaActual` float default NULL,
+  PRIMARY KEY  (`idRestaurante`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `terminales`
+-- Dumping data for table `restaurantes`
 --
 
-LOCK TABLES `terminales` WRITE;
-/*!40000 ALTER TABLE `terminales` DISABLE KEYS */;
-INSERT INTO `terminales` VALUES ('1','Samsung','Galaxy S',300,29,89,169),('2','Apple','IPhone4',300,59,129,199),('3','HTC','HD7',250,0,39,99);
-/*!40000 ALTER TABLE `terminales` ENABLE KEYS */;
+LOCK TABLES `restaurantes` WRITE;
+/*!40000 ALTER TABLE `restaurantes` DISABLE KEYS */;
+INSERT INTO `restaurantes` VALUES ('1','Samsung','Galaxy S',300,29,89,169),('2','Apple','IPhone4',300,59,129,199),('3','HTC','HD7',250,0,39,99);
+/*!40000 ALTER TABLE `restaurantes` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

@@ -5,7 +5,7 @@ import java.sql.*;
 import java.util.Vector;
 
 import pr.justeat.dao.dto.Cliente;
-import pr.justeat.dao.dto.Factura;
+import pr.justeat.dao.dto.Elemento;
 import pr.justeat.dao.dto.Pedido;
 import pr.justeat.dao.dto.Restaurante;
 
@@ -141,132 +141,132 @@ public class GestorBD {
     }
     
     public Pedido obtenerPedido(String restaurante) throws SQLException{        
-        Pedido linea = null;
-    	String select = "select * from LINEAS where restaurante='" + restaurante + "'";
+        Pedido pedido = null;
+    	String select = "select * from PEDIDOS where restaurante='" + restaurante + "'";
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(select);
         if (rs.next()){
-        	linea = new Pedido();
-        	linea.setRestaurante(rs.getString("restaurante"));
-        	linea.setFecha(rs.getString("fecha"));
-        	linea.setEntregado(rs.getBoolean("entregado"));
-        	linea.setTipoEntrega(rs.getString("tipoEntrega"));
-        	linea.setTipoPago(rs.getString("tipoPago"));
-        	linea.setPromocion(rs.getString("promocion"));
-        	linea.setDni(rs.getString("dni"));
+        	pedido = new Pedido();
+        	pedido.setRestaurante(rs.getString("restaurante"));
+        	pedido.setFecha(rs.getString("fecha"));
+        	pedido.setEntregado(rs.getBoolean("entregado"));
+        	pedido.setTipoEntrega(rs.getString("tipoEntrega"));
+        	pedido.setTipoPago(rs.getString("tipoPago"));
+        	pedido.setPromocion(rs.getString("promocion"));
+        	pedido.setDni(rs.getString("dni"));
         }
         rs.close();
         stmt.close();  
-        return linea;
+        return pedido;
     }
     
     public Vector<Pedido> obtenerPedidos() throws SQLException{        
-        Vector<Pedido> lineas = new Vector<Pedido>();
-    	String select = "select * from LINEAS order by fecha";
+        Vector<Pedido> pedidos = new Vector<Pedido>();
+    	String select = "select * from PEDIDOS order by cantidad";
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(select);
         while (rs.next()){
-        	Pedido linea = new Pedido();
-        	linea.setRestaurante(rs.getString("restaurante"));
-        	linea.setFecha(rs.getString("fecha"));
-        	linea.setEntregado(rs.getBoolean("entregado"));
-        	linea.setTipoEntrega(rs.getString("tipoEntrega"));
-        	linea.setTipoPago(rs.getString("tipoPago"));
-        	linea.setPromocion(rs.getString("promocion"));
-        	linea.setDni(rs.getString("dni"));
-        	lineas.add(linea);
+        	Pedido pedido = new Pedido();
+        	pedido.setRestaurante(rs.getString("restaurante"));
+        	pedido.setFecha(rs.getString("fecha"));
+        	pedido.setEntregado(rs.getBoolean("entregado"));
+        	pedido.setTipoEntrega(rs.getString("tipoEntrega"));
+        	pedido.setTipoPago(rs.getString("tipoPago"));
+        	pedido.setPromocion(rs.getString("promocion"));
+        	pedido.setDni(rs.getString("dni"));
+        	pedidos.add(pedido);
         }
         rs.close();
         stmt.close();  
-        return lineas;
+        return pedidos;
     }
     
     public Vector<Pedido> obtenerPedidosEntregados(boolean entregado) throws SQLException{        
-        Vector<Pedido> lineas = new Vector<Pedido>();
-    	String select = "select * from LINEAS where entregado=" + entregado + " order by fecha";
+        Vector<Pedido> pedidos = new Vector<Pedido>();
+    	String select = "select * from PEDIDOS where entregado=" + entregado + " order by cantidad";
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(select);
         while (rs.next()){
-        	Pedido linea = new Pedido();
-        	linea.setRestaurante(rs.getString("restaurante"));
-        	linea.setFecha(rs.getString("fecha"));
-        	linea.setEntregado(rs.getBoolean("entregado"));
-        	linea.setTipoEntrega(rs.getString("tipoEntrega"));
-        	linea.setTipoPago(rs.getString("tipoPago"));
-        	linea.setPromocion(rs.getString("promocion"));
-        	linea.setDni(rs.getString("dni"));
-        	lineas.add(linea);
+        	Pedido pedido = new Pedido();
+        	pedido.setRestaurante(rs.getString("restaurante"));
+        	pedido.setFecha(rs.getString("fecha"));
+        	pedido.setEntregado(rs.getBoolean("entregado"));
+        	pedido.setTipoEntrega(rs.getString("tipoEntrega"));
+        	pedido.setTipoPago(rs.getString("tipoPago"));
+        	pedido.setPromocion(rs.getString("promocion"));
+        	pedido.setDni(rs.getString("dni"));
+        	pedidos.add(pedido);
         }
         rs.close();
         stmt.close();  
-        return lineas;
+        return pedidos;
     }
     
     public Vector<Pedido> obtenerPedidosCliente(String dni) throws SQLException{        
-        Vector<Pedido> lineas = new Vector<Pedido>();
-    	String select = "select * from LINEAS where dni='" + dni + "' order by fecha";
+        Vector<Pedido> pedidos = new Vector<Pedido>();
+    	String select = "select * from PEDIDOS where dni='" + dni + "' order by cantidad";
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(select);
         while (rs.next()){
-        	Pedido linea = new Pedido();
-        	linea.setRestaurante(rs.getString("restaurante"));
-        	linea.setFecha(rs.getString("fecha"));
-        	linea.setEntregado(rs.getBoolean("entregado"));
-        	linea.setTipoEntrega(rs.getString("tipoEntrega"));
-        	linea.setTipoPago(rs.getString("tipoPago"));
-        	linea.setPromocion(rs.getString("promocion"));
-        	linea.setDni(rs.getString("dni"));
-        	lineas.add(linea);
+        	Pedido pedido = new Pedido();
+        	pedido.setRestaurante(rs.getString("restaurante"));
+        	pedido.setFecha(rs.getString("fecha"));
+        	pedido.setEntregado(rs.getBoolean("entregado"));
+        	pedido.setTipoEntrega(rs.getString("tipoEntrega"));
+        	pedido.setTipoPago(rs.getString("tipoPago"));
+        	pedido.setPromocion(rs.getString("promocion"));
+        	pedido.setDni(rs.getString("dni"));
+        	pedidos.add(pedido);
         }
         rs.close();
         stmt.close();  
-        return lineas;
+        return pedidos;
     }
     
     public Vector<Pedido> obtenerPedidosEntregadosCliente(String dni, boolean entregado) throws SQLException{        
-        Vector<Pedido> lineas = new Vector<Pedido>();
-    	String select = "select * from LINEAS where dni='" + dni + "' AND entregado=" + entregado + " order by fecha";
+        Vector<Pedido> pedidos = new Vector<Pedido>();
+    	String select = "select * from PEDIDOS where dni='" + dni + "' AND entregado=" + entregado + " order by cantidad";
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(select);
         while (rs.next()){
-        	Pedido linea = new Pedido();
-        	linea.setRestaurante(rs.getString("restaurante"));
-        	linea.setFecha(rs.getString("fecha"));
-        	linea.setEntregado(rs.getBoolean("entregado"));
-        	linea.setTipoEntrega(rs.getString("tipoEntrega"));
-        	linea.setTipoPago(rs.getString("tipoPago"));
-        	linea.setPromocion(rs.getString("promocion"));
-        	linea.setDni(rs.getString("dni"));
-        	lineas.add(linea);
+        	Pedido pedido = new Pedido();
+        	pedido.setRestaurante(rs.getString("restaurante"));
+        	pedido.setFecha(rs.getString("fecha"));
+        	pedido.setEntregado(rs.getBoolean("entregado"));
+        	pedido.setTipoEntrega(rs.getString("tipoEntrega"));
+        	pedido.setTipoPago(rs.getString("tipoPago"));
+        	pedido.setPromocion(rs.getString("promocion"));
+        	pedido.setDni(rs.getString("dni"));
+        	pedidos.add(pedido);
         }
         rs.close();
         stmt.close();  
-        return lineas;
+        return pedidos;
     }
     
-    public void insertarPedido(Pedido linea) throws SQLException{
-        String insert = "insert into LINEAS " +
-                        "(restaurante, fecha, entregado, tipoEntrega, tipoPago, promocion, dni) " +
-                        "VALUES ('" + linea.getRestaurante() +
-                        "','" + linea.getFecha() +
-                        "'," + linea.isEntregado() +
-                        ",'" + linea.getTipoEntrega() +
-                        "','" + linea.getTipoPago() +
-                        "','" + linea.getPromocion() +
-                        "','"  + linea.getDni() + "')";                        
+    public void insertarPedido(Pedido pedido) throws SQLException{
+        String insert = "insert into PEDIDOS " +
+                        "(restaurante, cantidad, entregado, tipoEntrega, tipoPago, promocion, dni) " +
+                        "VALUES ('" + pedido.getRestaurante() +
+                        "','" + pedido.getFecha() +
+                        "'," + pedido.isEntregado() +
+                        ",'" + pedido.getTipoEntrega() +
+                        "','" + pedido.getTipoPago() +
+                        "','" + pedido.getPromocion() +
+                        "','"  + pedido.getDni() + "')";                        
         Statement stmt = con.createStatement();
         stmt.executeUpdate(insert);
         stmt.close();        
     }
     
-    public void actualizarPedido(String restaurante, Pedido linea) throws SQLException{
-        String update = "update LINEAS set restaurante='" + linea.getRestaurante() + 
-        				"', fecha='" + linea.getFecha() +
-        				"', entregado=" + linea.isEntregado() +
-        				", tipoEntrega='" + linea.getTipoEntrega() +
-        				"', tipoPago='" + linea.getTipoPago() +
-        				"', promocion='" + linea.getPromocion() +
-        				"', dni='" + linea.getDni() +
+    public void actualizarPedido(String restaurante, Pedido pedido) throws SQLException{
+        String update = "update PEDIDOS set restaurante='" + pedido.getRestaurante() + 
+        				"', fecha='" + pedido.getFecha() +
+        				"', entregado=" + pedido.isEntregado() +
+        				", tipoEntrega='" + pedido.getTipoEntrega() +
+        				"', tipoPago='" + pedido.getTipoPago() +
+        				"', promocion='" + pedido.getPromocion() +
+        				"', dni='" + pedido.getDni() +
         				"' where restaurante='" + restaurante + "'";
         Statement stmt = con.createStatement();
         stmt.executeUpdate(update);
@@ -274,28 +274,28 @@ public class GestorBD {
     }
     
     public void entregadorPedido(String restaurante, boolean entregado) throws SQLException{
-        String update = "update LINEAS set entregado=" + entregado + " where restaurante='" + restaurante + "'";
+        String update = "update PEDIDOS set entregado=" + entregado + " where restaurante='" + restaurante + "'";
         Statement stmt = con.createStatement();
         stmt.executeUpdate(update);
         stmt.close();                
     }
     
     public void borrarPedido(String restaurante) throws SQLException{
-       	String delete = "delete from LINEAS where restaurante='" + restaurante + "'";
+       	String delete = "delete from PEDIDOS where restaurante='" + restaurante + "'";
         Statement stmt = con.createStatement();
         stmt.executeUpdate(delete);
         stmt.close();	                  
     }
 
     public void borrarPedidos() throws SQLException{
-       	String delete = "delete from LINEAS";
+       	String delete = "delete from PEDIDOS";
         Statement stmt = con.createStatement();
         stmt.executeUpdate(delete);
         stmt.close();	                  
     }
 
     public int contarPedidos() throws SQLException{
-    	String count = "select count(*) from LINEAS";
+    	String count = "select count(*) from PEDIDOS";
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(count);
         rs.next();
@@ -305,53 +305,53 @@ public class GestorBD {
         return numFilas;
     }
 
-    public Factura obtenerFactura(int idFactura) throws SQLException{        
-        Factura factura = null;
-    	String select = "select * from FACTURAS where idFactura=" + idFactura;
+    public Elemento obtenerElemento(int idElemento) throws SQLException{        
+        Elemento factura = null;
+    	String select = "select * from ELEMENTOS where idElemento=" + idElemento;
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(select);
         if (rs.next()){
-        	factura = new Factura();
-        	factura.setIdFactura(rs.getInt("idFactura"));
-        	factura.setFecha(rs.getString("fecha"));
-        	factura.setPeriodo(rs.getString("periodo"));
+        	factura = new Elemento();
+        	factura.setIdElemento(rs.getInt("idElemento"));
+        	factura.setCantidad(rs.getInt("cantidad"));
+        	factura.setNombre(rs.getString("nombre"));
         	factura.setImporte(rs.getFloat("importe"));
-        	factura.setTelefono(rs.getString("telefono"));
+        	factura.setPedido(rs.getString("pedido"));
         }
         rs.close();
         stmt.close();  
         return factura;
     }    
-    public Vector<Factura> obtenerFacturas() throws SQLException{        
-        Vector<Factura> facturas = new Vector<Factura>();
-    	String select = "select * from FACTURAS order by fecha desc";
+    public Vector<Elemento> obtenerElementos() throws SQLException{        
+        Vector<Elemento> facturas = new Vector<Elemento>();
+    	String select = "select * from ELEMENTOS order by cantidad desc";
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(select);
         while (rs.next()){
-        	Factura factura = new Factura();
-        	factura.setIdFactura(rs.getInt("idFactura"));
-        	factura.setFecha(rs.getString("fecha"));
-        	factura.setPeriodo(rs.getString("periodo"));
+        	Elemento factura = new Elemento();
+        	factura.setIdElemento(rs.getInt("idElemento"));
+        	factura.setCantidad(rs.getInt("cantidad"));
+        	factura.setNombre(rs.getString("nombre"));
         	factura.setImporte(rs.getFloat("importe"));
-        	factura.setTelefono(rs.getString("telefono"));
+        	factura.setPedido(rs.getString("pedido"));
         	facturas.add(factura);
         }
         rs.close();
         stmt.close();  
         return facturas;
     }    
-    public Vector<Factura> obtenerFacturasLinea(String telefono) throws SQLException{        
-        Vector<Factura> facturas = new Vector<Factura>();
-    	String select = "select * from FACTURAS where telefono='" + telefono + "' order by fecha desc";
+    public Vector<Elemento> obtenerElementosLinea(String pedido) throws SQLException{        
+        Vector<Elemento> facturas = new Vector<Elemento>();
+    	String select = "select * from ELEMENTOS where pedido='" + pedido + "' order by cantidad desc";
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(select);
         while (rs.next()){
-        	Factura factura = new Factura();
-        	factura.setIdFactura(rs.getInt("idFactura"));
-        	factura.setFecha(rs.getString("fecha"));
-        	factura.setPeriodo(rs.getString("periodo"));
+        	Elemento factura = new Elemento();
+        	factura.setIdElemento(rs.getInt("idElemento"));
+        	factura.setCantidad(rs.getInt("cantidad"));
+        	factura.setNombre(rs.getString("nombre"));
         	factura.setImporte(rs.getFloat("importe"));
-        	factura.setTelefono(rs.getString("telefono"));
+        	factura.setPedido(rs.getString("pedido"));
         	facturas.add(factura);
         }
         rs.close();
@@ -359,18 +359,18 @@ public class GestorBD {
         return facturas;
     }
 
-    public Vector<Factura> obtenerFacturasCliente(String dni) throws SQLException{        
-        Vector<Factura> facturas = new Vector<Factura>();
-    	String select = "select * from FACTURAS as F, LINEAS as L where f.telefono=l.telefono and l.dni='" + dni + "' order by f.telefono, f.fecha desc";
+    public Vector<Elemento> obtenerElementosCliente(String dni) throws SQLException{        
+        Vector<Elemento> facturas = new Vector<Elemento>();
+    	String select = "select * from ELEMENTOS as F, PEDIDOS as L where f.pedido=l.pedido and l.dni='" + dni + "' order by f.pedido, f.cantidad desc";
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(select);
         while (rs.next()){
-        	Factura factura = new Factura();
-        	factura.setIdFactura(rs.getInt("idFactura"));
-        	factura.setFecha(rs.getString("fecha"));
-        	factura.setPeriodo(rs.getString("periodo"));
+        	Elemento factura = new Elemento();
+        	factura.setIdElemento(rs.getInt("idElemento"));
+        	factura.setCantidad(rs.getInt("cantidad"));
+        	factura.setNombre(rs.getString("nombre"));
         	factura.setImporte(rs.getFloat("importe"));
-        	factura.setTelefono(rs.getString("telefono"));
+        	factura.setPedido(rs.getString("pedido"));
         	facturas.add(factura);
         }
         rs.close();
@@ -378,18 +378,18 @@ public class GestorBD {
         return facturas;
     }
     
-    public int insertarFactura(Factura factura) throws SQLException{
-        String insert = "insert into FACTURAS " +
-                        "(fecha, periodo, importe, telefono) " +
-                        "VALUES ('" + factura.getFecha() +
-                        "','" + factura.getPeriodo() +
+    public int insertarElemento(Elemento factura) throws SQLException{
+        String insert = "insert into ELEMENTOS " +
+                        "(cantidad, nombre, importe, pedido) " +
+                        "VALUES ('" + factura.getCantidad() +
+                        "','" + factura.getNombre() +
                         "'," + factura.getImporte() +
-                        ",'"  + factura.getTelefono() + "')";                        
+                        ",'"  + factura.getPedido() + "')";                        
         Statement stmt = con.createStatement();
         stmt.executeUpdate(insert);
         stmt.close();
         
-        String max = "select MAX(idFactura) as id from FACTURAS";
+        String max = "select MAX(idElemento) as id from ELEMENTOS";
         Statement stmt1 = con.createStatement();
         ResultSet rs = stmt1.executeQuery(max);
         int id = 0;
@@ -397,38 +397,38 @@ public class GestorBD {
         	id = rs.getInt("id");
         }
         stmt1.close();
-        factura.setIdFactura(id);
+        factura.setIdElemento(id);
         return id;
     }
     
-    public void actualizarFactura(int idFactura, Factura factura) throws SQLException{
-        String update = "update FACTURAS set idFactura=" + factura.getIdFactura() + 
-        				", fecha='" + factura.getFecha() +
-        				"', periodo='" + factura.getPeriodo() +
+    public void actualizarElemento(int idElemento, Elemento factura) throws SQLException{
+        String update = "update ELEMENTOS set idElemento=" + factura.getIdElemento() + 
+        				", cantidad='" + factura.getCantidad() +
+        				"', nombre='" + factura.getNombre() +
         				"', importe=" + factura.getImporte() +
-        				", telefono='" + factura.getTelefono() +
-        				"' where idFactura=" + idFactura;
+        				", pedido='" + factura.getPedido() +
+        				"' where idElemento=" + idElemento;
         Statement stmt = con.createStatement();
         stmt.executeUpdate(update);
         stmt.close();                
     }
     
-    public void borrarFactura(int idFactura) throws SQLException{
-       	String delete = "delete from FACTURAS where idFactura=" + idFactura;
+    public void borrarElemento(int idElemento) throws SQLException{
+       	String delete = "delete from ELEMENTOS where idElemento=" + idElemento;
         Statement stmt = con.createStatement();
         stmt.executeUpdate(delete);
         stmt.close();	                  
     }
 
-    public void borrarFacturas() throws SQLException{
-       	String delete = "delete from FACTURAS";
+    public void borrarElementos() throws SQLException{
+       	String delete = "delete from ELEMENTOS";
         Statement stmt = con.createStatement();
         stmt.executeUpdate(delete);
         stmt.close();	                  
     }
 
-    public int contarFacturas() throws SQLException{
-    	String count = "select count(*) from FACTURAS";
+    public int contarElementos() throws SQLException{
+    	String count = "select count(*) from ELEMENTOS";
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(count);
         rs.next();
