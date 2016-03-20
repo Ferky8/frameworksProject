@@ -15,6 +15,7 @@ import javax.xml.validation.SchemaFactory;
 import org.xml.sax.SAXException;
 
 import pr.justeat.dao.dto.Restaurante;
+import pr.justeat.dao.dto.RestauranteList;
 
 
 //xjc files\po.xsd -p mdiss.jaxb.example2.primer.po -d src
@@ -26,37 +27,33 @@ public class Test {
     
     public static void main( String[] args ) {
         try {
+        	
+        	File file = new File("files/restaurantes-jaxb.xml");
             // create a JAXBContext capable of handling classes generated into
             // the primer.po package
-            JAXBContext jc = JAXBContext.newInstance(Restaurante.class);
+            JAXBContext jc = JAXBContext.newInstance(RestauranteList.class);
             
             // create an Unmarshaller
             Unmarshaller u = jc.createUnmarshaller();
-            
-            // validation
-            u.setSchema(getSchema("./files/schema.xsd"));
-            
+            System.out.println(u);
+            System.out.println(file);
             // unmarshal a po instance document into a tree of Java content
             // objects composed of classes from the primer.po package.
-            Restaurante restaurante = (Restaurante)u.unmarshal(new FileInputStream("./files/restaurantes-jaxb.xml"));
+            RestauranteList restaurantes = (RestauranteList)u.unmarshal(file);
 
             // change the billto address
-            restaurante.setNombre("Nombre nuevo");
+            //restaurantes.getRestauranteList().get(0).setNombre("Nombre nuevo");
             //address.setRegion( "REGION" );
             
             // create a Marshaller and marshal to a file
             Marshaller m = jc.createMarshaller();
             m.setProperty( Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE );
-            m.marshal( restaurante, new File("./files/restaurantes-jaxb2.xml"));
+            m.marshal( restaurantes, new File("files/restaurantes-jaxb2.xml"));
             System.out.println("Done!");
             
         } catch( JAXBException je ) {
             je.printStackTrace();
-        } catch( IOException ioe ) {
-            ioe.printStackTrace();
-        } catch (SAXException e) {
-			e.printStackTrace();
-		}
+        }
     }
     
     /** returns a JAXP 1.3 schema by parsing the specified resource. */
