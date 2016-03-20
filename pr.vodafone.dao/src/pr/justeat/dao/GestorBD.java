@@ -162,7 +162,7 @@ public class GestorBD {
     
     public Vector<Pedido> obtenerPedidos() throws SQLException{        
         Vector<Pedido> pedidos = new Vector<Pedido>();
-    	String select = "select * from PEDIDOS order by cantidad";
+    	String select = "select * from PEDIDOS order by fecha";
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(select);
         while (rs.next()){
@@ -183,7 +183,7 @@ public class GestorBD {
     
     public Vector<Pedido> obtenerPedidosEntregados(boolean entregado) throws SQLException{        
         Vector<Pedido> pedidos = new Vector<Pedido>();
-    	String select = "select * from PEDIDOS where entregado=" + entregado + " order by cantidad";
+    	String select = "select * from PEDIDOS where entregado=" + entregado + " order by fecha";
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(select);
         while (rs.next()){
@@ -204,7 +204,7 @@ public class GestorBD {
     
     public Vector<Pedido> obtenerPedidosCliente(String dni) throws SQLException{        
         Vector<Pedido> pedidos = new Vector<Pedido>();
-    	String select = "select * from PEDIDOS where dni='" + dni + "' order by cantidad";
+    	String select = "select * from PEDIDOS where dni='" + dni + "' order by fecha";
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(select);
         while (rs.next()){
@@ -225,7 +225,7 @@ public class GestorBD {
     
     public Vector<Pedido> obtenerPedidosEntregadosCliente(String dni, boolean entregado) throws SQLException{        
         Vector<Pedido> pedidos = new Vector<Pedido>();
-    	String select = "select * from PEDIDOS where dni='" + dni + "' AND entregado=" + entregado + " order by cantidad";
+    	String select = "select * from PEDIDOS where dni='" + dni + "' AND entregado=" + entregado + " order by fecha";
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(select);
         while (rs.next()){
@@ -245,12 +245,16 @@ public class GestorBD {
     }
     
     public void insertarPedido(Pedido pedido) throws SQLException{
+    	int entregado = 0;
+    	if(pedido.isEntregado())
+    		entregado = 1;
         String insert = "insert into PEDIDOS " +
-                        "(restaurante, fecha, entregado, tipoEntrega, tipoPago, promocion, dni) " +
-                        "VALUES ('" + pedido.getRestaurante() +
+                        "(idPedido, restaurante, fecha, entregado, tipoEntrega, tipoPago, promocion, dni) " +
+                        "VALUES ('" + pedido.getIdPedido() +
+                        "','" + pedido.getRestaurante() +
                         "','" + pedido.getFecha() +
-                        "'," + pedido.isEntregado() +
-                        ",'" + pedido.getTipoEntrega() +
+                        "','" + entregado +
+                        "','" + pedido.getTipoEntrega() +
                         "','" + pedido.getTipoPago() +
                         "','" + pedido.getPromocion() +
                         "','"  + pedido.getDni() + "')";                        
