@@ -1,11 +1,11 @@
 package pr.justeat.test;
+import static javax.xml.XMLConstants.W3C_XML_SCHEMA_NS_URI;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.math.BigDecimal;
 
 import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
@@ -13,6 +13,8 @@ import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 
 import org.xml.sax.SAXException;
+
+import pr.justeat.dao.dto.Restaurante;
 
 
 //xjc files\po.xsd -p mdiss.jaxb.example2.primer.po -d src
@@ -26,34 +28,26 @@ public class Test {
         try {
             // create a JAXBContext capable of handling classes generated into
             // the primer.po package
-            JAXBContext jc = JAXBContext.newInstance( "pr.justeat.dao.dto" );
+            JAXBContext jc = JAXBContext.newInstance(Restaurante.class);
             
             // create an Unmarshaller
             Unmarshaller u = jc.createUnmarshaller();
             
             // validation
-            SchemaFactory schemaFactory=SchemaFactory.newInstance("http://www.w3.org/2001/XMLSchema");
-            Schema schema = schemaFactory.newSchema(new File("./files/schema.xsd"));
-            u.setSchema(schema);
+            u.setSchema(getSchema("./files/schema.xsd"));
             
             // unmarshal a po instance document into a tree of Java content
             // objects composed of classes from the primer.po package.
-            JAXBElement<Restaurante> poe = (JAXBElement<Restaurante>)u.unmarshal(new FileInputStream("./files/po.xml"));
-            Restaurante po = poe.getValue();
+            Restaurante restaurante = (Restaurante)u.unmarshal(new FileInputStream("./files/restaurantes-jaxb.xml"));
 
             // change the billto address
-            USAddress address = po.getBillTo();
-            address.setName( "John Bob" );
-            address.setStreet( "242 Main Street" );
-            address.setCity( "Beverly Hills" );
-            address.setState( "CA" );
-            address.setZip( new BigDecimal( "90210" ) );
+            restaurante.setNombre("Nombre nuevo");
             //address.setRegion( "REGION" );
             
             // create a Marshaller and marshal to a file
             Marshaller m = jc.createMarshaller();
             m.setProperty( Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE );
-            m.marshal( poe, new File("./files/po2.xml"));
+            m.marshal( restaurante, new File("./files/restaurantes-jaxb2.xml"));
             System.out.println("Done!");
             
         } catch( JAXBException je ) {
@@ -63,5 +57,16 @@ public class Test {
         } catch (SAXException e) {
 			e.printStackTrace();
 		}
+    }
+    
+    /** returns a JAXP 1.3 schema by parsing the specified resource. */
+    static Schema getSchema(String schemaResourceName) throws SAXException {
+        SchemaFactory sf = SchemaFactory.newInstance(W3C_XML_SCHEMA_NS_URI);
+        try {
+            return sf.newSchema(new File(schemaResourceName));
+        } catch (SAXException se) {
+            // this can only happen if there's a deployment error and the resource is missing.
+            throw se;
+        }
     }
 }
