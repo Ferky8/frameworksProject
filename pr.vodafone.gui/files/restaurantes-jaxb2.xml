@@ -1,9 +1,30 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<restaurante>
-    <nombre>Nombre nuevo</nombre>
-    <ofertaActual>10.0</ofertaActual>
-    <precioMedio>25.2</precioMedio>
-    <puntuacion>8.5</puntuacion>
-    <tiempoMedio>40.0</tiempoMedio>
-    <tipoComida>Casera</tipoComida>
-</restaurante>
+<restauranteList>
+    <restaurante>
+        <idRestaurante>45</idRestaurante>
+        <nombre>Casa Paco</nombre>
+        <ofertaActual>10.0</ofertaActual>
+        <precioMedio>25.2</precioMedio>
+        <puntuacion>8.5</puntuacion>
+        <tiempoMedio>40.0</tiempoMedio>
+        <tipoComida>Casera</tipoComida>
+    </restaurante>
+    <restaurante>
+        <idRestaurante>45</idRestaurante>
+        <nombre>Casa Paco</nombre>
+        <ofertaActual>10.0</ofertaActual>
+        <precioMedio>25.2</precioMedio>
+        <puntuacion>8.5</puntuacion>
+        <tiempoMedio>40.0</tiempoMedio>
+        <tipoComida>Casera</tipoComida>
+    </restaurante>
+    <restaurante>
+        <idRestaurante>45</idRestaurante>
+        <nombre>Casa Paco</nombre>
+        <ofertaActual>10.0</ofertaActual>
+        <precioMedio>25.2</precioMedio>
+        <puntuacion>8.5</puntuacion>
+        <tiempoMedio>40.0</tiempoMedio>
+        <tipoComida>Casera</tipoComida>
+    </restaurante>
+</restauranteList>

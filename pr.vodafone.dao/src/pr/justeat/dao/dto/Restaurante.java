@@ -36,10 +36,11 @@ public class Restaurante {
 		return idRestaurante;
 	}
 	
-	@XmlAttribute
+	@XmlElement
 	public void setIdRestaurante(String idRestaurante) {
 		this.idRestaurante = idRestaurante;
 	}
+	
 	public String getNombre() {
 		return nombre;
 	}
@@ -48,6 +49,7 @@ public class Restaurante {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+	
 	public String getTipoComida() {
 		return tipoComida;
 	}
@@ -56,6 +58,7 @@ public class Restaurante {
 	public void setTipoComida(String tipoComida) {
 		this.tipoComida = tipoComida;
 	}
+	
 	public float getPrecioMedio() {
 		return precioMedio;
 	}
@@ -64,6 +67,7 @@ public class Restaurante {
 	public void setPrecioMedio(float precioMedio) {
 		this.precioMedio = precioMedio;
 	}
+	
 	public float getPuntuacion() {
 		return puntuacion;
 	}
@@ -72,6 +76,7 @@ public class Restaurante {
 	public void setPuntuacion(float puntuacion) {
 		this.puntuacion = puntuacion;
 	}
+	
 	public float getTiempoMedio() {
 		return tiempoMedio;
 	}
@@ -80,6 +85,7 @@ public class Restaurante {
 	public void setTiempoMedio(float tiempoMedio) {
 		this.tiempoMedio = tiempoMedio;
 	}
+	
 	public float getOfertaActual() {
 		return ofertaActual;
 	}
