@@ -1,4 +1,4 @@
-package pr.vodafone.dao.dto;
+package pr.justeat.dao.dto;
 
 public class Cliente {
 	private String dni;

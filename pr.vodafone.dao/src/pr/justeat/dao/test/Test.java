@@ -1,14 +1,14 @@
-package pr.vodafone.dao.test;
+package pr.justeat.dao.test;
 
 import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.Vector;
 
-import pr.vodafone.dao.GestorBD;
-import pr.vodafone.dao.dto.Cliente;
-import pr.vodafone.dao.dto.Factura;
-import pr.vodafone.dao.dto.Linea;
-import pr.vodafone.dao.dto.Terminal;
+import pr.justeat.dao.GestorBD;
+import pr.justeat.dao.dto.Cliente;
+import pr.justeat.dao.dto.Factura;
+import pr.justeat.dao.dto.Linea;
+import pr.justeat.dao.dto.Terminal;
 
 
 public class Test {
