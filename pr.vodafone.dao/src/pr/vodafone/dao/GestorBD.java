@@ -7,7 +7,7 @@ import java.util.Vector;
 import pr.vodafone.dao.dto.Cliente;
 import pr.vodafone.dao.dto.Factura;
 import pr.vodafone.dao.dto.Linea;
-import pr.vodafone.dao.dto.Terminal;
+import pr.vodafone.dao.dto.Restaurante;
 
 
 public class GestorBD {
@@ -438,40 +438,40 @@ public class GestorBD {
         return numFilas;
     }
   
-    public Terminal obtenerTerminal(String idTerminal) throws SQLException{        
-        Terminal terminal = null;
-    	String select = "select * from TERMINALES where idTerminal='" + idTerminal + "'";
+    public Restaurante obtenerRestaurante(String idRestaurante) throws SQLException{        
+        Restaurante terminal = null;
+    	String select = "select * from RESTAURANTES where idRestaurante='" + idRestaurante + "'";
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(select);
         if (rs.next()){
-        	terminal = new Terminal();
-        	terminal.setIdTerminal(rs.getString("idTerminal"));
-        	terminal.setMarca(rs.getString("marca"));
-        	terminal.setModelo(rs.getString("modelo"));
-        	terminal.setPrecio(rs.getFloat("precio"));
-        	terminal.setPromoOro(rs.getFloat("promoOro"));
-        	terminal.setPromoPlata(rs.getFloat("promoPlata"));
-        	terminal.setPromoBronce(rs.getFloat("promoBronce"));        	
+        	terminal = new Restaurante();
+        	terminal.setIdRestaurante(rs.getString("idRestaurante"));
+        	terminal.setNombre(rs.getString("nombre"));
+        	terminal.setTipoComida(rs.getString("tipoComida"));
+        	terminal.setPrecioMedio(rs.getFloat("precioMedio"));
+        	terminal.setPuntuacion(rs.getFloat("puntuacion"));
+        	terminal.setTiempoMedio(rs.getFloat("tiempoMedio"));
+        	terminal.setOfertaActual(rs.getFloat("ofertaActual"));        	
         }
         rs.close();
         stmt.close();  
         return terminal;
     }
     
-    public Vector<Terminal> obtenerTerminales() throws SQLException{        
-        Vector<Terminal> terminales = new Vector<Terminal>();
-    	String select = "select * from TERMINALES order by precio desc";
+    public Vector<Restaurante> obtenerRestaurantes() throws SQLException{        
+        Vector<Restaurante> terminales = new Vector<Restaurante>();
+    	String select = "select * from RESTAURANTES order by precioMedio desc";
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(select);
         while (rs.next()){
-        	Terminal terminal = new Terminal();
-        	terminal.setIdTerminal(rs.getString("idTerminal"));
-        	terminal.setMarca(rs.getString("marca"));
-        	terminal.setModelo(rs.getString("modelo"));
-        	terminal.setPrecio(rs.getFloat("precio"));
-        	terminal.setPromoOro(rs.getFloat("promoOro"));
-        	terminal.setPromoPlata(rs.getFloat("promoPlata"));
-        	terminal.setPromoBronce(rs.getFloat("promoBronce"));        	
+        	Restaurante terminal = new Restaurante();
+        	terminal.setIdRestaurante(rs.getString("idRestaurante"));
+        	terminal.setNombre(rs.getString("nombre"));
+        	terminal.setTipoComida(rs.getString("tipoComida"));
+        	terminal.setPrecioMedio(rs.getFloat("precioMedio"));
+        	terminal.setPuntuacion(rs.getFloat("puntuacion"));
+        	terminal.setTiempoMedio(rs.getFloat("tiempoMedio"));
+        	terminal.setOfertaActual(rs.getFloat("ofertaActual"));        	
         	terminales.add(terminal);
         }
         rs.close();
@@ -479,20 +479,20 @@ public class GestorBD {
         return terminales;
     }
     
-    public Vector<Terminal> obtenerTerminalesPorMarca(String marca) throws SQLException{        
-        Vector<Terminal> terminales = new Vector<Terminal>();
-    	String select = "select * from TERMINALES where marca like '%" + marca + "%' order by precio desc";
+    public Vector<Restaurante> obtenerRestaurantesPorNombre(String nombre) throws SQLException{        
+        Vector<Restaurante> terminales = new Vector<Restaurante>();
+    	String select = "select * from RESTAURANTES where nombre like '%" + nombre + "%' order by precioMedio desc";
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(select);
         while (rs.next()){
-        	Terminal terminal = new Terminal();
-        	terminal.setIdTerminal(rs.getString("idTerminal"));
-        	terminal.setMarca(rs.getString("marca"));
-        	terminal.setModelo(rs.getString("modelo"));
-        	terminal.setPrecio(rs.getFloat("precio"));
-        	terminal.setPromoOro(rs.getFloat("promoOro"));
-        	terminal.setPromoPlata(rs.getFloat("promoPlata"));
-        	terminal.setPromoBronce(rs.getFloat("promoBronce"));        	
+        	Restaurante terminal = new Restaurante();
+        	terminal.setIdRestaurante(rs.getString("idRestaurante"));
+        	terminal.setNombre(rs.getString("nombre"));
+        	terminal.setTipoComida(rs.getString("tipoComida"));
+        	terminal.setPrecioMedio(rs.getFloat("precioMedio"));
+        	terminal.setPuntuacion(rs.getFloat("puntuacion"));
+        	terminal.setTiempoMedio(rs.getFloat("tiempoMedio"));
+        	terminal.setOfertaActual(rs.getFloat("ofertaActual"));        	
         	terminales.add(terminal);
         }
         rs.close();
@@ -500,20 +500,20 @@ public class GestorBD {
         return terminales;
     }
 
-    public Vector<Terminal> obtenerTerminalesPorModelo(String modelo) throws SQLException{        
-        Vector<Terminal> terminales = new Vector<Terminal>();
-    	String select = "select * from TERMINALES where modelo like '%" + modelo + "%' order by precio desc";
+    public Vector<Restaurante> obtenerRestauranteesPorTipoComida(String tipoComida) throws SQLException{        
+        Vector<Restaurante> terminales = new Vector<Restaurante>();
+    	String select = "select * from RESTAURANTES where tipoComida like '%" + tipoComida + "%' order by precioMedio desc";
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(select);
         while (rs.next()){
-        	Terminal terminal = new Terminal();
-        	terminal.setIdTerminal(rs.getString("idTerminal"));
-        	terminal.setMarca(rs.getString("marca"));
-        	terminal.setModelo(rs.getString("modelo"));
-        	terminal.setPrecio(rs.getFloat("precio"));
-        	terminal.setPromoOro(rs.getFloat("promoOro"));
-        	terminal.setPromoPlata(rs.getFloat("promoPlata"));
-        	terminal.setPromoBronce(rs.getFloat("promoBronce"));        	
+        	Restaurante terminal = new Restaurante();
+        	terminal.setIdRestaurante(rs.getString("idRestaurante"));
+        	terminal.setNombre(rs.getString("nombre"));
+        	terminal.setTipoComida(rs.getString("tipoComida"));
+        	terminal.setPrecioMedio(rs.getFloat("precioMedio"));
+        	terminal.setPuntuacion(rs.getFloat("puntuacion"));
+        	terminal.setTiempoMedio(rs.getFloat("tiempoMedio"));
+        	terminal.setOfertaActual(rs.getFloat("ofertaActual"));        	
         	terminales.add(terminal);
         }
         rs.close();
@@ -521,20 +521,20 @@ public class GestorBD {
         return terminales;
     }
 
-    public Vector<Terminal> obtenerTerminalesPorPrecio(float min, float max) throws SQLException{        
-        Vector<Terminal> terminales = new Vector<Terminal>();
-    	String select = "select * from TERMINALES where precio >= " + min + " AND precio <= " + max + " order by precio desc";
+    public Vector<Restaurante> obtenerRestaurantesPorPrecioMedioMedio(float min, float max) throws SQLException{        
+        Vector<Restaurante> terminales = new Vector<Restaurante>();
+    	String select = "select * from RESTAURANTES where precioMedio >= " + min + " AND precioMedio <= " + max + " order by precioMedio desc";
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(select);
         while (rs.next()){
-        	Terminal terminal = new Terminal();
-        	terminal.setIdTerminal(rs.getString("idTerminal"));
-        	terminal.setMarca(rs.getString("marca"));
-        	terminal.setModelo(rs.getString("modelo"));
-        	terminal.setPrecio(rs.getFloat("precio"));
-        	terminal.setPromoOro(rs.getFloat("promoOro"));
-        	terminal.setPromoPlata(rs.getFloat("promoPlata"));
-        	terminal.setPromoBronce(rs.getFloat("promoBronce"));        	
+        	Restaurante terminal = new Restaurante();
+        	terminal.setIdRestaurante(rs.getString("idRestaurante"));
+        	terminal.setNombre(rs.getString("nombre"));
+        	terminal.setTipoComida(rs.getString("tipoComida"));
+        	terminal.setPrecioMedio(rs.getFloat("precioMedio"));
+        	terminal.setPuntuacion(rs.getFloat("puntuacion"));
+        	terminal.setTiempoMedio(rs.getFloat("tiempoMedio"));
+        	terminal.setOfertaActual(rs.getFloat("ofertaActual"));        	
         	terminales.add(terminal);
         }
         rs.close();
@@ -543,51 +543,51 @@ public class GestorBD {
     }
 
     
-    public void insertarTerminal(Terminal terminal) throws SQLException{
-        String insert = "insert into TERMINALES " +
-                        "(idTerminal, marca, modelo, precio, promoOro, promoPlata, promoBronce) " +
-                        "VALUES ('" + terminal.getIdTerminal() +
-                        "','" + terminal.getMarca() +
-                        "','" + terminal.getModelo() +
-                        "'," + terminal.getPrecio() +
-                        "," + terminal.getPromoOro() +
-                        "," + terminal.getPromoPlata() +
-                        ","  + terminal.getPromoBronce() + ")";                        
+    public void insertarRestaurante(Restaurante terminal) throws SQLException{
+        String insert = "insert into RESTAURANTES " +
+                        "(idRestaurante, nombre, tipoComida, precioMedio, puntuacion, tiempoMedio, ofertaActual) " +
+                        "VALUES ('" + terminal.getIdRestaurante() +
+                        "','" + terminal.getNombre() +
+                        "','" + terminal.getTipoComida() +
+                        "'," + terminal.getPrecioMedio() +
+                        "," + terminal.getPuntuacion() +
+                        "," + terminal.getTiempoMedio() +
+                        ","  + terminal.getOfertaActual() + ")";                        
         Statement stmt = con.createStatement();
         stmt.executeUpdate(insert);
         stmt.close();        
     }
     
-    public void actualizarTerminal(String idTerminal, Terminal terminal) throws SQLException{
-        String update = "update TERMINALES set idTerminal='" + terminal.getIdTerminal() + 
-        				"', marca='" + terminal.getMarca() +
-        				"', modelo='" + terminal.getModelo() +
-        				"', precio=" + terminal.getPrecio() +
-        				", promoOro=" + terminal.getPromoOro() +
-        				", promoPlata=" + terminal.getPromoPlata() +
-        				", promoBronce=" + terminal.getPromoBronce() +
-        				" where idTerminal='" + idTerminal + "'";
+    public void actualizarRestaurante(String idRestaurante, Restaurante terminal) throws SQLException{
+        String update = "update RESTAURANTES set idRestaurante='" + terminal.getIdRestaurante() + 
+        				"', nombre='" + terminal.getNombre() +
+        				"', tipoComida='" + terminal.getTipoComida() +
+        				"', precioMedio=" + terminal.getPrecioMedio() +
+        				", puntuacion=" + terminal.getPuntuacion() +
+        				", tiempoMedio=" + terminal.getTiempoMedio() +
+        				", ofertaActual=" + terminal.getOfertaActual() +
+        				" where idRestaurante='" + idRestaurante + "'";
         Statement stmt = con.createStatement();
         stmt.executeUpdate(update);
         stmt.close();                
     }
     
-    public void borrarTerminal(String idTerminal) throws SQLException{
-       	String delete = "delete from TERMINALES where idTerminal='" + idTerminal + "'";
+    public void borrarRestaurante(String idRestaurante) throws SQLException{
+       	String delete = "delete from RESTAURANTES where idRestaurante='" + idRestaurante + "'";
         Statement stmt = con.createStatement();
         stmt.executeUpdate(delete);
         stmt.close();	                  
     }
 
-    public void borrarTerminales() throws SQLException{
-       	String delete = "delete from TERMINALES";
+    public void borrarRestaurantes() throws SQLException{
+       	String delete = "delete from RESTAURANTES";
         Statement stmt = con.createStatement();
         stmt.executeUpdate(delete);
         stmt.close();	                  
     }
 
-    public int contarTerminales() throws SQLException{
-    	String count = "select count(*) from TERMINALES";
+    public int contarRestaurantes() throws SQLException{
+    	String count = "select count(*) from RESTAURANTES";
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(count);
         rs.next();
