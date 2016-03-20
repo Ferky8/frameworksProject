@@ -32,27 +32,27 @@ import javax.swing.SwingUtilities;
 * THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
 * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
 */
-public class VSWTerminales extends javax.swing.JFrame {
+public class VSWRestaurantes extends javax.swing.JFrame {
 	private JTextField cajaId;
-	private JLabel jLabel3;
-	private JLabel jLabel4;
-	private JLabel jLabel5;
+	private JLabel jLabelId;
+	private JLabel jLabelTipoComida;
+	private JLabel jLabelNombre;
 	private JButton botonCargar;
-	private JTextField cajaBronce;
-	private JLabel jLabel6;
-	private JTextField cajaPlata;
-	private JTextField cajaOro;
-	private JLabel jLabel2;
-	private JLabel jLabel1;
+	private JTextField cajaOfertaActual;
+	private JLabel jLabelOfertaActual;
+	private JTextField cajaTiempoMedio;
+	private JTextField cajaPrecioMedio;
+	private JLabel jLabelTiempoMedio;
+	private JLabel jLabelPrecioMedio;
 	private JButton botonCerrar;
 	private JButton botonEnviar;
 	private JButton botonEditar;
-	private JTable tablaTerminales;
+	private JTable tablaRestaurantes;
 	private JScrollPane jScrollPane1;
-	private JLabel jLabel8;
-	private JTextField cajaPrecio;
-	private JTextField cajaModelo;
-	private JTextField cajaMarca;
+	private JLabel jLabelPuntuacion;
+	private JTextField cajaPuntuacion;
+	private JTextField cajaTipoComida;
+	private JTextField cajaNombre;
 	private JPanel jPanel3;
 	private JPanel jPanel2;
 
@@ -62,14 +62,14 @@ public class VSWTerminales extends javax.swing.JFrame {
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				VSWTerminales inst = new VSWTerminales();
+				VSWRestaurantes inst = new VSWRestaurantes();
 				inst.setLocationRelativeTo(null);
 				inst.setVisible(true);
 			}
 		});
 	}
 	
-	public VSWTerminales() {
+	public VSWRestaurantes() {
 		super();
 		initGUI();
 	}
@@ -78,14 +78,14 @@ public class VSWTerminales extends javax.swing.JFrame {
 		try {
 			setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 			getContentPane().setLayout(null);
-			this.setTitle("Gestión de Alta de Terminales");
+			this.setTitle("Gestión de Alta de Restaurantes");
 			{
 				jPanel2 = new JPanel();
 				getContentPane().add(jPanel2);
 				jPanel2.setFont(new java.awt.Font("Dialog",0,8));
 				jPanel2.setBounds(13, 12, 360, 214);
 				jPanel2.setLayout(null);
-				jPanel2.setBorder(BorderFactory.createTitledBorder(null, "Terminales Recibidos", TitledBorder.LEADING, TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI",1,10), new java.awt.Color(0,0,0)));				
+				jPanel2.setBorder(BorderFactory.createTitledBorder(null, "Restaurantes Recibidos", TitledBorder.LEADING, TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI",1,10), new java.awt.Color(0,0,0)));				
 				{
 					jScrollPane1 = new JScrollPane();
 					jPanel2.add(jScrollPane1);
@@ -93,10 +93,10 @@ public class VSWTerminales extends javax.swing.JFrame {
 					{
 						TableModel jTable1Model = 
 							new DefaultTableModel(
-									new String[] { "Id", "Marca", "Modelo", "Precio" }, 6);
-						tablaTerminales = new JTable();
-						jScrollPane1.setViewportView(tablaTerminales);
-						tablaTerminales.setModel(jTable1Model);
+									new String[] { "Id", "Nombre", "Tipo comida", "Puntuacion" }, 6);
+						tablaRestaurantes = new JTable();
+						jScrollPane1.setViewportView(tablaRestaurantes);
+						tablaRestaurantes.setModel(jTable1Model);
 					}
 				}
 				{
@@ -115,7 +115,7 @@ public class VSWTerminales extends javax.swing.JFrame {
 				{
 					botonCargar = new JButton();
 					jPanel2.add(botonCargar);
-					botonCargar.setText("Cargar Terminales...");
+					botonCargar.setText("Cargar Restaurantes...");
 					botonCargar.setBounds(100, 182, 165, 23);
 					botonCargar.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent evt) {
@@ -134,10 +134,10 @@ public class VSWTerminales extends javax.swing.JFrame {
 				jPanel3.setLayout(null);
 				jPanel3.setBorder(BorderFactory.createTitledBorder(null, "Asignación de Precios Promocionales", TitledBorder.LEADING, TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI",1,10), new java.awt.Color(0,0,0)));
 				{
-					jLabel3 = new JLabel();
-					jPanel3.add(jLabel3);
-					jLabel3.setText("Id:");
-					jLabel3.setBounds(10, 24, 64, 16);
+					jLabelId = new JLabel();
+					jPanel3.add(jLabelId);
+					jLabelId.setText("Id:");
+					jLabelId.setBounds(10, 24, 64, 16);
 				}
 				{
 					cajaId = new JTextField();
@@ -146,40 +146,40 @@ public class VSWTerminales extends javax.swing.JFrame {
 					cajaId.setEditable(false);
 				}
 				{
-					cajaMarca = new JTextField();
-					jPanel3.add(cajaMarca);
-					cajaMarca.setBounds(99, 50, 249, 23);
-					cajaMarca.setEditable(false);
+					cajaNombre = new JTextField();
+					jPanel3.add(cajaNombre);
+					cajaNombre.setBounds(99, 50, 249, 23);
+					cajaNombre.setEditable(false);
 				}
 				{
-					jLabel5 = new JLabel();
-					jPanel3.add(jLabel5);
-					jLabel5.setText("Marca:");
-					jLabel5.setBounds(10, 53, 71, 16);
+					jLabelNombre = new JLabel();
+					jPanel3.add(jLabelNombre);
+					jLabelNombre.setText("Nombre:");
+					jLabelNombre.setBounds(10, 53, 71, 16);
 				}
 				{
-					jLabel4 = new JLabel();
-					jPanel3.add(jLabel4);
-					jLabel4.setText("Modelo:");
-					jLabel4.setBounds(10, 81, 57, 16);
+					jLabelTipoComida = new JLabel();
+					jPanel3.add(jLabelTipoComida);
+					jLabelTipoComida.setText("Tipo de Comida:");
+					jLabelTipoComida.setBounds(10, 81, 57, 16);
 				}
 				{
-					cajaModelo = new JTextField();
-					jPanel3.add(cajaModelo);
-					cajaModelo.setBounds(99, 78, 249, 23);
-					cajaModelo.setEditable(false);
+					cajaTipoComida = new JTextField();
+					jPanel3.add(cajaTipoComida);
+					cajaTipoComida.setBounds(99, 78, 249, 23);
+					cajaTipoComida.setEditable(false);
 				}
 				{
-					cajaPrecio = new JTextField();
-					jPanel3.add(cajaPrecio);
-					cajaPrecio.setBounds(99, 107, 249, 23);
-					cajaPrecio.setEditable(false);
+					cajaPuntuacion = new JTextField();
+					jPanel3.add(cajaPuntuacion);
+					cajaPuntuacion.setBounds(99, 107, 249, 23);
+					cajaPuntuacion.setEditable(false);
 				}
 				{
-					jLabel8 = new JLabel();
-					jPanel3.add(jLabel8);
-					jLabel8.setText("Precio:");
-					jLabel8.setBounds(10, 110, 71, 16);
+					jLabelPuntuacion = new JLabel();
+					jPanel3.add(jLabelPuntuacion);
+					jLabelPuntuacion.setText("Puntuacion:");
+					jLabelPuntuacion.setBounds(10, 110, 71, 16);
 				}
 				{
 					botonEnviar = new JButton();
@@ -195,37 +195,37 @@ public class VSWTerminales extends javax.swing.JFrame {
 					});
 				}
 				{
-					jLabel1 = new JLabel();
-					jPanel3.add(jLabel1);
-					jLabel1.setText("Promo Oro:");
-					jLabel1.setBounds(10, 138, 83, 15);
+					jLabelPrecioMedio = new JLabel();
+					jPanel3.add(jLabelPrecioMedio);
+					jLabelPrecioMedio.setText("Precio medio:");
+					jLabelPrecioMedio.setBounds(10, 138, 83, 15);
 				}
 				{
-					jLabel2 = new JLabel();
-					jPanel3.add(jLabel2);
-					jLabel2.setText("Promo Plata:");
-					jLabel2.setBounds(10, 167, 83, 16);
+					jLabelTiempoMedio = new JLabel();
+					jPanel3.add(jLabelTiempoMedio);
+					jLabelTiempoMedio.setText("Tiempo medio:");
+					jLabelTiempoMedio.setBounds(10, 167, 83, 16);
 				}
 				{
-					cajaOro = new JTextField();
-					jPanel3.add(cajaOro);
-					cajaOro.setBounds(99, 135, 249, 23);
+					cajaPrecioMedio = new JTextField();
+					jPanel3.add(cajaPrecioMedio);
+					cajaPrecioMedio.setBounds(99, 135, 249, 23);
 				}
 				{
-					cajaPlata = new JTextField();
-					jPanel3.add(cajaPlata);
-					cajaPlata.setBounds(99, 164, 249, 23);
+					cajaTiempoMedio = new JTextField();
+					jPanel3.add(cajaTiempoMedio);
+					cajaTiempoMedio.setBounds(99, 164, 249, 23);
 				}
 				{
-					jLabel6 = new JLabel();
-					jPanel3.add(jLabel6);
-					jLabel6.setText("Promo Bronce:");
-					jLabel6.setBounds(10, 196, 90, 16);
+					jLabelOfertaActual = new JLabel();
+					jPanel3.add(jLabelOfertaActual);
+					jLabelOfertaActual.setText("Oferta Actual:");
+					jLabelOfertaActual.setBounds(10, 196, 90, 16);
 				}
 				{
-					cajaBronce = new JTextField();
-					jPanel3.add(cajaBronce);
-					cajaBronce.setBounds(99, 193, 249, 23);
+					cajaOfertaActual = new JTextField();
+					jPanel3.add(cajaOfertaActual);
+					cajaOfertaActual.setBounds(99, 193, 249, 23);
 				}
 			}
 			{
