@@ -27,7 +27,7 @@ public class Pedido {
 	
 	public Pedido(int idPedido, String restaurante, String fecha, boolean entregado,
 			String tipoEntrega, String tipoPago, String promocion, String dni) {
-		super();
+		
 		this.idPedido = idPedido;
 		this.restaurante = restaurante;
 		this.fecha = fecha;

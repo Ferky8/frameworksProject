@@ -1,7 +1,7 @@
 package pr.justeat.dao;
 
 import java.sql.*;
-
+import java.util.Base64.Decoder;
 import java.util.Vector;
 
 import pr.justeat.dao.dto.Cliente;
@@ -548,6 +548,12 @@ public class GestorBD {
 
     
     public void insertarRestaurante(Restaurante restaurante) throws SQLException{
+    	try {
+			conectar();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+    	
         String insert = "insert into RESTAURANTES " +
                         "(idRestaurante, nombre, tipoComida, precioMedio, puntuacion, tiempoMedio, ofertaActual) " +
                         "VALUES ('" + restaurante.getIdRestaurante() +
@@ -559,7 +565,9 @@ public class GestorBD {
                         ","  + restaurante.getOfertaActual() + ")";                        
         Statement stmt = con.createStatement();
         stmt.executeUpdate(insert);
-        stmt.close();        
+        stmt.close();
+        
+        desconectar();
     }
     
     public void actualizarRestaurante(String idRestaurante, Restaurante restaurante) throws SQLException{

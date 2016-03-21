@@ -10,7 +10,7 @@ package pr.justeat.dao;
 
 public class JusteatSWSQLExceptionException extends java.lang.Exception{
 
-    private static final long serialVersionUID = 1458583649442L;
+    private static final long serialVersionUID = 1458596560138L;
     
     private pr.justeat.dao.JusteatSWSQLException faultMessage;
 

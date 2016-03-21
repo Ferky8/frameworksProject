@@ -20,7 +20,7 @@ public class Elemento {
 	}
 	public Elemento(int idElemento, int cantidad, String nombre, float importe,
 			int pedido) {
-		super();
+		
 		this.idElemento = idElemento;
 		this.cantidad = cantidad;
 		this.nombre = nombre;

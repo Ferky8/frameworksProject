@@ -10,7 +10,7 @@ package pr.justeat.dao;
 
 public class JusteatSWClassNotFoundExceptionException extends java.lang.Exception{
 
-    private static final long serialVersionUID = 1458583649403L;
+    private static final long serialVersionUID = 1458596560119L;
     
     private pr.justeat.dao.JusteatSWClassNotFoundException faultMessage;
 
