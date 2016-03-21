@@ -14,9 +14,7 @@ import javax.xml.validation.SchemaFactory;
 
 import org.xml.sax.SAXException;
 
-import pr.justeat.dao.dto.Restaurante;
-import pr.justeat.dao.dto.RestauranteList;
-
+import pr.justeat.sw.RestauranteList;
 
 //xjc files\po.xsd -p mdiss.jaxb.example2.primer.po -d src
 

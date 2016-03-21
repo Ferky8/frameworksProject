@@ -11,11 +11,11 @@ public class Pedido {
 	private String dni;
 
 	public Pedido(){
-		super();
+		
 	}
 	public Pedido(String restaurante, String fecha, boolean entregado,
 			String tipoEntrega, String tipoPago, String promocion, String dni) {
-		super();
+		
 		this.restaurante = restaurante;
 		this.fecha = fecha;
 		this.entregado = entregado;

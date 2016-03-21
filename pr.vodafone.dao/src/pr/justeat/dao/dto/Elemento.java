@@ -8,11 +8,11 @@ public class Elemento {
 	private int pedido;
 	
 	public Elemento(){
-		super();
+		
 	}
 	public Elemento(int cantidad, String nombre, float importe,
 			int pedido) {
-		super();
+		
 		this.cantidad = cantidad;
 		this.nombre = nombre;
 		this.importe = importe;

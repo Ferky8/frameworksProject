@@ -17,12 +17,12 @@ public class Restaurante {
 	
 	
 	public Restaurante() {
-		super();
+		
 	}
 
 	public Restaurante(String idRestaurante, String nombre, String tipoComida, float precioMedio,
 			float puntuacion, float tiempoMedio, float ofertaActual) {
-		super();
+		
 		this.idRestaurante = idRestaurante;
 		this.nombre = nombre;
 		this.tipoComida = tipoComida;

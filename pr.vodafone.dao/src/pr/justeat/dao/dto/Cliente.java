@@ -7,10 +7,10 @@ public class Cliente {
 	private String email;
 	
 	public Cliente(){
-		super();
+		
 	}
 	public Cliente(String dni, String nombre, String direccion, String email) {
-		super();
+		
 		this.dni = dni;
 		this.nombre = nombre;
 		this.direccion = direccion;

@@ -19,11 +19,11 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
-import pr.justeat.dao.dto.Restaurante;
-import pr.justeat.dao.dto.RestauranteList;
+import pr.justeat.dao.InsertarRestaurante;
+import pr.justeat.dao.JusteatSWStub;
+import pr.justeat.dao.dto.xsd.Restaurante;
 
 import javax.swing.SwingUtilities;
 
@@ -332,7 +332,24 @@ public class VSWRestaurantes extends javax.swing.JFrame {
 	}
 	
 	private void botonEnviar(){
+		Restaurante restaurante = new Restaurante();
+		restaurante.setIdRestaurante(cajaId.getText());
+		restaurante.setNombre(cajaNombre.getText());
+		restaurante.setTipoComida(cajaTipoComida.getText());
+		restaurante.setPuntuacion(Float.parseFloat(cajaPuntuacion.getText()));
+		restaurante.setPrecioMedio(Float.parseFloat(cajaPrecioMedio.getText()));
+		restaurante.setTiempoMedio(Float.parseFloat(cajaTiempoMedio.getText()));
+		restaurante.setOfertaActual(Float.parseFloat(cajaOfertaActual.getText()));
 		
+		JusteatSWStub stub;
+		try {
+			stub = new JusteatSWStub("http://localhost:8080/axis2/services/JusteatSW");
+			InsertarRestaurante irOper = new InsertarRestaurante();
+			irOper.setRestaurante(restaurante);
+            stub.insertarRestaurante(irOper);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	private void botonCerrar(){
 		System.exit(0);
