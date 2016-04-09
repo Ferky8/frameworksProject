@@ -71,6 +71,8 @@
                   }
 
               
+
+              
              throw new org.apache.axis2.databinding.ADBException("Unsupported type " + namespaceURI + " " + typeName);
           }
 

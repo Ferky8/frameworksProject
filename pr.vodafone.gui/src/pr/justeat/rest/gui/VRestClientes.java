@@ -26,8 +26,8 @@ import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 
-import pr.justeat.dao.dto.xsd.Cliente;
 import pr.justeat.dao.dto.xsd.Restaurante;
+import pr.justeat.rest.entity.Cliente;
 
 import javax.swing.SwingUtilities;
 
@@ -69,6 +69,7 @@ public class VRestClientes extends javax.swing.JFrame {
 	private JLabel jLabel1;
 	private WebResource service;
 	private List<Cliente> clientes;
+	private Cliente sc;
 
 	/**
 	* Auto-generated main method to display this JFrame
@@ -357,14 +358,14 @@ public class VRestClientes extends javax.swing.JFrame {
 	private void botonEditar(){
 		int clienteRow = tablaClientes.getSelectedRow();
 		
-		Cliente c = clientes.get(clienteRow);
-		cajaDni.setText(c.getDni());
-		cajaNombre.setText(c.getNombre());
-		cajaDireccion.setText(c.getDireccion());
-		cajaEmail.setText(c.getEmail());
+		sc = clientes.get(clienteRow);
+		cajaDni.setText(sc.getDni());
+		cajaNombre.setText(sc.getNombre());
+		cajaDireccion.setText(sc.getDireccion());
+		cajaEmail.setText(sc.getEmail());
 	}
 	private void botonVerPedidos(){
-		
+		new VRestPedidos(sc);
 	}
 	private void botonNuevo(){
 		cajaDni.setText("");

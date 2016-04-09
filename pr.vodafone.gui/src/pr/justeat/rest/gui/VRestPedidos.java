@@ -15,7 +15,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-import pr.justeat.dao.dto.xsd.Cliente;
+import pr.justeat.rest.entity.Cliente;
 
 import javax.swing.SwingUtilities;
 

@@ -1,6 +1,6 @@
 
 /**
- * ObtenerElementos.java
+ * GetInstance.java
  *
  * This file was auto-generated from WSDL
  * by the Apache Axis2 version: 1.6.4  Built on : Dec 28, 2015 (10:04:10 GMT)
@@ -11,16 +11,16 @@
             
 
             /**
-            *  ObtenerElementos bean class
+            *  GetInstance bean class
             */
             @SuppressWarnings({"unchecked","unused"})
         
-        public  class ObtenerElementos
+        public  class GetInstance
         implements org.apache.axis2.databinding.ADBBean{
         
                 public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
                 "http://dao.justeat.pr",
-                "obtenerElementos",
+                "getInstance",
                 "ns4");
 
             
@@ -73,11 +73,11 @@
                    java.lang.String namespacePrefix = registerPrefix(xmlWriter,"http://dao.justeat.pr");
                    if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)){
                        writeAttribute("xsi","http://www.w3.org/2001/XMLSchema-instance","type",
-                           namespacePrefix+":obtenerElementos",
+                           namespacePrefix+":getInstance",
                            xmlWriter);
                    } else {
                        writeAttribute("xsi","http://www.w3.org/2001/XMLSchema-instance","type",
-                           "obtenerElementos",
+                           "getInstance",
                            xmlWriter);
                    }
 
@@ -293,9 +293,9 @@
         * Postcondition: If this object is an element, the reader is positioned at its end element
         *                If this object is a complex type, the reader is positioned at the end element of its outer element
         */
-        public static ObtenerElementos parse(javax.xml.stream.XMLStreamReader reader) throws java.lang.Exception{
-            ObtenerElementos object =
-                new ObtenerElementos();
+        public static GetInstance parse(javax.xml.stream.XMLStreamReader reader) throws java.lang.Exception{
+            GetInstance object =
+                new GetInstance();
 
             int event;
             java.lang.String nillableValue = null;
@@ -319,10 +319,10 @@
 
                     java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(":")+1);
                     
-                            if (!"obtenerElementos".equals(type)){
+                            if (!"getInstance".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (ObtenerElementos)java.sql.xsd.ExtensionMapper.getTypeObject(
+                                return (GetInstance)java.sql.xsd.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
