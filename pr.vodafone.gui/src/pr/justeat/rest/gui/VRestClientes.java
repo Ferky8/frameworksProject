@@ -1,6 +1,8 @@
 package pr.justeat.rest.gui;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URI;
+
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -13,6 +15,17 @@ import javax.swing.WindowConstants;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.UriBuilder;
+
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.WebResource;
+import com.sun.jersey.api.client.config.ClientConfig;
+import com.sun.jersey.api.client.config.DefaultClientConfig;
+
+import pr.justeat.dao.dto.xsd.Cliente;
+
 import javax.swing.SwingUtilities;
 
 
@@ -51,6 +64,7 @@ public class VRestClientes extends javax.swing.JFrame {
 	private JButton botonTodos;
 	private JTextField cajaDniBuscar;
 	private JLabel jLabel1;
+	private WebResource service;
 
 	/**
 	* Auto-generated main method to display this JFrame
@@ -67,6 +81,9 @@ public class VRestClientes extends javax.swing.JFrame {
 	
 	public VRestClientes() {
 		super();
+		ClientConfig config = new DefaultClientConfig();
+		Client client = Client.create(config);
+		service = client.resource(getBaseURI());
 		initGUI();
 	}
 	
@@ -267,7 +284,8 @@ public class VRestClientes extends javax.swing.JFrame {
 	}
 	
 	private void botonBuscar(){
-		
+		Cliente c = service.path("rest").path("clientes").path(cajaDniBuscar.getText()).accept(MediaType.APPLICATION_JSON).get(Cliente.class);
+		System.out.println(c.getNombre());
 	}
 	private void botonTodos(){
 		
@@ -286,5 +304,10 @@ public class VRestClientes extends javax.swing.JFrame {
 	}
 	private void botonSalir(){
 		System.exit(0);
+	}
+	
+	private static URI getBaseURI() {
+		return UriBuilder.fromUri(
+				"http://localhost:8080/mdiss.justeat.dao").build();
 	}
 }

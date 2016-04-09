@@ -50,18 +50,26 @@ public class TestBD {
 		GestorBD gbd = new GestorBD();
         try {
 			gbd.conectar();
-			Pedido pedido = new Pedido (666444000, "1", "2011-03-03", true, "Urgente", "Metalico", "Ninguna", "111");
+			Cliente cliente = new Cliente ("111", "Prueba prueba", "Calle YYY, Portugalete", "prueba@deusto.es");
+			gbd.insertarCliente(cliente);
+			cliente = gbd.obtenerCliente("111");
+			this.visualizarCliente(cliente);
+			Restaurante restaurante = new Restaurante ("1", "RESTaurant", "Moderna", 500, 400, 300, 200);
+			gbd.insertarRestaurante(restaurante);
+			restaurante = gbd.obtenerRestaurante("1");
+			this.visualizarRestaurante(restaurante);
+			Pedido pedido = new Pedido (1456, "1", "2011-03-03", true, "Urgente", "Metalico", "Ninguna", "111");
 			gbd.insertarPedido(pedido);
-			pedido = gbd.obtenerPedido(666444000);
+			pedido = gbd.obtenerPedido(1456);
 			this.visualizarPedido(pedido);
 			
 			pedido.setPromocion("Todo gratis");
-			gbd.actualizarPedido(666444000, pedido);
-			gbd.entregarPedido(666444000, false);
-			pedido = gbd.obtenerPedido(666444000);
+			gbd.actualizarPedido(1456, pedido);
+			gbd.entregarPedido(1456, false);
+			pedido = gbd.obtenerPedido(1456);
 			this.visualizarPedido(pedido);
 			
-			gbd.borrarPedido(666444000);
+			gbd.borrarPedido(1456);
 			
 			Vector<Pedido> pedidos;
 			pedidos = gbd.obtenerPedidos();
@@ -91,10 +99,14 @@ public class TestBD {
 		GestorBD gbd = new GestorBD();
         try {
 			gbd.conectar();
-			Elemento elemento = new Elemento (3, "Perritos calientes", 15, 666222000);
+			Pedido pedido = new Pedido (1456, "1", "2011-03-03", true, "Urgente", "Metalico", "Ninguna", "111");
+			gbd.insertarPedido(pedido);
+			pedido = gbd.obtenerPedido(1456);
+			this.visualizarPedido(pedido);
+			Elemento elemento = new Elemento (3, "Perritos calientes", 15, 1456);
 			gbd.insertarElemento(elemento);
 			
-			elemento = gbd.obtenerElemento(1);
+			elemento = gbd.obtenerElemento(11);
 			this.visualizarElemento(elemento);
 			
 			elemento.setImporte(elemento.getImporte() + 10);
@@ -129,31 +141,31 @@ public class TestBD {
 		GestorBD gbd = new GestorBD();
         try {
 			gbd.conectar();
-			Restaurante terminal = new Restaurante ("4", "Apple", "IPhone 5", 500, 400, 300, 200);
-			gbd.insertarRestaurante(terminal);
+			Restaurante restaurante = new Restaurante ("4", "Manolo", "Genérica", 500, 400, 300, 200);
+			gbd.insertarRestaurante(restaurante);
 			
-			terminal = gbd.obtenerRestaurante("4");
-			this.visualizarRestaurante(terminal);
+			restaurante = gbd.obtenerRestaurante("4");
+			this.visualizarRestaurante(restaurante);
 			
-			terminal.setPrecioMedio(1000);
-			gbd.actualizarRestaurante("4", terminal);
-			terminal = gbd.obtenerRestaurante("4");
-			this.visualizarRestaurante(terminal);
+			restaurante.setPrecioMedio(1000);
+			gbd.actualizarRestaurante("4", restaurante);
+			restaurante = gbd.obtenerRestaurante("4");
+			this.visualizarRestaurante(restaurante);
 			
 			gbd.borrarRestaurante("4");
 			
-			Vector<Restaurante> terminales;
-			terminales = gbd.obtenerRestaurantes();
-			this.visualizarRestaurantees(terminales);
+			Vector<Restaurante> restaurantees;
+			restaurantees = gbd.obtenerRestaurantes();
+			this.visualizarRestaurantees(restaurantees);
 			
-			terminales = gbd.obtenerRestaurantesPorNombre("Casa");
-			this.visualizarRestaurantees(terminales);
+			restaurantees = gbd.obtenerRestaurantesPorNombre("Casa");
+			this.visualizarRestaurantees(restaurantees);
 			
-			terminales = gbd.obtenerRestaurantesPorTipoComida("Tradicional");
-			this.visualizarRestaurantees(terminales);
+			restaurantees = gbd.obtenerRestaurantesPorTipoComida("Tradicional");
+			this.visualizarRestaurantees(restaurantees);
 			
-			terminales = gbd.obtenerRestaurantesPorPrecioMedio(30, 40);
-			this.visualizarRestaurantees(terminales);
+			restaurantees = gbd.obtenerRestaurantesPorPrecioMedio(30, 40);
+			this.visualizarRestaurantees(restaurantees);
 									
 			int count = gbd.contarRestaurantes();
 			System.out.println("Restaurantes = " + count);
@@ -225,8 +237,8 @@ public class TestBD {
     private void visualizarRestaurantees(Vector<Restaurante> v){
     	Iterator<Restaurante> i = v.iterator();
     	while(i.hasNext()){
-    		Restaurante terminal = i.next();
-    		visualizarRestaurante(terminal);
+    		Restaurante restaurante = i.next();
+    		visualizarRestaurante(restaurante);
     	}
     }
 
@@ -235,7 +247,8 @@ public class TestBD {
         TestBD test = new TestBD();
         test.testClientes();
         test.testPedidos();
-        //test.testElementos();
+        test.testElementos();
+        test.testRestaurantees();
         test.testBorrarTodo();
         System.out.println("Done!");
     }

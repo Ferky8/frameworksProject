@@ -10,6 +10,7 @@ import pr.justeat.dao.dto.Elemento;
 import pr.justeat.dao.dto.Pedido;
 import pr.justeat.dao.dto.Restaurante;
 
+
 public class GestorBD {
 
 	public static GestorBD instance;	
@@ -18,7 +19,7 @@ public class GestorBD {
     
     private String dataSource = "//localhost/justeat";
     private String username = "root";
-    private String password = "";
+    private String password = "deusto";
     private String driver = "com.mysql.jdbc.Driver";
     private String protocol = "jdbc:mysql";    
     
@@ -29,13 +30,6 @@ public class GestorBD {
 	}
     
     public GestorBD(){
-    	try {
-			instance.conectar();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
     }
     
     public GestorBD(String dataSource, String username, String password){
@@ -54,7 +48,13 @@ public class GestorBD {
         con.close();
     }    
     
-    public Cliente obtenerCliente(String dni) throws SQLException{        
+    public Cliente obtenerCliente(String dni) throws SQLException{     
+    	try {
+			conectar();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+    	
     	Cliente cliente = null;
     	String select = "select * from CLIENTES where dni='" + dni +"'";
         Statement stmt = con.createStatement();
@@ -67,11 +67,18 @@ public class GestorBD {
         	cliente.setEmail(rs.getString("email"));
         }
         rs.close();
-        stmt.close();  
+        stmt.close();
+        desconectar();
         return cliente;
     }
     
-    public Vector<Cliente> obtenerClientes() throws SQLException{        
+    public Vector<Cliente> obtenerClientes() throws SQLException{ 
+    	try {
+    		conectar();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+    	
         Vector<Cliente> clientes = new Vector<Cliente>();
     	String select = "select * from CLIENTES";
         Statement stmt = con.createStatement();
@@ -86,10 +93,17 @@ public class GestorBD {
         }
         rs.close();
         stmt.close();  
+        desconectar();
         return clientes;
     }
     
-    public Vector<Cliente> obtenerClientesPorNombre(String nombre) throws SQLException{        
+    public Vector<Cliente> obtenerClientesPorNombre(String nombre) throws SQLException{  
+    	try {
+			conectar();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+    	
         Vector<Cliente> clientes = new Vector<Cliente>();
     	String select = "select * from CLIENTES where nombre like '%" + nombre + "%'";
         Statement stmt = con.createStatement();
@@ -104,10 +118,17 @@ public class GestorBD {
         }
         rs.close();
         stmt.close();  
+        desconectar();
         return clientes;
     }
     
     public void insertarCliente(Cliente cliente) throws SQLException{
+    	try {
+			conectar();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+    	
         String insert = "insert into CLIENTES " +
                         "(dni, nombre, direccion, email) " +
                         "VALUES ('" + cliente.getDni() +
@@ -116,10 +137,17 @@ public class GestorBD {
                         "','"  + cliente.getEmail() + "')";                        
         Statement stmt = con.createStatement();
         stmt.executeUpdate(insert);
-        stmt.close();        
+        stmt.close(); 
+        desconectar();
     }
     
     public void actualizarCliente(String dni, Cliente cliente) throws SQLException{
+    	try {
+			conectar();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+    	
         String update = "update CLIENTES set dni='" + cliente.getDni() + 
         				"', nombre='" + cliente.getNombre() +
         				"', direccion='" + cliente.getDireccion() +
@@ -127,35 +155,63 @@ public class GestorBD {
         				"' where dni='" + dni + "'";
         Statement stmt = con.createStatement();
         stmt.executeUpdate(update);
-        stmt.close();                
+        stmt.close();
+        desconectar();
     }
     
     public void borrarCliente(String dni) throws SQLException{
+    	try {
+			conectar();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+    	
        	String delete = "delete from CLIENTES where dni='" + dni + "'";
         Statement stmt = con.createStatement();
         stmt.executeUpdate(delete);
-        stmt.close();	                  
+        stmt.close();
+        desconectar();
     }
 
     public void borrarClientes() throws SQLException{
+    	try {
+			conectar();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+    	
        	String delete = "delete from CLIENTES";
         Statement stmt = con.createStatement();
         stmt.executeUpdate(delete);
-        stmt.close();	                  
+        stmt.close();	
+        desconectar();
     }
 
     public int contarClientes() throws SQLException{
+    	try {
+			conectar();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+    	
     	String count = "select count(*) from CLIENTES";
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(count);
         rs.next();
         int numFilas = rs.getInt(1);
         rs.close();
-        stmt.close();      
+        stmt.close();   
+        desconectar();
         return numFilas;
     }
     
-    public Pedido obtenerPedido(int idPedido) throws SQLException{        
+    public Pedido obtenerPedido(int idPedido) throws SQLException{     
+    	try {
+			conectar();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+    	
         Pedido pedido = null;
     	String select = "select * from PEDIDOS where idPedido='" + idPedido + "'";
         Statement stmt = con.createStatement();
@@ -171,11 +227,18 @@ public class GestorBD {
         	pedido.setDni(rs.getString("dni"));
         }
         rs.close();
-        stmt.close();  
+        stmt.close();
+        desconectar();
         return pedido;
     }
     
-    public Vector<Pedido> obtenerPedidos() throws SQLException{        
+    public Vector<Pedido> obtenerPedidos() throws SQLException{   
+    	try {
+			conectar();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+    	
         Vector<Pedido> pedidos = new Vector<Pedido>();
     	String select = "select * from PEDIDOS order by fecha";
         Statement stmt = con.createStatement();
@@ -192,11 +255,18 @@ public class GestorBD {
         	pedidos.add(pedido);
         }
         rs.close();
-        stmt.close();  
+        stmt.close();
+        desconectar();
         return pedidos;
     }
     
-    public Vector<Pedido> obtenerPedidosEntregados(boolean entregado) throws SQLException{        
+    public Vector<Pedido> obtenerPedidosEntregados(boolean entregado) throws SQLException{   
+    	try {
+			conectar();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+    	
         Vector<Pedido> pedidos = new Vector<Pedido>();
     	String select = "select * from PEDIDOS where entregado=" + entregado + " order by fecha";
         Statement stmt = con.createStatement();
@@ -213,11 +283,18 @@ public class GestorBD {
         	pedidos.add(pedido);
         }
         rs.close();
-        stmt.close();  
+        stmt.close();
+        desconectar();
         return pedidos;
     }
     
-    public Vector<Pedido> obtenerPedidosCliente(String dni) throws SQLException{        
+    public Vector<Pedido> obtenerPedidosCliente(String dni) throws SQLException{    
+    	try {
+			conectar();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+    	
         Vector<Pedido> pedidos = new Vector<Pedido>();
     	String select = "select * from PEDIDOS where dni='" + dni + "' order by fecha";
         Statement stmt = con.createStatement();
@@ -234,11 +311,18 @@ public class GestorBD {
         	pedidos.add(pedido);
         }
         rs.close();
-        stmt.close();  
+        stmt.close(); 
+        desconectar();
         return pedidos;
     }
     
     public Vector<Pedido> obtenerPedidosEntregadosCliente(String dni, boolean entregado) throws SQLException{        
+    	try {
+			conectar();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+    	
         Vector<Pedido> pedidos = new Vector<Pedido>();
     	String select = "select * from PEDIDOS where dni='" + dni + "' AND entregado=" + entregado + " order by fecha";
         Statement stmt = con.createStatement();
@@ -255,11 +339,18 @@ public class GestorBD {
         	pedidos.add(pedido);
         }
         rs.close();
-        stmt.close();  
+        stmt.close(); 
+        desconectar();
         return pedidos;
     }
     
     public void insertarPedido(Pedido pedido) throws SQLException{
+    	try {
+			conectar();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+    	
     	int entregado = 0;
     	if(pedido.isEntregado())
     		entregado = 1;
@@ -275,10 +366,17 @@ public class GestorBD {
                         "','"  + pedido.getDni() + "')";                        
         Statement stmt = con.createStatement();
         stmt.executeUpdate(insert);
-        stmt.close();        
+        stmt.close();  
+        desconectar();
     }
     
     public void actualizarPedido(int idPedido, Pedido pedido) throws SQLException{
+    	try {
+			conectar();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+    	
         String update = "update PEDIDOS set restaurante='" + pedido.getRestaurante() + 
         				"', fecha='" + pedido.getFecha() +
         				"', entregado=" + pedido.isEntregado() +
@@ -289,42 +387,77 @@ public class GestorBD {
         				"' where idPedido='" + idPedido + "'";
         Statement stmt = con.createStatement();
         stmt.executeUpdate(update);
-        stmt.close();                
+        stmt.close();   
+        desconectar();
     }
     
     public void entregarPedido(int idPedido, boolean entregado) throws SQLException{
+    	try {
+			conectar();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+    	
         String update = "update PEDIDOS set entregado=" + entregado + " where idPedido='" + idPedido + "'";
         Statement stmt = con.createStatement();
         stmt.executeUpdate(update);
-        stmt.close();                
+        stmt.close();      
+        desconectar();
     }
     
     public void borrarPedido(int idPedido) throws SQLException{
+    	try {
+			conectar();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+    	
        	String delete = "delete from PEDIDOS where idPedido='" + idPedido + "'";
         Statement stmt = con.createStatement();
         stmt.executeUpdate(delete);
-        stmt.close();	                  
+        stmt.close();	  
+        desconectar();
     }
 
     public void borrarPedidos() throws SQLException{
+    	try {
+			conectar();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+    	
        	String delete = "delete from PEDIDOS";
         Statement stmt = con.createStatement();
         stmt.executeUpdate(delete);
-        stmt.close();	                  
+        stmt.close();		  
+        desconectar();                  
     }
 
     public int contarPedidos() throws SQLException{
+    	try {
+			conectar();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+    	
     	String count = "select count(*) from PEDIDOS";
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(count);
         rs.next();
         int numFilas = rs.getInt(1);
         rs.close();
-        stmt.close();      
+        stmt.close();    	  
+        desconectar();  
         return numFilas;
     }
 
-    public Elemento obtenerElemento(int idElemento) throws SQLException{        
+    public Elemento obtenerElemento(int idElemento) throws SQLException{    
+    	try {
+			conectar();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+    	
         Elemento elemento = null;
     	String select = "select * from ELEMENTOS where idElemento=" + idElemento;
         Statement stmt = con.createStatement();
@@ -338,10 +471,17 @@ public class GestorBD {
         	elemento.setPedido(rs.getInt("pedido"));
         }
         rs.close();
-        stmt.close();  
+        stmt.close();  	  
+        desconectar();
         return elemento;
     }    
-    public Vector<Elemento> obtenerElementos() throws SQLException{        
+    public Vector<Elemento> obtenerElementos() throws SQLException{    
+    	try {
+			conectar();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+    	
         Vector<Elemento> elementos = new Vector<Elemento>();
     	String select = "select * from ELEMENTOS order by cantidad desc";
         Statement stmt = con.createStatement();
@@ -356,10 +496,17 @@ public class GestorBD {
         	elementos.add(elemento);
         }
         rs.close();
-        stmt.close();  
+        stmt.close();  	  
+        desconectar();
         return elementos;
     }    
     public Vector<Elemento> obtenerElementosPedido(int pedido) throws SQLException{        
+    	try {
+			conectar();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+    	
         Vector<Elemento> elementos = new Vector<Elemento>();
     	String select = "select * from ELEMENTOS where pedido=" + pedido + " order by cantidad desc";
         Statement stmt = con.createStatement();
@@ -374,11 +521,18 @@ public class GestorBD {
         	elementos.add(elemento);
         }
         rs.close();
-        stmt.close();  
+        stmt.close();  	  
+        desconectar();
         return elementos;
     }
 
-    public Vector<Elemento> obtenerElementosCliente(String dni) throws SQLException{        
+    public Vector<Elemento> obtenerElementosCliente(String dni) throws SQLException{   
+    	try {
+			conectar();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+    	
         Vector<Elemento> elementos = new Vector<Elemento>();
     	String select = "select * from ELEMENTOS as E, PEDIDOS as P where e.pedido=p.idPedido and p.dni='" + dni + "' order by e.pedido, e.cantidad desc";
         Statement stmt = con.createStatement();
@@ -393,11 +547,18 @@ public class GestorBD {
         	elementos.add(elemento);
         }
         rs.close();
-        stmt.close();  
+        stmt.close();  	  
+        desconectar();
         return elementos;
     }
     
-    public int insertarElemento(Elemento elemento) throws SQLException{
+    public void insertarElemento(Elemento elemento) throws SQLException{
+    	try {
+			conectar();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+    	
         String insert = "insert into ELEMENTOS " +
                         "(cantidad, nombre, importe, pedido) " +
                         "VALUES ('" + elemento.getCantidad() +
@@ -407,20 +568,17 @@ public class GestorBD {
         Statement stmt = con.createStatement();
         stmt.executeUpdate(insert);
         stmt.close();
+        desconectar();
         
-        String max = "select MAX(idElemento) as id from ELEMENTOS";
-        Statement stmt1 = con.createStatement();
-        ResultSet rs = stmt1.executeQuery(max);
-        int id = 0;
-        if (rs.next()){
-        	id = rs.getInt("id");
-        }
-        stmt1.close();
-        elemento.setIdElemento(id);
-        return id;
     }
     
     public void actualizarElemento(int idElemento, Elemento elemento) throws SQLException{
+    	try {
+			conectar();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+    	
         String update = "update ELEMENTOS set idElemento=" + elemento.getIdElemento() + 
         				", cantidad='" + elemento.getCantidad() +
         				"', nombre='" + elemento.getNombre() +
@@ -429,35 +587,63 @@ public class GestorBD {
         				"' where idElemento=" + idElemento;
         Statement stmt = con.createStatement();
         stmt.executeUpdate(update);
-        stmt.close();                
+        stmt.close();    	  
+        desconectar();            
     }
     
     public void borrarElemento(int idElemento) throws SQLException{
+    	try {
+			conectar();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+    	
        	String delete = "delete from ELEMENTOS where idElemento=" + idElemento;
         Statement stmt = con.createStatement();
         stmt.executeUpdate(delete);
-        stmt.close();	                  
+        stmt.close();		  
+        desconectar();                  
     }
 
     public void borrarElementos() throws SQLException{
+    	try {
+			conectar();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+    	
        	String delete = "delete from ELEMENTOS";
         Statement stmt = con.createStatement();
         stmt.executeUpdate(delete);
-        stmt.close();	                  
+        stmt.close();		  
+        desconectar();                  
     }
 
     public int contarElementos() throws SQLException{
+    	try {
+			conectar();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+    	
     	String count = "select count(*) from ELEMENTOS";
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(count);
         rs.next();
         int numFilas = rs.getInt(1);
         rs.close();
-        stmt.close();      
+        stmt.close();    	  
+        desconectar();  
         return numFilas;
     }
   
-    public Restaurante obtenerRestaurante(String idRestaurante) throws SQLException{        
+    public Restaurante obtenerRestaurante(String idRestaurante) throws SQLException{  
+    	try {
+			conectar();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+    	
         Restaurante restaurante = null;
     	String select = "select * from RESTAURANTES where idRestaurante='" + idRestaurante + "'";
         Statement stmt = con.createStatement();
@@ -473,11 +659,18 @@ public class GestorBD {
         	restaurante.setOfertaActual(rs.getFloat("ofertaActual"));        	
         }
         rs.close();
-        stmt.close();  
+        stmt.close();  	  
+        desconectar();
         return restaurante;
     }
     
-    public Vector<Restaurante> obtenerRestaurantes() throws SQLException{        
+    public Vector<Restaurante> obtenerRestaurantes() throws SQLException{  
+    	try {
+			conectar();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+    	
         Vector<Restaurante> restaurantees = new Vector<Restaurante>();
     	String select = "select * from RESTAURANTES order by precioMedio desc";
         Statement stmt = con.createStatement();
@@ -494,11 +687,18 @@ public class GestorBD {
         	restaurantees.add(restaurante);
         }
         rs.close();
-        stmt.close();  
+        stmt.close();  	  
+        desconectar();
         return restaurantees;
     }
     
-    public Vector<Restaurante> obtenerRestaurantesPorNombre(String nombre) throws SQLException{        
+    public Vector<Restaurante> obtenerRestaurantesPorNombre(String nombre) throws SQLException{   
+    	try {
+			conectar();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+    	
         Vector<Restaurante> restaurantees = new Vector<Restaurante>();
     	String select = "select * from RESTAURANTES where nombre like '%" + nombre + "%' order by precioMedio desc";
         Statement stmt = con.createStatement();
@@ -515,11 +715,18 @@ public class GestorBD {
         	restaurantees.add(restaurante);
         }
         rs.close();
-        stmt.close();  
+        stmt.close();  	  
+        desconectar();
         return restaurantees;
     }
 
-    public Vector<Restaurante> obtenerRestaurantesPorTipoComida(String tipoComida) throws SQLException{        
+    public Vector<Restaurante> obtenerRestaurantesPorTipoComida(String tipoComida) throws SQLException{  
+    	try {
+			conectar();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+    	
         Vector<Restaurante> restaurantees = new Vector<Restaurante>();
     	String select = "select * from RESTAURANTES where tipoComida like '%" + tipoComida + "%' order by precioMedio desc";
         Statement stmt = con.createStatement();
@@ -536,11 +743,18 @@ public class GestorBD {
         	restaurantees.add(restaurante);
         }
         rs.close();
-        stmt.close();  
+        stmt.close();  	  
+        desconectar();
         return restaurantees;
     }
 
-    public Vector<Restaurante> obtenerRestaurantesPorPrecioMedio(float min, float max) throws SQLException{        
+    public Vector<Restaurante> obtenerRestaurantesPorPrecioMedio(float min, float max) throws SQLException{ 
+    	try {
+			conectar();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+    	
         Vector<Restaurante> restaurantees = new Vector<Restaurante>();
     	String select = "select * from RESTAURANTES where precioMedio >= " + min + " AND precioMedio <= " + max + " order by precioMedio desc";
         Statement stmt = con.createStatement();
@@ -557,7 +771,8 @@ public class GestorBD {
         	restaurantees.add(restaurante);
         }
         rs.close();
-        stmt.close();  
+        stmt.close();  	  
+        desconectar();
         return restaurantees;
     }
 
@@ -586,6 +801,12 @@ public class GestorBD {
     }
     
     public void actualizarRestaurante(String idRestaurante, Restaurante restaurante) throws SQLException{
+    	try {
+			conectar();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+    	
         String update = "update RESTAURANTES set idRestaurante='" + restaurante.getIdRestaurante() + 
         				"', nombre='" + restaurante.getNombre() +
         				"', tipoComida='" + restaurante.getTipoComida() +
@@ -596,31 +817,53 @@ public class GestorBD {
         				" where idRestaurante='" + idRestaurante + "'";
         Statement stmt = con.createStatement();
         stmt.executeUpdate(update);
-        stmt.close();                
+        stmt.close();      	  
+        desconectar();          
     }
     
     public void borrarRestaurante(String idRestaurante) throws SQLException{
+    	try {
+			conectar();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+    	
        	String delete = "delete from RESTAURANTES where idRestaurante='" + idRestaurante + "'";
         Statement stmt = con.createStatement();
         stmt.executeUpdate(delete);
-        stmt.close();	                  
+        stmt.close();		  
+        desconectar();                  
     }
 
     public void borrarRestaurantes() throws SQLException{
+    	try {
+			conectar();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+    	
        	String delete = "delete from RESTAURANTES";
         Statement stmt = con.createStatement();
         stmt.executeUpdate(delete);
-        stmt.close();	                  
+        stmt.close();		  
+        desconectar();                  
     }
 
     public int contarRestaurantes() throws SQLException{
+    	try {
+			conectar();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+    	
     	String count = "select count(*) from RESTAURANTES";
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(count);
         rs.next();
         int numFilas = rs.getInt(1);
         rs.close();
-        stmt.close();      
+        stmt.close();    	  
+        desconectar();  
         return numFilas;
     }
 }

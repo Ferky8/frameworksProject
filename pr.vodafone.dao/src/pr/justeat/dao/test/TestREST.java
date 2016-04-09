@@ -84,7 +84,7 @@ public class TestREST {
 		
 		// DELETE
 		try{
-			service.path("rest").path("clientes").path("3").delete();
+			service.path("rest").path("clientes").path("444").delete();
 			System.out.println("Cliente 3 deleted");
 		}catch(UniformInterfaceException e){
 			ClientResponse r = e.getResponse();
@@ -97,7 +97,7 @@ public class TestREST {
 			System.out.println("clientes.GET('application/json').results (directamente imprimiendo): ");
 			System.out.println(service.path("rest").path("clientes").accept(MediaType.APPLICATION_JSON).get(String.class));
 			// Get the summary of Cliente with id 1
-			//System.out.println(service.path("rest").path("clientes").path("1").path("summary").queryParam("param", "nada").accept(MediaType.TEXT_PLAIN).get(String.class));		
+			System.out.println(service.path("rest").path("clientes").path("111").path("pedidos").accept(MediaType.APPLICATION_JSON).get(String.class));		
 		}catch(UniformInterfaceException e){
 			ClientResponse r = e.getResponse();
 			System.out.println("clientes.GET.status: " + r.getStatus());

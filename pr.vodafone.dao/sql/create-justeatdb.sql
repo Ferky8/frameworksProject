@@ -71,12 +71,12 @@ DROP TABLE IF EXISTS `elementos`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `elementos` (
-  `idFactura` int(11) NOT NULL auto_increment,
+  `idElemento` int(11) NOT NULL auto_increment,
   `cantidad` int(3) NOT NULL,
   `nombre` varchar(45) default NULL,
   `importe` float NOT NULL,
   `pedido` int(11) NOT NULL,
-  PRIMARY KEY  (`idFactura`),
+  PRIMARY KEY  (`idElemento`),
   KEY `pedido` (`pedido`),
   CONSTRAINT `pedido` FOREIGN KEY (`pedido`) REFERENCES `pedidos` (`idPedido`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;

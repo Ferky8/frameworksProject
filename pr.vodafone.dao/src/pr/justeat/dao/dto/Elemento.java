@@ -1,5 +1,8 @@
 package pr.justeat.dao.dto;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class Elemento {
 	private int idElemento;
 	private int cantidad;
