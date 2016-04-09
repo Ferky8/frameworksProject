@@ -14,6 +14,9 @@ import javax.swing.WindowConstants;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+
+import pr.justeat.dao.dto.xsd.Cliente;
+
 import javax.swing.SwingUtilities;
 
 
@@ -59,6 +62,7 @@ public class VRestPedidos extends javax.swing.JFrame {
 	private JPanel jPanel3;
 	private JPanel jPanel2;
 	private JLabel jLabel1;
+	private Cliente c;
 
 	/**
 	* Auto-generated main method to display this JFrame
@@ -66,15 +70,16 @@ public class VRestPedidos extends javax.swing.JFrame {
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				VRestPedidos inst = new VRestPedidos();
+				VRestPedidos inst = new VRestPedidos(null);
 				inst.setLocationRelativeTo(null);
 				inst.setVisible(true);
 			}
 		});
 	}
 	
-	public VRestPedidos() {
+	public VRestPedidos(Cliente c) {
 		super();
+		this.c = c;
 		initGUI();
 	}
 	
@@ -117,28 +122,28 @@ public class VRestPedidos extends javax.swing.JFrame {
 				{
 					labelDNI = new JLabel();
 					jPanel1.add(labelDNI);
-					labelDNI.setText("xxxxxxxxxx");
+					labelDNI.setText(c != null ? c.getDni() : "xxxxxxxxxx");
 					labelDNI.setBounds(80, 22, 263, 16);
 					labelDNI.setFont(new java.awt.Font("Segoe UI",1,12));
 				}
 				{
 					labelNombre = new JLabel();
 					jPanel1.add(labelNombre);
-					labelNombre.setText("xxxxxxxxxx");
+					labelNombre.setText(c != null ? c.getNombre() : "xxxxxxxxxx");
 					labelNombre.setBounds(80, 44, 263, 16);
 					labelNombre.setFont(new java.awt.Font("Segoe UI",1,12));
 				}
 				{
 					labelDireccion = new JLabel();
 					jPanel1.add(labelDireccion);
-					labelDireccion.setText("xxxxxxxxxx");
+					labelDireccion.setText(c != null ? c.getDireccion() : "xxxxxxxxxx");
 					labelDireccion.setBounds(80, 66, 263, 16);
 					labelDireccion.setFont(new java.awt.Font("Segoe UI",1,12));
 				}
 				{
 					labelEmail = new JLabel();
 					jPanel1.add(labelEmail);
-					labelEmail.setText("xxxxxxxxxx");
+					labelEmail.setText(c != null ? c.getEmail() : "xxxxxxxxxx");
 					labelEmail.setBounds(80, 89, 263, 16);
 					labelEmail.setFont(new java.awt.Font("Segoe UI",1,12));
 				}

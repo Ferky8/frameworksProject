@@ -2,6 +2,7 @@ package pr.justeat.rest.gui;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URI;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -20,11 +21,13 @@ import javax.ws.rs.core.UriBuilder;
 
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.GenericType;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 
 import pr.justeat.dao.dto.xsd.Cliente;
+import pr.justeat.dao.dto.xsd.Restaurante;
 
 import javax.swing.SwingUtilities;
 
@@ -65,6 +68,7 @@ public class VRestClientes extends javax.swing.JFrame {
 	private JTextField cajaDniBuscar;
 	private JLabel jLabel1;
 	private WebResource service;
+	private List<Cliente> clientes;
 
 	/**
 	* Auto-generated main method to display this JFrame
@@ -166,7 +170,7 @@ public class VRestClientes extends javax.swing.JFrame {
 						public void actionPerformed(ActionEvent evt) {
 							System.out.println("botonLineas.actionPerformed, event="+evt);
 							//TODO add your code for botonLineas.actionPerformed
-							botonVerLineas();
+							botonVerPedidos();
 						}
 					});
 				}
@@ -285,22 +289,115 @@ public class VRestClientes extends javax.swing.JFrame {
 	
 	private void botonBuscar(){
 		Cliente c = service.path("rest").path("clientes").path(cajaDniBuscar.getText()).accept(MediaType.APPLICATION_JSON).get(Cliente.class);
-		System.out.println(c.getNombre());
+		
+		DefaultTableModel jTable1Model = 
+        		new DefaultTableModel() {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				//All cells can`t be edited
+				return false;
+			}
+		};
+		
+		jTable1Model.addColumn("DNI");
+		jTable1Model.addColumn("Nombre");
+		jTable1Model.addColumn("Dirección");
+		jTable1Model.addColumn("Email");
+        
+    	Object[] fila = new Object[4];
+    	fila[0] = c.getDni();
+    	fila[1] = c.getNombre();
+    	fila[2] = c.getDireccion();
+    	fila[3] = c.getEmail();
+    	jTable1Model.addRow(fila);
+        
+        tablaClientes.setModel(jTable1Model);
 	}
 	private void botonTodos(){
+		clientes = null;
+		ClientResponse cr = service.path("rest").path("clientes").accept(MediaType.APPLICATION_JSON).get(ClientResponse.class);
+		if (cr.getStatus() == 200){
+			System.out.println("clientes.GET('application/json').status: " + cr.getStatus());
+			System.out.println("clientes.GET('application/json').results (con una LIST): ");
+			clientes = cr.getEntity(new GenericType<List<Cliente>>(){}); 		
+		}else{
+			System.out.println("clientes.GET('application/json').status: " + cr.getStatus());
+			System.out.println("clientes.GET('application/json').entity: " + cr.getEntity(String.class));
+		}
 		
+		DefaultTableModel jTable1Model = 
+        		new DefaultTableModel() {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				//All cells can`t be edited
+				return false;
+			}
+		};
+		
+		jTable1Model.addColumn("DNI");
+		jTable1Model.addColumn("Nombre");
+		jTable1Model.addColumn("Dirección");
+		jTable1Model.addColumn("Email"); 
+        
+        for(Cliente c : clientes) {
+        	Object[] fila = new Object[4];
+        	fila[0] = c.getDni();
+        	fila[1] = c.getNombre();
+        	fila[2] = c.getDireccion();
+        	fila[3] = c.getEmail();
+        	jTable1Model.addRow(fila);
+        }
+        
+        tablaClientes.setModel(jTable1Model);
 	}
 	private void botonEditar(){
+		int clienteRow = tablaClientes.getSelectedRow();
 		
+		Cliente c = clientes.get(clienteRow);
+		cajaDni.setText(c.getDni());
+		cajaNombre.setText(c.getNombre());
+		cajaDireccion.setText(c.getDireccion());
+		cajaEmail.setText(c.getEmail());
 	}
-	private void botonVerLineas(){
+	private void botonVerPedidos(){
 		
 	}
 	private void botonNuevo(){
-		
+		cajaDni.setText("");
+		cajaNombre.setText("");
+		cajaDireccion.setText("");
+		cajaEmail.setText("");
 	}
 	private void botonGuardar(){
+		Cliente c = new Cliente();
+		c.setDni(cajaDni.getText());
+		c.setNombre(cajaNombre.getText());
+		c.setDireccion(cajaDireccion.getText());
+		c.setEmail(cajaEmail.getText());
 		
+		ClientResponse cr = service.path("rest").path("clientes").type(MediaType.APPLICATION_XML).accept(MediaType.APPLICATION_JSON).post(ClientResponse.class, c);
+		if (cr.getStatus() == 201){ // Return code should be 201 == created resource
+			System.out.println("clientes.POST('application/xml').status: " + cr.getStatus());
+			System.out.println("clientes.POST('application/xml').location: " + cr.getLocation());
+			
+		}else{ // Or code 409 == resource already exists 
+			System.out.println("clientes.POST('application/xml').status: " + cr.getStatus());
+			System.out.println("clientes.POST('application/xml').entity: " + cr.getEntity(String.class));
+			ClientResponse cr2 = service.path("rest").path("clientes").path(c.getDni()).type(MediaType.APPLICATION_XML).accept(MediaType.APPLICATION_XML).put(ClientResponse.class, c);
+			if (cr2.getStatus() == 201){
+				System.out.println("clientes.{id}.PUT('application/xml').status: " + cr2.getStatus());
+				System.out.println("clientes.{id}.PUT('application/xml').location: " + cr2.getLocation());
+			}else if (cr2.getStatus() == 204){
+					System.out.println("clientes.{id}.PUT('application/xml').status: " + cr2.getStatus());
+			}else{
+				System.out.println("clientes.{id}.PUT('application/xml').status: " + cr2.getStatus());
+				System.out.println("clientes.{id}.PUT('application/xml').entity: " + cr2.getEntity(String.class));
+			}
+		}
 	}
 	private void botonSalir(){
 		System.exit(0);
