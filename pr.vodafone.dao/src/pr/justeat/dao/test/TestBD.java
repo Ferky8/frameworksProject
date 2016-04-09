@@ -10,7 +10,7 @@ import pr.justeat.dao.dto.Elemento;
 import pr.justeat.dao.dto.Pedido;
 import pr.justeat.dao.dto.Restaurante;
 
-public class Test {
+public class TestBD {
 
 	public void testClientes(){
 		GestorBD gbd = new GestorBD();
@@ -232,7 +232,7 @@ public class Test {
 
     
     public static void main(String[] args) {
-        Test test = new Test();
+        TestBD test = new TestBD();
         test.testClientes();
         test.testPedidos();
         //test.testElementos();

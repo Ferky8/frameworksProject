@@ -18,12 +18,12 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import pr.justeat.dao.GestorBD;
-import pr.justeat.dao.dto.Cliente;
+import pr.justeat.dao.dto.Pedido;
 
 
 // Will map the resource to the URL todos
-@Path("/clientes")
-public class ClientesResource {
+@Path("/pedidos")
+public class PedidosResource {
 	// Allows to insert contextual objects into the class, 
 	// e.g. ServletContext, Request, Response, UriInfo
 	@Context
@@ -34,10 +34,10 @@ public class ClientesResource {
 	// Return the list of todos for applications
 	@GET
 	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-	public List<Cliente> getClientes() throws SQLException {
-		List<Cliente> clientes = new ArrayList<Cliente>();
-		clientes.addAll( GestorBD.getInstance().obtenerClientes() );
-		return clientes; 
+	public List<Pedido> getPedidos() throws SQLException {
+		List<Pedido> pedidos = new ArrayList<Pedido>();
+		pedidos.addAll( GestorBD.getInstance().obtenerPedidos() );
+		return pedidos; 
 	}
 	
 	// returns the number of todos
@@ -47,20 +47,20 @@ public class ClientesResource {
 	@Path("count")
 	@Produces(MediaType.TEXT_PLAIN)
 	public String getCount() throws SQLException {
-		int count = GestorBD.getInstance().contarClientes();
+		int count = GestorBD.getInstance().contarPedidos();
 		return String.valueOf(count);
 	}
 	
 	@POST
 	@Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-	public Response newCliente(Cliente cliente) throws SQLException {
+	public Response newPedido(Pedido pedido) throws SQLException {
 		Response res;
-		if(GestorBD.getInstance().obtenerCliente(cliente.getDni()) != null) {
-			res = Response.status(409).entity("Post: Cliente with " + cliente.getDni() +  " already exists").build();
+		if(GestorBD.getInstance().obtenerPedido(pedido.getIdPedido()) != null) {
+			res = Response.status(409).entity("Post: Pedido with " + pedido.getIdPedido() +  " already exists").build();
 		}else{
-			URI uri = uriInfo.getAbsolutePathBuilder().path(cliente.getDni()).build();
-			res = Response.created(uri).entity(cliente).build(); // Code: 201
-			GestorBD.getInstance().insertarCliente(cliente);;
+			URI uri = uriInfo.getAbsolutePathBuilder().path(Integer.toString(pedido.getIdPedido())).build();
+			res = Response.created(uri).entity(pedido).build(); // Code: 201
+			GestorBD.getInstance().insertarPedido(pedido);;
 		}		
 		return res;
 	}
@@ -69,9 +69,9 @@ public class ClientesResource {
 	// treated as a parameter and passed to the TodoResources
 	// Allows to type http://localhost:8080/de.vogella.jersey.todo/rest/todos/1
 	// 1 will be treaded as parameter todo and passed to TodoResource
-	@Path("{cliente}")
-	public ClienteResource getCliente(
-			@PathParam("cliente") String dni) throws SQLException {
-		return new ClienteResource(dni);
+	@Path("{pedido}")
+	public PedidoResource getPedido(
+			@PathParam("pedido") int id) throws SQLException {
+		return new PedidoResource(id);
 	}
 }

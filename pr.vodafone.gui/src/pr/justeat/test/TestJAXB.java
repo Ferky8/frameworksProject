@@ -18,7 +18,7 @@ import pr.justeat.sw.RestauranteList;
 
 //xjc files\po.xsd -p mdiss.jaxb.example2.primer.po -d src
 
-public class Test {
+public class TestJAXB {
     
     // This sample application demonstrates how to modify a java content
     // tree and marshal it back to a xml data
