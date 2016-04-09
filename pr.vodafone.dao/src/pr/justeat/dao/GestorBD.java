@@ -2,6 +2,7 @@ package pr.justeat.dao;
 
 import java.sql.*;
 import java.util.Base64.Decoder;
+
 import java.util.Vector;
 
 import pr.justeat.dao.dto.Cliente;
@@ -9,9 +10,10 @@ import pr.justeat.dao.dto.Elemento;
 import pr.justeat.dao.dto.Pedido;
 import pr.justeat.dao.dto.Restaurante;
 
-
 public class GestorBD {
 
+	public static GestorBD instance;	
+	
 	private Connection con;
     
     private String dataSource = "//localhost/justeat";
@@ -20,7 +22,20 @@ public class GestorBD {
     private String driver = "com.mysql.jdbc.Driver";
     private String protocol = "jdbc:mysql";    
     
+    
+    public static GestorBD getInstance(){
+		if (instance == null) instance = new GestorBD();
+		return instance;
+	}
+    
     public GestorBD(){
+    	try {
+			instance.conectar();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
     }
     
     public GestorBD(String dataSource, String username, String password){

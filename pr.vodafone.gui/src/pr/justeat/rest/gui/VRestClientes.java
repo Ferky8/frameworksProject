@@ -39,7 +39,7 @@ public class VRestClientes extends javax.swing.JFrame {
 	private JButton botonGuardar;
 	private JButton botonNuevo;
 	private JButton botonEditar;
-	private JButton botonLineas;
+	private JButton botonPedidos;
 	private JTable tablaClientes;
 	private JScrollPane jScrollPane1;
 	private JLabel jLabel8;
@@ -141,11 +141,11 @@ public class VRestClientes extends javax.swing.JFrame {
 					}
 				}
 				{
-					botonLineas = new JButton();
-					jPanel2.add(botonLineas);
-					botonLineas.setText("Ver Líneas...");
-					botonLineas.setBounds(250, 113, 98, 23);
-					botonLineas.addActionListener(new ActionListener() {
+					botonPedidos = new JButton();
+					jPanel2.add(botonPedidos);
+					botonPedidos.setText("Pedidos...");
+					botonPedidos.setBounds(250, 113, 98, 23);
+					botonPedidos.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent evt) {
 							System.out.println("botonLineas.actionPerformed, event="+evt);
 							//TODO add your code for botonLineas.actionPerformed

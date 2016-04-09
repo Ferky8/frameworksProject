@@ -29,16 +29,16 @@ import javax.swing.SwingUtilities;
 * THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
 * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
 */
-public class VRestLineas extends javax.swing.JFrame {
+public class VRestPedidos extends javax.swing.JFrame {
 	private JPanel jPanel1;
-	private JCheckBox checkActiva;
+	private JCheckBox checkEntregado;
 	private JLabel labelEmail;
 	private JLabel labelDireccion;
 	private JLabel labelNombre;
-	private JTextField cajaTelefono;
-	private JLabel jLabel3;
-	private JLabel jLabel4;
-	private JLabel jLabel5;
+	private JTextField cajaRestaurante;
+	private JLabel jLabelRestaurante;
+	private JLabel jLabelTipoEntrega;
+	private JLabel jLabelFecha;
 	private JLabel labelDNI;
 	private JTextField cajaPromocion;
 	private JLabel jLabel9;
@@ -49,13 +49,13 @@ public class VRestLineas extends javax.swing.JFrame {
 	private JButton botonGuardar;
 	private JButton botonNueva;
 	private JButton botonEditar;
-	private JButton botonFacturas;
+	private JButton botonElementos;
 	private JTable tablaLineas;
 	private JScrollPane jScrollPane1;
-	private JLabel jLabel8;
-	private JTextField cajaDatos;
-	private JTextField cajaVoz;
-	private JTextField cajaAntiguedad;
+	private JLabel jLabelTipoPago;
+	private JTextField cajaTipoPago;
+	private JTextField cajaTipoEntrega;
+	private JTextField cajaFecha;
 	private JPanel jPanel3;
 	private JPanel jPanel2;
 	private JLabel jLabel1;
@@ -66,14 +66,14 @@ public class VRestLineas extends javax.swing.JFrame {
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				VRestLineas inst = new VRestLineas();
+				VRestPedidos inst = new VRestPedidos();
 				inst.setLocationRelativeTo(null);
 				inst.setVisible(true);
 			}
 		});
 	}
 	
-	public VRestLineas() {
+	public VRestPedidos() {
 		super();
 		initGUI();
 	}
@@ -82,7 +82,7 @@ public class VRestLineas extends javax.swing.JFrame {
 		try {
 			setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 			getContentPane().setLayout(null);
-			this.setTitle("Gestión de Lineas");
+			this.setTitle("Gestión de Pedidos");
 			{
 				jPanel1 = new JPanel();
 				getContentPane().add(jPanel1);
@@ -149,7 +149,7 @@ public class VRestLineas extends javax.swing.JFrame {
 				jPanel2.setFont(new java.awt.Font("Dialog",0,8));
 				jPanel2.setBounds(13, 140, 360, 145);
 				jPanel2.setLayout(null);
-				jPanel2.setBorder(BorderFactory.createTitledBorder(null, "Líneas Contratadas", TitledBorder.LEADING, TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI",1,10), new java.awt.Color(0,0,0)));
+				jPanel2.setBorder(BorderFactory.createTitledBorder(null, "Pedidos Realizados", TitledBorder.LEADING, TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI",1,10), new java.awt.Color(0,0,0)));
 				{
 					jScrollPane1 = new JScrollPane();
 					jPanel2.add(jScrollPane1);
@@ -157,18 +157,18 @@ public class VRestLineas extends javax.swing.JFrame {
 					{
 						TableModel jTable1Model = 
 							new DefaultTableModel(
-									new String[] { "Teléfono", "Antiguedad", "Activa", "Promoción" }, 2);
+									new String[] { "Restaurante", "Fecha", "Entregado", "Promoción" }, 2);
 						tablaLineas = new JTable();
 						jScrollPane1.setViewportView(tablaLineas);
 						tablaLineas.setModel(jTable1Model);
 					}
 				}
 				{
-					botonFacturas = new JButton();
-					jPanel2.add(botonFacturas);
-					botonFacturas.setText("Ver Facturas...");
-					botonFacturas.setBounds(234, 113, 114, 23);
-					botonFacturas.addActionListener(new ActionListener() {
+					botonElementos = new JButton();
+					jPanel2.add(botonElementos);
+					botonElementos.setText("Ver Elementos...");
+					botonElementos.setBounds(234, 113, 114, 23);
+					botonElementos.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent evt) {
 							System.out.println("botonFacturas.actionPerformed, event="+evt);
 							//TODO add your code for botonFacturas.actionPerformed
@@ -198,48 +198,48 @@ public class VRestLineas extends javax.swing.JFrame {
 				jPanel3.setLayout(null);
 				jPanel3.setBorder(BorderFactory.createTitledBorder(null, "Edición", TitledBorder.LEADING, TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI",1,10), new java.awt.Color(0,0,0)));
 				{
-					jLabel3 = new JLabel();
-					jPanel3.add(jLabel3);
-					jLabel3.setText("Telefono:");
-					jLabel3.setBounds(10, 24, 64, 16);
+					jLabelRestaurante = new JLabel();
+					jPanel3.add(jLabelRestaurante);
+					jLabelRestaurante.setText("Restaurante:");
+					jLabelRestaurante.setBounds(10, 24, 64, 16);
 				}
 				{
-					cajaTelefono = new JTextField();
-					jPanel3.add(cajaTelefono);
-					cajaTelefono.setBounds(86, 21, 87, 23);
+					cajaRestaurante = new JTextField();
+					jPanel3.add(cajaRestaurante);
+					cajaRestaurante.setBounds(86, 21, 87, 23);
 				}
 				{
-					cajaAntiguedad = new JTextField();
-					jPanel3.add(cajaAntiguedad);
-					cajaAntiguedad.setBounds(86, 50, 87, 23);
+					cajaFecha = new JTextField();
+					jPanel3.add(cajaFecha);
+					cajaFecha.setBounds(86, 50, 87, 23);
 				}
 				{
-					jLabel5 = new JLabel();
-					jPanel3.add(jLabel5);
-					jLabel5.setText("Antiguedad:");
-					jLabel5.setBounds(10, 53, 71, 16);
+					jLabelFecha = new JLabel();
+					jPanel3.add(jLabelFecha);
+					jLabelFecha.setText("Fecha:");
+					jLabelFecha.setBounds(10, 53, 71, 16);
 				}
 				{
-					jLabel4 = new JLabel();
-					jPanel3.add(jLabel4);
-					jLabel4.setText("Tarifa voz:");
-					jLabel4.setBounds(10, 81, 71, 16);
+					jLabelTipoEntrega = new JLabel();
+					jPanel3.add(jLabelTipoEntrega);
+					jLabelTipoEntrega.setText("Tipo Entrega:");
+					jLabelTipoEntrega.setBounds(10, 81, 71, 16);
 				}
 				{
-					cajaVoz = new JTextField();
-					jPanel3.add(cajaVoz);
-					cajaVoz.setBounds(85, 78, 263, 23);
+					cajaTipoEntrega = new JTextField();
+					jPanel3.add(cajaTipoEntrega);
+					cajaTipoEntrega.setBounds(85, 78, 263, 23);
 				}
 				{
-					cajaDatos = new JTextField();
-					jPanel3.add(cajaDatos);
-					cajaDatos.setBounds(85, 107, 263, 23);
+					cajaTipoPago = new JTextField();
+					jPanel3.add(cajaTipoPago);
+					cajaTipoPago.setBounds(85, 107, 263, 23);
 				}
 				{
-					jLabel8 = new JLabel();
-					jPanel3.add(jLabel8);
-					jLabel8.setText("Tarifa datos:");
-					jLabel8.setBounds(10, 110, 71, 16);
+					jLabelTipoPago = new JLabel();
+					jPanel3.add(jLabelTipoPago);
+					jLabelTipoPago.setText("Tipo Pago:");
+					jLabelTipoPago.setBounds(10, 110, 71, 16);
 				}
 				{
 					botonNueva = new JButton();
@@ -279,10 +279,10 @@ public class VRestLineas extends javax.swing.JFrame {
 					cajaPromocion.setBounds(87, 135, 261, 23);
 				}
 				{
-					checkActiva = new JCheckBox();
-					jPanel3.add(checkActiva);
-					checkActiva.setText("Activa ");
-					checkActiva.setBounds(197, 51, 69, 20);
+					checkEntregado = new JCheckBox();
+					jPanel3.add(checkEntregado);
+					checkEntregado.setText("Entregado");
+					checkEntregado.setBounds(197, 51, 69, 20);
 				}
 			}
 			{

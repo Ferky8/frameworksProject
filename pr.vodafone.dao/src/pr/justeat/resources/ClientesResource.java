@@ -1,6 +1,7 @@
 package pr.justeat.resources;
 
 import java.net.URI;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +17,7 @@ import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
+import pr.justeat.dao.GestorBD;
 import pr.justeat.dao.dto.Cliente;
 
 
@@ -32,10 +34,10 @@ public class ClientesResource {
 	// Return the list of todos for applications
 	@GET
 	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-	public List<Cliente> getTodos() {
-		List<Cliente> todos = new ArrayList<Cliente>();
-		todos.addAll( TodoDao.instance().getModel().values() );
-		return todos; 
+	public List<Cliente> getClientes() throws SQLException {
+		List<Cliente> clientes = new ArrayList<Cliente>();
+		clientes.addAll( GestorBD.getInstance().obtenerClientes() );
+		return clientes; 
 	}
 	
 	// returns the number of todos
@@ -44,21 +46,21 @@ public class ClientesResource {
 	@GET
 	@Path("count")
 	@Produces(MediaType.TEXT_PLAIN)
-	public String getCount() {
-		int count = TodoDao.instance().getModel().size();
+	public String getCount() throws SQLException {
+		int count = GestorBD.getInstance().contarClientes();
 		return String.valueOf(count);
 	}
 	
 	@POST
 	@Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-	public Response newCliente(Cliente cliente) {
+	public Response newCliente(Cliente cliente) throws SQLException {
 		Response res;
-		if(TodoDao.instance().getModel().containsKey(cliente.getId())) {
-			res = Response.status(409).entity("Post: Cliente with " + cliente.getId() +  " already exists").build();
+		if(GestorBD.getInstance().obtenerCliente(cliente.getDni()) != null) {
+			res = Response.status(409).entity("Post: Cliente with " + cliente.getDni() +  " already exists").build();
 		}else{
-			URI uri = uriInfo.getAbsolutePathBuilder().path(cliente.getId()).build();
+			URI uri = uriInfo.getAbsolutePathBuilder().path(cliente.getDni()).build();
 			res = Response.created(uri).entity(cliente).build(); // Code: 201
-			TodoDao.instance().getModel().put(cliente.getId(), cliente);
+			GestorBD.getInstance().insertarCliente(cliente);;
 		}		
 		return res;
 	}
@@ -69,7 +71,7 @@ public class ClientesResource {
 	// 1 will be treaded as parameter todo and passed to TodoResource
 	@Path("{cliente}")
 	public ClienteResource getCliente(
-			@PathParam("cliente") String id) {
-		return new ClienteResource(id);
+			@PathParam("cliente") String dni) {
+		return new ClienteResource(dni);
 	}
 }

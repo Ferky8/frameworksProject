@@ -10,7 +10,6 @@ import pr.justeat.dao.dto.Elemento;
 import pr.justeat.dao.dto.Pedido;
 import pr.justeat.dao.dto.Restaurante;
 
-
 public class Test {
 
 	public void testClientes(){

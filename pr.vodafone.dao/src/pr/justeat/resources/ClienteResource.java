@@ -1,5 +1,9 @@
 package pr.justeat.resources;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -14,47 +18,50 @@ import javax.ws.rs.core.UriInfo;
 
 import com.sun.jersey.api.NotFoundException;
 
+import pr.justeat.dao.GestorBD;
 import pr.justeat.dao.dto.Cliente;
+import pr.justeat.dao.dto.Pedido;
 
 public class ClienteResource {
 	
-	private String id;
+	private String dni;
 	
-	public ClienteResource(String id) {
-		this.id = id;
-		if(!TodoDao.instance().getModel().containsKey(id)) throw new NotFoundException("Get: Todo with " + id +  " not found");
+	public ClienteResource(String dni) throws SQLException {
+		this.dni = dni;
+		if(GestorBD.getInstance().obtenerCliente(dni) == null) throw new NotFoundException("Get: Cliente with " + dni +  " not found");
 	}
 			
 	@GET
 	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-	public Cliente getTodo() {
-		Cliente cliente = TodoDao.instance().getModel().get(id);
+	public Cliente getCliente() throws SQLException {
+		Cliente cliente = GestorBD.getInstance().obtenerCliente(dni);
 		return cliente;
 	}
 	
 	@PUT
 	@Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-	public Response putTodo(@Context UriInfo uriInfo, Cliente cliente) {
+	public Response putCliente(@Context UriInfo uriInfo, Cliente cliente) throws SQLException {
 		Response res;
-		if (!id.equals(cliente.getId())){
-			res = Response.status(409).entity("Put: Todo with " + cliente.getId() +  " does not match with current todo").build();
+		if (!dni.equals(cliente.getDni())){
+			res = Response.status(409).entity("Put: Cliente with " + cliente.getDni() +  " does not match with current cliente").build();
 		}else{
 			res = Response.noContent().build(); // Code: 204
-			TodoDao.instance().getModel().put(cliente.getId(), cliente);
+			GestorBD.getInstance().actualizarCliente(dni, cliente);
 		}
 		return res;
 	}
 	
 	@DELETE
-	public void deleteTodo() {
-		TodoDao.instance().getModel().remove(id);
+	public void deleteCliente() throws SQLException {
+		GestorBD.getInstance().borrarCliente(dni);
 	}
 		
 	@GET
-	@Path("summary")
-	@Produces(MediaType.TEXT_PLAIN)
-	public String summary(@QueryParam("param") String param) {
-		Cliente cliente = TodoDao.instance().getModel().get(id);
-		return cliente.getSummary() + " y el parametro recibido (" + param + ")";
+	@Path("pedidos")
+	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+	public List<Pedido> pedidos() throws SQLException {
+		List<Pedido> pedidos = new ArrayList<Pedido>();
+		pedidos.addAll( GestorBD.getInstance().obtenerPedidosCliente(dni) );
+		return pedidos; 
 	}
 }
