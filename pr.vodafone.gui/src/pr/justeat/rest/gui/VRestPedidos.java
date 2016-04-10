@@ -1,6 +1,9 @@
 package pr.justeat.rest.gui;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URI;
+import java.util.List;
+
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -14,8 +17,18 @@ import javax.swing.WindowConstants;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.UriBuilder;
+
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.GenericType;
+import com.sun.jersey.api.client.WebResource;
+import com.sun.jersey.api.client.config.ClientConfig;
+import com.sun.jersey.api.client.config.DefaultClientConfig;
 
 import pr.justeat.rest.entity.Cliente;
+import pr.justeat.rest.entity.Pedido;
 
 import javax.swing.SwingUtilities;
 
@@ -33,6 +46,9 @@ import javax.swing.SwingUtilities;
 * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
 */
 public class VRestPedidos extends javax.swing.JFrame {
+	
+	private static final long serialVersionUID = 1L;
+	
 	private JPanel jPanel1;
 	private JCheckBox checkEntregado;
 	private JLabel labelEmail;
@@ -53,7 +69,7 @@ public class VRestPedidos extends javax.swing.JFrame {
 	private JButton botonNueva;
 	private JButton botonEditar;
 	private JButton botonElementos;
-	private JTable tablaLineas;
+	private JTable tablaPedidos;
 	private JScrollPane jScrollPane1;
 	private JLabel jLabelTipoPago;
 	private JTextField cajaTipoPago;
@@ -62,7 +78,10 @@ public class VRestPedidos extends javax.swing.JFrame {
 	private JPanel jPanel3;
 	private JPanel jPanel2;
 	private JLabel jLabel1;
+	private WebResource service;
 	private Cliente c;
+	private List<Pedido> pedidos;
+	private Pedido sp;
 
 	/**
 	* Auto-generated main method to display this JFrame
@@ -80,6 +99,9 @@ public class VRestPedidos extends javax.swing.JFrame {
 	public VRestPedidos(Cliente c) {
 		super();
 		this.c = c;
+		ClientConfig config = new DefaultClientConfig();
+		Client client = Client.create(config);
+		service = client.resource(getBaseURI());
 		initGUI();
 	}
 	
@@ -160,12 +182,9 @@ public class VRestPedidos extends javax.swing.JFrame {
 					jPanel2.add(jScrollPane1);
 					jScrollPane1.setBounds(12, 24, 336, 84);
 					{
-						TableModel jTable1Model = 
-							new DefaultTableModel(
-									new String[] { "Restaurante", "Fecha", "Entregado", "Promoción" }, 2);
-						tablaLineas = new JTable();
-						jScrollPane1.setViewportView(tablaLineas);
-						tablaLineas.setModel(jTable1Model);
+						tablaPedidos = new JTable();
+						jScrollPane1.setViewportView(tablaPedidos);
+						cargarTablaPedidos();
 					}
 				}
 				{
@@ -311,19 +330,109 @@ public class VRestPedidos extends javax.swing.JFrame {
 		}
 	}
 	
-	private void botonEditar(){
+	private void cargarTablaPedidos() {
+		pedidos = null;
+		ClientResponse cr = service.path("rest").path("clientes").path(c.getDni()).path("pedidos").accept(MediaType.APPLICATION_XML).get(ClientResponse.class);
+		if (cr.getStatus() == 200){
+			System.out.println("pedidos.GET('application/json').status: " + cr.getStatus());
+			System.out.println("pedidos.GET('application/json').results (con una LIST): ");
+			pedidos = cr.getEntity(new GenericType<List<Pedido>>(){}); 		
+		}else{
+			System.out.println("pedidos.GET('application/json').status: " + cr.getStatus());
+			System.out.println("pedidos.GET('application/json').entity: " + cr.getEntity(String.class));
+		}
 		
+		DefaultTableModel jTable1Model = 
+        		new DefaultTableModel() {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				//All cells can`t be edited
+				return false;
+			}
+		};
+		
+		jTable1Model.addColumn("Restaurante");
+		jTable1Model.addColumn("Fecha");
+		jTable1Model.addColumn("Entregado");
+		jTable1Model.addColumn("Promoción"); 
+        
+        for(Pedido p : pedidos) {
+        	System.out.println("ID PEDIDO---------"+p.getIdPedido());
+        	Object[] fila = new Object[4];
+        	fila[0] = p.getRestaurante();
+        	fila[1] = p.getFecha();
+        	fila[2] = (p.isEntregado() ? "Si" : "No");
+        	fila[3] = p.getPromocion();
+        	jTable1Model.addRow(fila);
+        }
+        
+        tablaPedidos.setModel(jTable1Model);
+	}
+	
+	private void botonEditar(){
+		int pedidoRow = tablaPedidos.getSelectedRow();
+		
+		sp = pedidos.get(pedidoRow);
+		cajaRestaurante.setText(sp.getRestaurante());
+		cajaFecha.setText(sp.getFecha());
+		cajaTipoEntrega.setText(sp.getTipoEntrega());
+		cajaTipoPago.setText(sp.getTipoPago());
+		cajaPromocion.setText(sp.getPromocion());
+		checkEntregado.setSelected(sp.isEntregado());
 	}
 	private void botonVerFacturas(){
-		
+		int clienteRow = tablaPedidos.getSelectedRow();
+		sp = pedidos.get(clienteRow);
+		VRestElementos vrElem = new VRestElementos(sp);
+		vrElem.setVisible(true);
 	}
 	private void botonNueva(){
-		
+		cajaRestaurante.setText("");
+		cajaFecha.setText("");
+		cajaTipoEntrega.setText("");
+		cajaTipoPago.setText("");
+		cajaPromocion.setText("");
+		checkEntregado.setSelected(false);
 	}
 	private void botonGuardar(){
+		Pedido p = new Pedido();
+		p.setRestaurante(cajaRestaurante.getText());
+		p.setFecha(cajaFecha.getText());
+		p.setTipoEntrega(cajaTipoEntrega.getText());
+		p.setTipoPago(cajaTipoPago.getText());
+		p.setPromocion(cajaPromocion.getText());
+		p.setEntregado(checkEntregado.isSelected());
+		p.setDni(c.getDni());
 		
+		ClientResponse cr = service.path("rest").path("pedidos").type(MediaType.APPLICATION_XML).accept(MediaType.APPLICATION_JSON).post(ClientResponse.class, p);
+		if (cr.getStatus() == 201){ // Return code should be 201 == created resource
+			System.out.println("pedidos.POST('application/xml').status: " + cr.getStatus());
+			System.out.println("pedidos.POST('application/xml').location: " + cr.getLocation());
+			
+		}else{ // Or code 409 == resource already exists 
+			System.out.println("pedidos.POST('application/xml').status: " + cr.getStatus());
+			System.out.println("pedidos.POST('application/xml').entity: " + cr.getEntity(String.class));
+			ClientResponse cr2 = service.path("rest").path("pedidos").path(Integer.toString(p.getIdPedido())).type(MediaType.APPLICATION_XML).accept(MediaType.APPLICATION_XML).put(ClientResponse.class, p);
+			if (cr2.getStatus() == 201){
+				System.out.println("pedidos.{id}.PUT('application/xml').status: " + cr2.getStatus());
+				System.out.println("pedidos.{id}.PUT('application/xml').location: " + cr2.getLocation());
+			}else if (cr2.getStatus() == 204){
+					System.out.println("pedidos.{id}.PUT('application/xml').status: " + cr2.getStatus());
+			}else{
+				System.out.println("pedidos.{id}.PUT('application/xml').status: " + cr2.getStatus());
+				System.out.println("pedidos.{id}.PUT('application/xml').entity: " + cr2.getEntity(String.class));
+			}
+		}
+		cargarTablaPedidos();
 	}
 	private void botonCerrar(){
-		
+		this.dispose();
+	}
+	
+	private static URI getBaseURI() {
+		return UriBuilder.fromUri(
+				"http://localhost:8080/mdiss.justeat.dao").build();
 	}
 }

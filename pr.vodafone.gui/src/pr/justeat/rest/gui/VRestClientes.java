@@ -45,6 +45,9 @@ import javax.swing.SwingUtilities;
 * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
 */
 public class VRestClientes extends javax.swing.JFrame {
+	
+	private static final long serialVersionUID = 1L;
+	
 	private JPanel jPanel1;
 	private JButton botonBuscar;
 	private JTextField cajaDni;
@@ -289,7 +292,7 @@ public class VRestClientes extends javax.swing.JFrame {
 	}
 	
 	private void botonBuscar(){
-		Cliente c = service.path("rest").path("clientes").path(cajaDniBuscar.getText()).accept(MediaType.APPLICATION_JSON).get(Cliente.class);
+		Cliente c = service.path("rest").path("clientes").path(cajaDniBuscar.getText()).accept(MediaType.APPLICATION_XML).get(Cliente.class);
 		
 		DefaultTableModel jTable1Model = 
         		new DefaultTableModel() {
@@ -318,7 +321,7 @@ public class VRestClientes extends javax.swing.JFrame {
 	}
 	private void botonTodos(){
 		clientes = null;
-		ClientResponse cr = service.path("rest").path("clientes").accept(MediaType.APPLICATION_JSON).get(ClientResponse.class);
+		ClientResponse cr = service.path("rest").path("clientes").accept(MediaType.APPLICATION_XML).get(ClientResponse.class);
 		if (cr.getStatus() == 200){
 			System.out.println("clientes.GET('application/json').status: " + cr.getStatus());
 			System.out.println("clientes.GET('application/json').results (con una LIST): ");
@@ -365,7 +368,10 @@ public class VRestClientes extends javax.swing.JFrame {
 		cajaEmail.setText(sc.getEmail());
 	}
 	private void botonVerPedidos(){
-		new VRestPedidos(sc);
+		int clienteRow = tablaClientes.getSelectedRow();
+		sc = clientes.get(clienteRow);
+		VRestPedidos vrPed = new VRestPedidos(sc);
+		vrPed.setVisible(true);
 	}
 	private void botonNuevo(){
 		cajaDni.setText("");

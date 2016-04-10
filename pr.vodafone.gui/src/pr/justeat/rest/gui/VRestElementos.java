@@ -1,6 +1,9 @@
 package pr.justeat.rest.gui;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URI;
+import java.util.List;
+
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -14,6 +17,21 @@ import javax.swing.WindowConstants;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.UriBuilder;
+
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.GenericType;
+import com.sun.jersey.api.client.UniformInterfaceException;
+import com.sun.jersey.api.client.WebResource;
+import com.sun.jersey.api.client.config.ClientConfig;
+import com.sun.jersey.api.client.config.DefaultClientConfig;
+
+import pr.justeat.rest.entity.Cliente;
+import pr.justeat.rest.entity.Elemento;
+import pr.justeat.rest.entity.Pedido;
+
 import javax.swing.SwingUtilities;
 
 
@@ -30,12 +48,13 @@ import javax.swing.SwingUtilities;
 * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
 */
 public class VRestElementos extends javax.swing.JFrame {
+
+	private static final long serialVersionUID = 1L;
+	
 	private JPanel jPanel1;
 	private JLabel labelTipoPago;
 	private JLabel labelTipoEntrega;
 	private JLabel labelFecha;
-	private JTextField cajaId;
-	private JLabel jLabel3;
 	private JLabel jLabelNombre;
 	private JLabel jLabelCantidad;
 	private JLabel labelRestaurante;
@@ -47,7 +66,7 @@ public class VRestElementos extends javax.swing.JFrame {
 	private JButton botonNueva;
 	private JButton botonEditar;
 	private JButton botonBorrar;
-	private JTable tablaFacturas;
+	private JTable tablaElementos;
 	private JLabel labelActiva;
 	private JLabel labelPromocion;
 	private JLabel jLabelEntregado;
@@ -60,22 +79,30 @@ public class VRestElementos extends javax.swing.JFrame {
 	private JPanel jPanel3;
 	private JPanel jPanel2;
 	private JLabel jLabelRestaurante;
-
+	private WebResource service;
+	private Pedido p;
+	private List<Elemento> elementos;
+	private Elemento se;
+	
 	/**
 	* Auto-generated main method to display this JFrame
 	*/
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				VRestElementos inst = new VRestElementos();
+				VRestElementos inst = new VRestElementos(null);
 				inst.setLocationRelativeTo(null);
 				inst.setVisible(true);
 			}
 		});
 	}
 	
-	public VRestElementos() {
+	public VRestElementos(Pedido p) {
 		super();
+		this.p = p;
+		ClientConfig config = new DefaultClientConfig();
+		Client client = Client.create(config);
+		service = client.resource(getBaseURI());
 		initGUI();
 	}
 	
@@ -118,28 +145,28 @@ public class VRestElementos extends javax.swing.JFrame {
 				{
 					labelRestaurante = new JLabel();
 					jPanel1.add(labelRestaurante);
-					labelRestaurante.setText("xxxxxxxxxx");
+					labelRestaurante.setText(p != null ? p.getRestaurante() : "xxxxxxxxxx");
 					labelRestaurante.setBounds(92, 22, 102, 16);
 					labelRestaurante.setFont(new java.awt.Font("Segoe UI",1,12));
 				}
 				{
 					labelFecha = new JLabel();
 					jPanel1.add(labelFecha);
-					labelFecha.setText("xxxxxxxxxx");
+					labelFecha.setText(p != null ? p.getFecha() : "xxxxxxxxxx");
 					labelFecha.setBounds(92, 44, 102, 16);
 					labelFecha.setFont(new java.awt.Font("Segoe UI",1,12));
 				}
 				{
 					labelTipoEntrega = new JLabel();
 					jPanel1.add(labelTipoEntrega);
-					labelTipoEntrega.setText("xxxxxxxxxx");
+					labelTipoEntrega.setText(p != null ? p.getTipoEntrega() : "xxxxxxxxxx");
 					labelTipoEntrega.setBounds(92, 66, 102, 16);
 					labelTipoEntrega.setFont(new java.awt.Font("Segoe UI",1,12));
 				}
 				{
 					labelTipoPago = new JLabel();
 					jPanel1.add(labelTipoPago);
-					labelTipoPago.setText("xxxxxxxxxx");
+					labelTipoPago.setText(p != null ? p.getTipoPago() : "xxxxxxxxxx");
 					labelTipoPago.setBounds(92, 89, 102, 16);
 					labelTipoPago.setFont(new java.awt.Font("Segoe UI",1,12));
 				}
@@ -158,14 +185,14 @@ public class VRestElementos extends javax.swing.JFrame {
 				{
 					labelPromocion = new JLabel();
 					jPanel1.add(labelPromocion);
-					labelPromocion.setText("xxxxxxxxxx");
+					labelPromocion.setText(p != null ? p.getPromocion() : "xxxxxxxxxx");
 					labelPromocion.setBounds(263, 22, 87, 16);
 					labelPromocion.setFont(new java.awt.Font("Segoe UI",1,12));
 				}
 				{
 					labelActiva = new JLabel();
 					jPanel1.add(labelActiva);
-					labelActiva.setText("Si");
+					labelActiva.setText(p != null ? (p.isEntregado() ? "Si" : "No") : "xxxxxxxxxx");
 					labelActiva.setBounds(263, 44, 87, 16);
 					labelActiva.setFont(new java.awt.Font("Segoe UI",1,12));
 				}
@@ -182,12 +209,10 @@ public class VRestElementos extends javax.swing.JFrame {
 					jPanel2.add(jScrollPane1);
 					jScrollPane1.setBounds(12, 24, 336, 84);
 					{
-						TableModel jTable1Model = 
-							new DefaultTableModel(
-									new String[] { "Id", "Fecha", "Periodo", "Importe" }, 2);
-						tablaFacturas = new JTable();
-						jScrollPane1.setViewportView(tablaFacturas);
-						tablaFacturas.setModel(jTable1Model);
+						
+						tablaElementos = new JTable();
+						jScrollPane1.setViewportView(tablaElementos);
+						cargarTablaElementos();
 					}
 				}
 				{
@@ -224,17 +249,6 @@ public class VRestElementos extends javax.swing.JFrame {
 				jPanel3.setBounds(13, 297, 359, 145);
 				jPanel3.setLayout(null);
 				jPanel3.setBorder(BorderFactory.createTitledBorder(null, "Edición", TitledBorder.LEADING, TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI",1,10), new java.awt.Color(0,0,0)));
-				{
-					jLabel3 = new JLabel();
-					jPanel3.add(jLabel3);
-					jLabel3.setText("Id:");
-					jLabel3.setBounds(10, 24, 64, 16);
-				}
-				{
-					cajaId = new JTextField();
-					jPanel3.add(cajaId);
-					cajaId.setBounds(86, 21, 83, 23);
-				}
 				{
 					cajaCantidad = new JTextField();
 					jPanel3.add(cajaCantidad);
@@ -316,19 +330,111 @@ public class VRestElementos extends javax.swing.JFrame {
 		}
 	}
 	
-	private void botonEditar(){
+	private void cargarTablaElementos() {
+		elementos = null;
+		ClientResponse cr = service.path("rest").path("pedidos").path(Integer.toString(p.getIdPedido())).path("elementos").accept(MediaType.APPLICATION_XML).get(ClientResponse.class);
+		if (cr.getStatus() == 200){
+			System.out.println("elementos.GET('application/json').status: " + cr.getStatus());
+			System.out.println("elementos.GET('application/json').results (con una LIST): ");
+			elementos = cr.getEntity(new GenericType<List<Elemento>>(){}); 		
+		}else{
+			System.out.println("elementos.GET('application/json').status: " + cr.getStatus());
+			System.out.println("elementos.GET('application/json').entity: " + cr.getEntity(String.class));
+		}
 		
+		DefaultTableModel jTable1Model = 
+        		new DefaultTableModel() {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				//All cells can`t be edited
+				return false;
+			}
+		};
+		
+		jTable1Model.addColumn("Id");
+		jTable1Model.addColumn("Nombre");
+		jTable1Model.addColumn("Cantidad");
+		jTable1Model.addColumn("Importe"); 
+        
+        for(Elemento e : elementos) {
+        	Object[] fila = new Object[4];
+        	fila[0] = e.getIdElemento();
+        	fila[1] = e.getNombre();
+        	fila[2] = e.getCantidad();
+        	fila[3] = e.getImporte();
+        	jTable1Model.addRow(fila);
+        }
+        
+        tablaElementos.setModel(jTable1Model);
+	}
+	
+	private void botonEditar(){
+		int elementoRow = tablaElementos.getSelectedRow();
+		
+		se = elementos.get(elementoRow);
+		cajaNombre.setText(se.getNombre());
+		cajaCantidad.setText(Integer.toString(se.getCantidad()));
+		cajaImporte.setText(Float.toString(se.getImporte()));
 	}
 	private void botonBorrar(){
-		
+		int elementoRow = tablaElementos.getSelectedRow();
+		if(elementoRow >= 0) {
+			se = elementos.get(elementoRow);
+			
+			try{
+				service.path("rest").path("elementos").path(Integer.toString(se.getIdElemento())).delete();
+				System.out.println("Elemento " + Integer.toString(se.getIdElemento()) + " deleted");
+			}catch(UniformInterfaceException e){
+				ClientResponse r = e.getResponse();
+				System.out.println("elementos.{id}.DEL.status: " + r.getStatus());
+				System.out.println("elementos.{id}.DEL.entity: " + r.getEntity(String.class));
+			}	
+			
+			cargarTablaElementos();
+		}
 	}
 	private void botonNueva(){
-		
+		cajaNombre.setText("");
+		cajaCantidad.setText("");
+		cajaImporte.setText("");
 	}
 	private void botonGuardar(){
+		Elemento e = new Elemento();
+		e.setNombre(cajaNombre.getText());
+		e.setCantidad(Integer.parseInt(cajaCantidad.getText()));
+		e.setImporte(Float.parseFloat(cajaImporte.getText()));
+		e.setPedido(p.getIdPedido());
 		
+		
+		ClientResponse cr = service.path("rest").path("elementos").type(MediaType.APPLICATION_XML).accept(MediaType.APPLICATION_JSON).post(ClientResponse.class, e);
+		if (cr.getStatus() == 201){ // Return code should be 201 == created resource
+			System.out.println("elementos.POST('application/xml').status: " + cr.getStatus());
+			System.out.println("elementos.POST('application/xml').location: " + cr.getLocation());
+			
+		}else{ // Or code 409 == resource already exists 
+			System.out.println("elementos.POST('application/xml').status: " + cr.getStatus());
+			System.out.println("elementos.POST('application/xml').entity: " + cr.getEntity(String.class));
+			ClientResponse cr2 = service.path("rest").path("elementos").path(Integer.toString(e.getIdElemento())).type(MediaType.APPLICATION_XML).accept(MediaType.APPLICATION_XML).put(ClientResponse.class, e);
+			if (cr2.getStatus() == 201){
+				System.out.println("elementos.{id}.PUT('application/xml').status: " + cr2.getStatus());
+				System.out.println("elementos.{id}.PUT('application/xml').location: " + cr2.getLocation());
+			}else if (cr2.getStatus() == 204){
+					System.out.println("elementos.{id}.PUT('application/xml').status: " + cr2.getStatus());
+			}else{
+				System.out.println("elementos.{id}.PUT('application/xml').status: " + cr2.getStatus());
+				System.out.println("elementos.{id}.PUT('application/xml').entity: " + cr2.getEntity(String.class));
+			}
+		}
+		cargarTablaElementos();
 	}
 	private void botonCerrar(){
-		
+		this.dispose();
+	}
+	
+	private static URI getBaseURI() {
+		return UriBuilder.fromUri(
+				"http://localhost:8080/mdiss.justeat.dao").build();
 	}
 }

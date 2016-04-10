@@ -60,7 +60,7 @@ public class PedidosResource {
 		}else{
 			URI uri = uriInfo.getAbsolutePathBuilder().path(Integer.toString(pedido.getIdPedido())).build();
 			res = Response.created(uri).entity(pedido).build(); // Code: 201
-			GestorBD.getInstance().insertarPedido(pedido);;
+			GestorBD.getInstance().insertarPedido(pedido);
 		}		
 		return res;
 	}

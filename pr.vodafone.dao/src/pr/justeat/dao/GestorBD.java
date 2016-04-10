@@ -218,6 +218,7 @@ public class GestorBD {
         ResultSet rs = stmt.executeQuery(select);
         if (rs.next()){
         	pedido = new Pedido();
+        	pedido.setIdPedido(rs.getInt("idPedido"));
         	pedido.setRestaurante(rs.getString("restaurante"));
         	pedido.setFecha(rs.getString("fecha"));
         	pedido.setEntregado(rs.getBoolean("entregado"));
@@ -245,6 +246,7 @@ public class GestorBD {
         ResultSet rs = stmt.executeQuery(select);
         while (rs.next()){
         	Pedido pedido = new Pedido();
+        	pedido.setIdPedido(rs.getInt("idPedido"));
         	pedido.setRestaurante(rs.getString("restaurante"));
         	pedido.setFecha(rs.getString("fecha"));
         	pedido.setEntregado(rs.getBoolean("entregado"));
@@ -273,6 +275,7 @@ public class GestorBD {
         ResultSet rs = stmt.executeQuery(select);
         while (rs.next()){
         	Pedido pedido = new Pedido();
+        	pedido.setIdPedido(rs.getInt("idPedido"));
         	pedido.setRestaurante(rs.getString("restaurante"));
         	pedido.setFecha(rs.getString("fecha"));
         	pedido.setEntregado(rs.getBoolean("entregado"));
@@ -301,6 +304,7 @@ public class GestorBD {
         ResultSet rs = stmt.executeQuery(select);
         while (rs.next()){
         	Pedido pedido = new Pedido();
+        	pedido.setIdPedido(rs.getInt("idPedido"));
         	pedido.setRestaurante(rs.getString("restaurante"));
         	pedido.setFecha(rs.getString("fecha"));
         	pedido.setEntregado(rs.getBoolean("entregado"));
@@ -329,6 +333,7 @@ public class GestorBD {
         ResultSet rs = stmt.executeQuery(select);
         while (rs.next()){
         	Pedido pedido = new Pedido();
+        	pedido.setIdPedido(rs.getInt("idPedido"));
         	pedido.setRestaurante(rs.getString("restaurante"));
         	pedido.setFecha(rs.getString("fecha"));
         	pedido.setEntregado(rs.getBoolean("entregado"));
@@ -561,7 +566,7 @@ public class GestorBD {
     	
         String insert = "insert into ELEMENTOS " +
                         "(cantidad, nombre, importe, pedido) " +
-                        "VALUES ('" + elemento.getCantidad() +
+                        "VALUES ('"+ elemento.getCantidad() +
                         "','" + elemento.getNombre() +
                         "'," + elemento.getImporte() +
                         ",'"  + elemento.getPedido() + "')";                        
