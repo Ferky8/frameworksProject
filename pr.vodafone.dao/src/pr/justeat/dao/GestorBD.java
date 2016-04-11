@@ -1,7 +1,6 @@
 package pr.justeat.dao;
 
 import java.sql.*;
-import java.util.Base64.Decoder;
 
 import java.util.Vector;
 
