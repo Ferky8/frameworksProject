@@ -26,7 +26,6 @@ import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 
-import pr.justeat.dao.dto.xsd.Restaurante;
 import pr.justeat.rest.entity.Cliente;
 
 import javax.swing.SwingUtilities;
@@ -323,12 +322,12 @@ public class VRestClientes extends javax.swing.JFrame {
 		clientes = null;
 		ClientResponse cr = service.path("rest").path("clientes").accept(MediaType.APPLICATION_XML).get(ClientResponse.class);
 		if (cr.getStatus() == 200){
-			System.out.println("clientes.GET('application/json').status: " + cr.getStatus());
-			System.out.println("clientes.GET('application/json').results (con una LIST): ");
+			System.out.println("clientes.GET('application/xml').status: " + cr.getStatus());
+			System.out.println("clientes.GET('application/xml').results (con una LIST): ");
 			clientes = cr.getEntity(new GenericType<List<Cliente>>(){}); 		
 		}else{
-			System.out.println("clientes.GET('application/json').status: " + cr.getStatus());
-			System.out.println("clientes.GET('application/json').entity: " + cr.getEntity(String.class));
+			System.out.println("clientes.GET('application/xml').status: " + cr.getStatus());
+			System.out.println("clientes.GET('application/xml').entity: " + cr.getEntity(String.class));
 		}
 		
 		DefaultTableModel jTable1Model = 
@@ -386,7 +385,7 @@ public class VRestClientes extends javax.swing.JFrame {
 		c.setDireccion(cajaDireccion.getText());
 		c.setEmail(cajaEmail.getText());
 		
-		ClientResponse cr = service.path("rest").path("clientes").type(MediaType.APPLICATION_XML).accept(MediaType.APPLICATION_JSON).post(ClientResponse.class, c);
+		ClientResponse cr = service.path("rest").path("clientes").type(MediaType.APPLICATION_XML).accept(MediaType.APPLICATION_XML).post(ClientResponse.class, c);
 		if (cr.getStatus() == 201){ // Return code should be 201 == created resource
 			System.out.println("clientes.POST('application/xml').status: " + cr.getStatus());
 			System.out.println("clientes.POST('application/xml').location: " + cr.getLocation());

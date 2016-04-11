@@ -16,7 +16,6 @@ import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriBuilder;
 
@@ -191,7 +190,7 @@ public class VRestPedidos extends javax.swing.JFrame {
 					botonElementos = new JButton();
 					jPanel2.add(botonElementos);
 					botonElementos.setText("Ver Elementos...");
-					botonElementos.setBounds(234, 113, 114, 23);
+					botonElementos.setBounds(217, 113, 130, 23);
 					botonElementos.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent evt) {
 							System.out.println("botonFacturas.actionPerformed, event="+evt);
@@ -204,7 +203,7 @@ public class VRestPedidos extends javax.swing.JFrame {
 					botonEditar = new JButton();
 					jPanel2.add(botonEditar);
 					botonEditar.setText("Editar");
-					botonEditar.setBounds(159, 113, 70, 23);
+					botonEditar.setBounds(142, 113, 70, 23);
 					botonEditar.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent evt) {
 							System.out.println("botonEditar.actionPerformed, event="+evt);
@@ -306,7 +305,7 @@ public class VRestPedidos extends javax.swing.JFrame {
 					checkEntregado = new JCheckBox();
 					jPanel3.add(checkEntregado);
 					checkEntregado.setText("Entregado");
-					checkEntregado.setBounds(197, 51, 69, 20);
+					checkEntregado.setBounds(197, 51, 90, 20);
 				}
 			}
 			{
@@ -334,12 +333,12 @@ public class VRestPedidos extends javax.swing.JFrame {
 		pedidos = null;
 		ClientResponse cr = service.path("rest").path("clientes").path(c.getDni()).path("pedidos").accept(MediaType.APPLICATION_XML).get(ClientResponse.class);
 		if (cr.getStatus() == 200){
-			System.out.println("pedidos.GET('application/json').status: " + cr.getStatus());
-			System.out.println("pedidos.GET('application/json').results (con una LIST): ");
+			System.out.println("pedidos.GET('application/xml').status: " + cr.getStatus());
+			System.out.println("pedidos.GET('application/xml').results (con una LIST): ");
 			pedidos = cr.getEntity(new GenericType<List<Pedido>>(){}); 		
 		}else{
-			System.out.println("pedidos.GET('application/json').status: " + cr.getStatus());
-			System.out.println("pedidos.GET('application/json').entity: " + cr.getEntity(String.class));
+			System.out.println("pedidos.GET('application/xml').status: " + cr.getStatus());
+			System.out.println("pedidos.GET('application/xml').entity: " + cr.getEntity(String.class));
 		}
 		
 		DefaultTableModel jTable1Model = 
@@ -389,6 +388,7 @@ public class VRestPedidos extends javax.swing.JFrame {
 		vrElem.setVisible(true);
 	}
 	private void botonNueva(){
+		sp = null;
 		cajaRestaurante.setText("");
 		cajaFecha.setText("");
 		cajaTipoEntrega.setText("");
@@ -398,6 +398,7 @@ public class VRestPedidos extends javax.swing.JFrame {
 	}
 	private void botonGuardar(){
 		Pedido p = new Pedido();
+		if(sp != null) p.setIdPedido(sp.getIdPedido());
 		p.setRestaurante(cajaRestaurante.getText());
 		p.setFecha(cajaFecha.getText());
 		p.setTipoEntrega(cajaTipoEntrega.getText());
@@ -406,7 +407,7 @@ public class VRestPedidos extends javax.swing.JFrame {
 		p.setEntregado(checkEntregado.isSelected());
 		p.setDni(c.getDni());
 		
-		ClientResponse cr = service.path("rest").path("pedidos").type(MediaType.APPLICATION_XML).accept(MediaType.APPLICATION_JSON).post(ClientResponse.class, p);
+		ClientResponse cr = service.path("rest").path("pedidos").type(MediaType.APPLICATION_XML).accept(MediaType.APPLICATION_XML).post(ClientResponse.class, p);
 		if (cr.getStatus() == 201){ // Return code should be 201 == created resource
 			System.out.println("pedidos.POST('application/xml').status: " + cr.getStatus());
 			System.out.println("pedidos.POST('application/xml').location: " + cr.getLocation());

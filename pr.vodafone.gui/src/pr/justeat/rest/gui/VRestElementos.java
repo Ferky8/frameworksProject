@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -16,7 +15,6 @@ import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriBuilder;
 
@@ -28,7 +26,6 @@ import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 
-import pr.justeat.rest.entity.Cliente;
 import pr.justeat.rest.entity.Elemento;
 import pr.justeat.rest.entity.Pedido;
 
@@ -334,12 +331,12 @@ public class VRestElementos extends javax.swing.JFrame {
 		elementos = null;
 		ClientResponse cr = service.path("rest").path("pedidos").path(Integer.toString(p.getIdPedido())).path("elementos").accept(MediaType.APPLICATION_XML).get(ClientResponse.class);
 		if (cr.getStatus() == 200){
-			System.out.println("elementos.GET('application/json').status: " + cr.getStatus());
-			System.out.println("elementos.GET('application/json').results (con una LIST): ");
+			System.out.println("elementos.GET('application/xml').status: " + cr.getStatus());
+			System.out.println("elementos.GET('application/xml').results (con una LIST): ");
 			elementos = cr.getEntity(new GenericType<List<Elemento>>(){}); 		
 		}else{
-			System.out.println("elementos.GET('application/json').status: " + cr.getStatus());
-			System.out.println("elementos.GET('application/json').entity: " + cr.getEntity(String.class));
+			System.out.println("elementos.GET('application/xml').status: " + cr.getStatus());
+			System.out.println("elementos.GET('application/xml').entity: " + cr.getEntity(String.class));
 		}
 		
 		DefaultTableModel jTable1Model = 
@@ -396,19 +393,20 @@ public class VRestElementos extends javax.swing.JFrame {
 		}
 	}
 	private void botonNueva(){
+		se = null;
 		cajaNombre.setText("");
 		cajaCantidad.setText("");
 		cajaImporte.setText("");
 	}
 	private void botonGuardar(){
 		Elemento e = new Elemento();
+		if(se != null) e.setIdElemento(se.getIdElemento());
 		e.setNombre(cajaNombre.getText());
 		e.setCantidad(Integer.parseInt(cajaCantidad.getText()));
 		e.setImporte(Float.parseFloat(cajaImporte.getText()));
 		e.setPedido(p.getIdPedido());
 		
-		
-		ClientResponse cr = service.path("rest").path("elementos").type(MediaType.APPLICATION_XML).accept(MediaType.APPLICATION_JSON).post(ClientResponse.class, e);
+		ClientResponse cr = service.path("rest").path("elementos").type(MediaType.APPLICATION_XML).accept(MediaType.APPLICATION_XML).post(ClientResponse.class, e);
 		if (cr.getStatus() == 201){ // Return code should be 201 == created resource
 			System.out.println("elementos.POST('application/xml').status: " + cr.getStatus());
 			System.out.println("elementos.POST('application/xml').location: " + cr.getLocation());
