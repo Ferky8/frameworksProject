@@ -88,7 +88,7 @@ CREATE TABLE `elementos` (
 
 LOCK TABLES `elementos` WRITE;
 /*!40000 ALTER TABLE `elementos` DISABLE KEYS */;
-INSERT INTO `elementos` VALUES (1,3,'Pinchos morunos',14.0,666111000),(2,2,'Gambas',9.5,666111000),(3,1,'Arroz',8.0,666111000),(4,2,'Pastinacas',20.0,666111111),(5,2,'Lentejas',30.0,666222000),(6,3,'Solomillos',30.0,666222000),(7,4,'Croquetas',30.0,666222000),(8,2,'Cardo',30.0,666222000);
+INSERT INTO `elementos` VALUES (1,3,'Pinchos morunos',14.0,1234),(2,2,'Gambas',9.5,1234),(3,1,'Arroz',8.0,1234),(4,2,'Pastinacas',20.0,1567),(5,2,'Lentejas',30.0,1890),(6,3,'Solomillos',30.0,1890),(7,4,'Croquetas',30.0,1890),(8,2,'Cardo',30.0,1890);
 /*!40000 ALTER TABLE `elementos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -122,7 +122,7 @@ CREATE TABLE `pedidos` (
 
 LOCK TABLES `pedidos` WRITE;
 /*!40000 ALTER TABLE `pedidos` DISABLE KEYS */;
-INSERT INTO `pedidos` VALUES (666111000,'1','2006-08-03',1,'Urgente','Metalico','Ninguna','111'),(666111111,'2','2009-01-01',0,'Normal','Tarjeta','3 por 2','111'),(666222000,'1','2010-03-01',0,NULL,NULL,'Ninguna','222'),(666333000,'3','2005-11-20',1,'Horaria','Metalico','50% en verduras','333');
+INSERT INTO `pedidos` VALUES (1234,'1','2006-08-03',1,'Urgente','Metalico','Ninguna','111'),(1567,'2','2009-01-01',0,'Normal','Tarjeta','3 por 2','111'),(1890,'1','2010-03-01',0,NULL,NULL,'Ninguna','222'),(2504,'3','2005-11-20',1,'Horaria','Metalico','50% en verduras','333');
 /*!40000 ALTER TABLE `pedidos` ENABLE KEYS */;
 UNLOCK TABLES;
 
