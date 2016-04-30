@@ -9,5 +9,9 @@
 	<select	id="getElementoPorId" parameterType="int" resultType="Elemento">
 		SELECT * FROM ELEMENTOS WHERE IDELEMENTO=#{id}
 	</select>
-
+	
+	<select	id="getElementosByPedido" parameterType="int" resultType="Elemento">
+		SELECT * FROM ELEMENTOS WHERE PEDIDO=#{pedido}
+	</select>
+	
 </mapper>

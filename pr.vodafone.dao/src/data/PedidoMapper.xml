@@ -31,4 +31,10 @@
 		TIPOPAGO=#{tipoPago}, PROMOCION=#{promocion}, DNI=#{dni}
 		WHERE IDPEDIDO=#{idPedido}
 	</update>
+	
+	<update id="setPedidoEntregado" parameterType="Pedido">
+		UPDATE PEDIDOS SET ENTREGADO=#{entregado}
+		WHERE IDPEDIDO=#{idPedido}
+	</update>
+	
 </mapper>

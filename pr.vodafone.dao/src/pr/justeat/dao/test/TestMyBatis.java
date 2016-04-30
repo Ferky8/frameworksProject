@@ -1,11 +1,12 @@
 package pr.justeat.dao.test;
 
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import pr.justeat.dao.ClienteDAO;
 import pr.justeat.dao.ElementoDAO;
 import pr.justeat.dao.PedidoDAO;
+import pr.justeat.dao.dto.Cliente;
 import pr.justeat.dao.dto.Elemento;
 import pr.justeat.dao.dto.Pedido;
 
@@ -14,6 +15,7 @@ public class TestMyBatis {
 	public static void main(String[] args) {
 		PedidoDAO pedidoDAO = new PedidoDAO();
 		ElementoDAO elementoDAO = new ElementoDAO();
+		ClienteDAO clienteDAO = new ClienteDAO();
 
 		try {
 			Pedido ped = pedidoDAO.getPedido(1234);
@@ -86,6 +88,53 @@ public class TestMyBatis {
 			e.printStackTrace();
 		}
 		
+		try {			
+			
+			pedidoDAO.setPedidoEntregado(1234, false);
+			System.out.println("Pedido 1234 actualizado con exito.");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+
+		try {
+			Cliente cl = clienteDAO.getCliente(111);
+			System.out.println("*** CLIENTE CON EL DNI 111 ***");
+			System.out.println(cl.getNombre());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		try {
+			List<Cliente> clientes = clienteDAO.getClientes();
+			Iterator<Cliente> i = clientes.iterator();
+			System.out.println("*** TODOS LOS CLIENTES ***");
+			while (i.hasNext()){
+				Cliente cl =(Cliente)i.next();
+				System.out.println(cl.getNombre());
+			}
+			System.out.println(clientes.size() + " clientes encontrados.");
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		try {			
+			Cliente cl = new Cliente();
+			cl.setDni("111");
+			cl.setNombre("Nuevo Nombre");
+			cl.setDireccion("Nueva Direccion");
+			cl.setEmail("Nuevo email");
+
+			clienteDAO.updateCliente(cl);
+			System.out.println("Cliente actualizado con exito.");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		try {	
 			Elemento elem = elementoDAO.getElementoPorId(1);
 			System.out.println("*** ELEMENTO CON EL ID 1 ***");
@@ -93,6 +142,20 @@ public class TestMyBatis {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+		
+		try {
+			List<Elemento> elementos = elementoDAO.getElementosByPedido(1234);
+			Iterator<Elemento> i = elementos.iterator();
+			System.out.println("*** ELEMENTOS DEL PEDIDO 1234 ***");
+			while (i.hasNext()){
+				Elemento elem =(Elemento)i.next();
+				System.out.println(elem.getNombre());
+			}
+			System.out.println(elementos.size() + " elementos encontrados.");
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
 	}
 }

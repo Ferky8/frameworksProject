@@ -1,17 +1,18 @@
 package pr.justeat.dao;
 
-import org.apache.ibatis.io.Resources;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-
-import pr.justeat.dao.dto.Elemento;
-
 import java.io.Reader;
 import java.util.List;
 
-public class ElementoDAO {
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionException;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
+import pr.justeat.dao.dto.Cliente;
+
+public class ClienteDAO {
+	
 	private SqlSessionFactory sqlSessionFactory;
     
 	private SqlSessionFactory getSqlSessionFactory()
@@ -27,28 +28,42 @@ public class ElementoDAO {
 		}
 		return sqlSessionFactory;
 	}
-
-	public Elemento getElementoPorId(int id)
+	
+	public Cliente getCliente(int dni)
 	{			
-		Elemento ele = null;
+		Cliente cl = null;
 		SqlSession session = getSqlSessionFactory().openSession();
 		try{
-			ele = session.selectOne("getElementoPorId", id);
+			cl = session.selectOne("getCliente", dni);
 		}finally{
 			session.close();
 		}
-		return ele;
+		return cl;
 	}
 	
-	public List<Elemento> getElementosByPedido(int pedido) throws Exception
+	public List<Cliente> getClientes() throws Exception
 	{
-		List<Elemento> elementos = null;
+		List<Cliente> clientes = null;
 		SqlSession session = getSqlSessionFactory().openSession();
 		try{
-			elementos = session.selectList("getElementosByPedido", pedido);
+			clientes = session.selectList("getClientes");
 		}finally{
 			session.close();
 		}
-		return elementos;
+		return clientes;
+	}
+	
+	public void updateCliente(Cliente cl)
+	{
+		SqlSession session = getSqlSessionFactory().openSession();
+		try{
+			session.update("updateCliente", cl);
+			session.commit();
+		}catch(SqlSessionException e){
+			session.rollback();
+			throw e;
+		}finally{
+			session.close();
+		}
 	}
 }

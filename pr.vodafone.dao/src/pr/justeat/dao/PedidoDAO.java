@@ -11,6 +11,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import pr.justeat.dao.dto.ClienteEstado;
 import pr.justeat.dao.dto.Pedido;
+import pr.justeat.dao.dto.PedidoEstado;
 
 public class PedidoDAO {
 	
@@ -96,6 +97,21 @@ public class PedidoDAO {
 		SqlSession session = getSqlSessionFactory().openSession();
 		try{
 			session.update("updatePedido", ped);
+			session.commit();
+		}catch(SqlSessionException e){
+			session.rollback();
+			throw e;
+		}finally{
+			session.close();
+		}
+	}
+	
+	public void setPedidoEntregado(int idPedido, boolean entregado)
+	{
+		SqlSession session = getSqlSessionFactory().openSession();
+		try{
+			PedidoEstado pe = new PedidoEstado(idPedido, entregado);
+			session.update("setPedidoEntregado", pe);
 			session.commit();
 		}catch(SqlSessionException e){
 			session.rollback();

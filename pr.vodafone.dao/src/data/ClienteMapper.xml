@@ -6,6 +6,17 @@
 
 <mapper namespace="es.deusto.mybatis.example.ClienteMapper">
 
+	<select	id="getCliente" parameterType="int" resultType="Cliente">
+		SELECT * FROM CLIENTES WHERE DNI=#{dni}
+	</select>
 	
+	<select	id="getClientes" resultType="Cliente">
+		SELECT * FROM CLIENTES
+	</select>
+	
+	<update id="updateCliente" parameterType="Cliente">
+		UPDATE CLIENTES SET NOMBRE=#{nombre}, DIRECCION=#{direccion}, EMAIL=#{email}
+		WHERE DNI=#{dni}
+	</update>
 
 </mapper>
