@@ -30,7 +30,7 @@
                         */
 
                         
-                                    protected java.sql.xsd.SQLException localSQLException ;
+                                    protected resource.sql.xsd.SQLException localSQLException ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -46,9 +46,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return java.sql.xsd.SQLException
+                           * @return resource.sql.xsd.SQLException
                            */
-                           public  java.sql.xsd.SQLException getSQLException(){
+                           public  resource.sql.xsd.SQLException getSQLException(){
                                return localSQLException;
                            }
 
@@ -58,7 +58,7 @@
                                * Auto generated setter method
                                * @param param SQLException
                                */
-                               public void setSQLException(java.sql.xsd.SQLException param){
+                               public void setSQLException(resource.sql.xsd.SQLException param){
                             localSQLExceptionTracker = true;
                                    
                                             this.localSQLException=param;
@@ -383,7 +383,7 @@
                             if (!"JusteatSWSQLException".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (JusteatSWSQLException)java.sql.xsd.ExtensionMapper.getTypeObject(
+                                return (JusteatSWSQLException)resource.sql.xsd.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -419,7 +419,7 @@
                                           
                                       }else{
                                     
-                                                object.setSQLException(java.sql.xsd.SQLException.Factory.parse(reader));
+                                                object.setSQLException(resource.sql.xsd.SQLException.Factory.parse(reader));
                                               
                                         reader.next();
                                     }

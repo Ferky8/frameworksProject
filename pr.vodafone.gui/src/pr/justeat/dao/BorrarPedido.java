@@ -371,7 +371,7 @@
                             if (!"borrarPedido".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (BorrarPedido)java.sql.xsd.ExtensionMapper.getTypeObject(
+                                return (BorrarPedido)resource.sql.xsd.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         

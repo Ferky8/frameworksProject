@@ -845,7 +845,7 @@
                             if (!"Pedido".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (Pedido)java.sql.xsd.ExtensionMapper.getTypeObject(
+                                return (Pedido)resource.sql.xsd.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         

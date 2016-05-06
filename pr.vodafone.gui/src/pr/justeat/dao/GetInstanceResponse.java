@@ -1,153 +1,67 @@
 
 /**
- * SQLException.java
+ * GetInstanceResponse.java
  *
  * This file was auto-generated from WSDL
  * by the Apache Axis2 version: 1.6.4  Built on : Dec 28, 2015 (10:04:10 GMT)
  */
 
             
-                package java.sql.xsd;
+                package pr.justeat.dao;
             
 
             /**
-            *  SQLException bean class
+            *  GetInstanceResponse bean class
             */
             @SuppressWarnings({"unchecked","unused"})
         
-        public  class SQLException
+        public  class GetInstanceResponse
         implements org.apache.axis2.databinding.ADBBean{
-        /* This type was generated from the piece of schema that had
-                name = SQLException
-                Namespace URI = http://sql.java/xsd
-                Namespace Prefix = ns2
-                */
+        
+                public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
+                "http://dao.justeat.pr",
+                "getInstanceResponse",
+                "ns4");
+
             
 
                         /**
-                        * field for SQLState
+                        * field for _return
                         */
 
                         
-                                    protected java.lang.String localSQLState ;
+                                    protected pr.justeat.dao.xsd.GestorBD local_return ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
                            *   in the serialized XML
                            */
-                           protected boolean localSQLStateTracker = false ;
+                           protected boolean local_returnTracker = false ;
 
-                           public boolean isSQLStateSpecified(){
-                               return localSQLStateTracker;
+                           public boolean is_returnSpecified(){
+                               return local_returnTracker;
                            }
 
                            
 
                            /**
                            * Auto generated getter method
-                           * @return java.lang.String
+                           * @return pr.justeat.dao.xsd.GestorBD
                            */
-                           public  java.lang.String getSQLState(){
-                               return localSQLState;
+                           public  pr.justeat.dao.xsd.GestorBD get_return(){
+                               return local_return;
                            }
 
                            
                         
                             /**
                                * Auto generated setter method
-                               * @param param SQLState
+                               * @param param _return
                                */
-                               public void setSQLState(java.lang.String param){
-                            localSQLStateTracker = true;
+                               public void set_return(pr.justeat.dao.xsd.GestorBD param){
+                            local_returnTracker = true;
                                    
-                                            this.localSQLState=param;
-                                       
-
-                               }
-                            
-
-                        /**
-                        * field for ErrorCode
-                        */
-
-                        
-                                    protected int localErrorCode ;
-                                
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localErrorCodeTracker = false ;
-
-                           public boolean isErrorCodeSpecified(){
-                               return localErrorCodeTracker;
-                           }
-
-                           
-
-                           /**
-                           * Auto generated getter method
-                           * @return int
-                           */
-                           public  int getErrorCode(){
-                               return localErrorCode;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param ErrorCode
-                               */
-                               public void setErrorCode(int param){
-                            
-                                       // setting primitive attribute tracker to true
-                                       localErrorCodeTracker =
-                                       param != java.lang.Integer.MIN_VALUE;
-                                   
-                                            this.localErrorCode=param;
-                                       
-
-                               }
-                            
-
-                        /**
-                        * field for NextException
-                        */
-
-                        
-                                    protected java.sql.xsd.SQLException localNextException ;
-                                
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localNextExceptionTracker = false ;
-
-                           public boolean isNextExceptionSpecified(){
-                               return localNextExceptionTracker;
-                           }
-
-                           
-
-                           /**
-                           * Auto generated getter method
-                           * @return java.sql.xsd.SQLException
-                           */
-                           public  java.sql.xsd.SQLException getNextException(){
-                               return localNextException;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param NextException
-                               */
-                               public void setNextException(java.sql.xsd.SQLException param){
-                            localNextExceptionTracker = true;
-                                   
-                                            this.localNextException=param;
+                                            this.local_return=param;
                                        
 
                                }
@@ -168,8 +82,8 @@
 
         
                org.apache.axiom.om.OMDataSource dataSource =
-                       new org.apache.axis2.databinding.ADBDataSource(this,parentQName);
-               return factory.createOMElement(dataSource,parentQName);
+                       new org.apache.axis2.databinding.ADBDataSource(this,MY_QNAME);
+               return factory.createOMElement(dataSource,MY_QNAME);
             
         }
 
@@ -198,60 +112,29 @@
                   if (serializeType){
                
 
-                   java.lang.String namespacePrefix = registerPrefix(xmlWriter,"http://sql.java/xsd");
+                   java.lang.String namespacePrefix = registerPrefix(xmlWriter,"http://dao.justeat.pr");
                    if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)){
                        writeAttribute("xsi","http://www.w3.org/2001/XMLSchema-instance","type",
-                           namespacePrefix+":SQLException",
+                           namespacePrefix+":getInstanceResponse",
                            xmlWriter);
                    } else {
                        writeAttribute("xsi","http://www.w3.org/2001/XMLSchema-instance","type",
-                           "SQLException",
+                           "getInstanceResponse",
                            xmlWriter);
                    }
 
                
                    }
-                if (localSQLStateTracker){
-                                    namespace = "http://sql.java/xsd";
-                                    writeStartElement(null, namespace, "SQLState", xmlWriter);
-                             
+                if (local_returnTracker){
+                                    if (local_return==null){
 
-                                          if (localSQLState==null){
-                                              // write the nil attribute
-                                              
-                                                     writeAttribute("xsi","http://www.w3.org/2001/XMLSchema-instance","nil","1",xmlWriter);
-                                                  
-                                          }else{
-
-                                        
-                                                   xmlWriter.writeCharacters(localSQLState);
-                                            
-                                          }
-                                    
-                                   xmlWriter.writeEndElement();
-                             } if (localErrorCodeTracker){
-                                    namespace = "http://sql.java/xsd";
-                                    writeStartElement(null, namespace, "errorCode", xmlWriter);
-                             
-                                               if (localErrorCode==java.lang.Integer.MIN_VALUE) {
-                                           
-                                                         throw new org.apache.axis2.databinding.ADBException("errorCode cannot be null!!");
-                                                      
-                                               } else {
-                                                    xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localErrorCode));
-                                               }
-                                    
-                                   xmlWriter.writeEndElement();
-                             } if (localNextExceptionTracker){
-                                    if (localNextException==null){
-
-                                        writeStartElement(null, "http://sql.java/xsd", "nextException", xmlWriter);
+                                        writeStartElement(null, "http://dao.justeat.pr", "return", xmlWriter);
 
                                        // write the nil attribute
                                       writeAttribute("xsi","http://www.w3.org/2001/XMLSchema-instance","nil","1",xmlWriter);
                                       xmlWriter.writeEndElement();
                                     }else{
-                                     localNextException.serialize(new javax.xml.namespace.QName("http://sql.java/xsd","nextException"),
+                                     local_return.serialize(new javax.xml.namespace.QName("http://dao.justeat.pr","return"),
                                         xmlWriter);
                                     }
                                 }
@@ -261,8 +144,8 @@
         }
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
-            if(namespace.equals("http://sql.java/xsd")){
-                return "ns2";
+            if(namespace.equals("http://dao.justeat.pr")){
+                return "ns4";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -439,25 +322,13 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                 if (localSQLStateTracker){
-                                      elementList.add(new javax.xml.namespace.QName("http://sql.java/xsd",
-                                                                      "SQLState"));
-                                 
-                                         elementList.add(localSQLState==null?null:
-                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localSQLState));
-                                    } if (localErrorCodeTracker){
-                                      elementList.add(new javax.xml.namespace.QName("http://sql.java/xsd",
-                                                                      "errorCode"));
-                                 
-                                elementList.add(
-                                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localErrorCode));
-                            } if (localNextExceptionTracker){
-                            elementList.add(new javax.xml.namespace.QName("http://sql.java/xsd",
-                                                                      "nextException"));
+                 if (local_returnTracker){
+                            elementList.add(new javax.xml.namespace.QName("http://dao.justeat.pr",
+                                                                      "return"));
                             
                             
-                                    elementList.add(localNextException==null?null:
-                                    localNextException);
+                                    elementList.add(local_return==null?null:
+                                    local_return);
                                 }
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
@@ -483,9 +354,9 @@
         * Postcondition: If this object is an element, the reader is positioned at its end element
         *                If this object is a complex type, the reader is positioned at the end element of its outer element
         */
-        public static SQLException parse(javax.xml.stream.XMLStreamReader reader) throws java.lang.Exception{
-            SQLException object =
-                new SQLException();
+        public static GetInstanceResponse parse(javax.xml.stream.XMLStreamReader reader) throws java.lang.Exception{
+            GetInstanceResponse object =
+                new GetInstanceResponse();
 
             int event;
             java.lang.String nillableValue = null;
@@ -509,10 +380,10 @@
 
                     java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(":")+1);
                     
-                            if (!"SQLException".equals(type)){
+                            if (!"getInstanceResponse".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (SQLException)java.sql.xsd.ExtensionMapper.getTypeObject(
+                                return (GetInstanceResponse)resource.sql.xsd.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -537,72 +408,18 @@
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://sql.java/xsd","SQLState").equals(reader.getName())){
-                                
-                                       nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
-                                       if (!"true".equals(nillableValue) && !"1".equals(nillableValue)){
-                                    
-
-                                    java.lang.String content = reader.getElementText();
-                                    
-                                              object.setSQLState(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
-                                            
-                                       } else {
-                                           
-                                           
-                                           reader.getElementText(); // throw away text nodes if any.
-                                       }
-                                      
-                                        reader.next();
-                                    
-                              }  // End of if for expected property start element
-                                
-                                    else {
-                                        
-                                    }
-                                
-                                    
-                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
-                                
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://sql.java/xsd","errorCode").equals(reader.getName())){
-                                
-                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
-                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
-                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"errorCode" +"  cannot be null");
-                                    }
-                                    
-
-                                    java.lang.String content = reader.getElementText();
-                                    
-                                              object.setErrorCode(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToInt(content));
-                                              
-                                        reader.next();
-                                    
-                              }  // End of if for expected property start element
-                                
-                                    else {
-                                        
-                                               object.setErrorCode(java.lang.Integer.MIN_VALUE);
-                                           
-                                    }
-                                
-                                    
-                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
-                                
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://sql.java/xsd","nextException").equals(reader.getName())){
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://dao.justeat.pr","return").equals(reader.getName())){
                                 
                                       nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
                                       if ("true".equals(nillableValue) || "1".equals(nillableValue)){
-                                          object.setNextException(null);
+                                          object.set_return(null);
                                           reader.next();
                                             
                                             reader.next();
                                           
                                       }else{
                                     
-                                                object.setNextException(java.sql.xsd.SQLException.Factory.parse(reader));
+                                                object.set_return(pr.justeat.dao.xsd.GestorBD.Factory.parse(reader));
                                               
                                         reader.next();
                                     }

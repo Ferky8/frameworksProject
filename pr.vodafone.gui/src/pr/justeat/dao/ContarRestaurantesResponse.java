@@ -371,7 +371,7 @@
                             if (!"contarRestaurantesResponse".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (ContarRestaurantesResponse)java.sql.xsd.ExtensionMapper.getTypeObject(
+                                return (ContarRestaurantesResponse)resource.sql.xsd.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         

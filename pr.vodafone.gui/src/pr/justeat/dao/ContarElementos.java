@@ -322,7 +322,7 @@
                             if (!"contarElementos".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (ContarElementos)java.sql.xsd.ExtensionMapper.getTypeObject(
+                                return (ContarElementos)resource.sql.xsd.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         

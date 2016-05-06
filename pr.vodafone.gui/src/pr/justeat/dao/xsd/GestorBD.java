@@ -1,71 +1,28 @@
 
 /**
- * BorrarCliente.java
+ * GestorBD.java
  *
  * This file was auto-generated from WSDL
  * by the Apache Axis2 version: 1.6.4  Built on : Dec 28, 2015 (10:04:10 GMT)
  */
 
             
-                package pr.justeat.dao;
+                package pr.justeat.dao.xsd;
             
 
             /**
-            *  BorrarCliente bean class
+            *  GestorBD bean class
             */
             @SuppressWarnings({"unchecked","unused"})
         
-        public  class BorrarCliente
+        public  class GestorBD
         implements org.apache.axis2.databinding.ADBBean{
-        
-                public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
-                "http://dao.justeat.pr",
-                "borrarCliente",
-                "ns4");
-
+        /* This type was generated from the piece of schema that had
+                name = GestorBD
+                Namespace URI = http://dao.justeat.pr/xsd
+                Namespace Prefix = ns3
+                */
             
-
-                        /**
-                        * field for Dni
-                        */
-
-                        
-                                    protected java.lang.String localDni ;
-                                
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localDniTracker = false ;
-
-                           public boolean isDniSpecified(){
-                               return localDniTracker;
-                           }
-
-                           
-
-                           /**
-                           * Auto generated getter method
-                           * @return java.lang.String
-                           */
-                           public  java.lang.String getDni(){
-                               return localDni;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param Dni
-                               */
-                               public void setDni(java.lang.String param){
-                            localDniTracker = true;
-                                   
-                                            this.localDni=param;
-                                       
-
-                               }
-                            
 
      
      
@@ -82,8 +39,8 @@
 
         
                org.apache.axiom.om.OMDataSource dataSource =
-                       new org.apache.axis2.databinding.ADBDataSource(this,MY_QNAME);
-               return factory.createOMElement(dataSource,MY_QNAME);
+                       new org.apache.axis2.databinding.ADBDataSource(this,parentQName);
+               return factory.createOMElement(dataSource,parentQName);
             
         }
 
@@ -112,46 +69,28 @@
                   if (serializeType){
                
 
-                   java.lang.String namespacePrefix = registerPrefix(xmlWriter,"http://dao.justeat.pr");
+                   java.lang.String namespacePrefix = registerPrefix(xmlWriter,"http://dao.justeat.pr/xsd");
                    if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)){
                        writeAttribute("xsi","http://www.w3.org/2001/XMLSchema-instance","type",
-                           namespacePrefix+":borrarCliente",
+                           namespacePrefix+":GestorBD",
                            xmlWriter);
                    } else {
                        writeAttribute("xsi","http://www.w3.org/2001/XMLSchema-instance","type",
-                           "borrarCliente",
+                           "GestorBD",
                            xmlWriter);
                    }
 
                
                    }
-                if (localDniTracker){
-                                    namespace = "http://dao.justeat.pr";
-                                    writeStartElement(null, namespace, "dni", xmlWriter);
-                             
-
-                                          if (localDni==null){
-                                              // write the nil attribute
-                                              
-                                                     writeAttribute("xsi","http://www.w3.org/2001/XMLSchema-instance","nil","1",xmlWriter);
-                                                  
-                                          }else{
-
-                                        
-                                                   xmlWriter.writeCharacters(localDni);
-                                            
-                                          }
-                                    
-                                   xmlWriter.writeEndElement();
-                             }
+               
                     xmlWriter.writeEndElement();
                
 
         }
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
-            if(namespace.equals("http://dao.justeat.pr")){
-                return "ns4";
+            if(namespace.equals("http://dao.justeat.pr/xsd")){
+                return "ns3";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -328,13 +267,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                 if (localDniTracker){
-                                      elementList.add(new javax.xml.namespace.QName("http://dao.justeat.pr",
-                                                                      "dni"));
-                                 
-                                         elementList.add(localDni==null?null:
-                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localDni));
-                                    }
+                
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
             
@@ -359,9 +292,9 @@
         * Postcondition: If this object is an element, the reader is positioned at its end element
         *                If this object is a complex type, the reader is positioned at the end element of its outer element
         */
-        public static BorrarCliente parse(javax.xml.stream.XMLStreamReader reader) throws java.lang.Exception{
-            BorrarCliente object =
-                new BorrarCliente();
+        public static GestorBD parse(javax.xml.stream.XMLStreamReader reader) throws java.lang.Exception{
+            GestorBD object =
+                new GestorBD();
 
             int event;
             java.lang.String nillableValue = null;
@@ -385,10 +318,10 @@
 
                     java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(":")+1);
                     
-                            if (!"borrarCliente".equals(type)){
+                            if (!"GestorBD".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (BorrarCliente)resource.sql.xsd.ExtensionMapper.getTypeObject(
+                                return (GestorBD)resource.sql.xsd.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -409,35 +342,7 @@
                 
                     
                     reader.next();
-                
-                                    
-                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
-                                
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://dao.justeat.pr","dni").equals(reader.getName())){
-                                
-                                       nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
-                                       if (!"true".equals(nillableValue) && !"1".equals(nillableValue)){
-                                    
-
-                                    java.lang.String content = reader.getElementText();
-                                    
-                                              object.setDni(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
-                                            
-                                       } else {
-                                           
-                                           
-                                           reader.getElementText(); // throw away text nodes if any.
-                                       }
-                                      
-                                        reader.next();
-                                    
-                              }  // End of if for expected property start element
-                                
-                                    else {
-                                        
-                                    }
-                                  
+                  
                             while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();
                             

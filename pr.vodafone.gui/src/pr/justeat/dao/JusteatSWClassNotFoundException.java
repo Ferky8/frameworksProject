@@ -395,7 +395,7 @@
                             if (!"JusteatSWClassNotFoundException".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (JusteatSWClassNotFoundException)java.sql.xsd.ExtensionMapper.getTypeObject(
+                                return (JusteatSWClassNotFoundException)resource.sql.xsd.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -423,7 +423,7 @@
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://dao.justeat.pr","ClassNotFoundException").equals(reader.getName())){
                                 
                                      object.setClassNotFoundException(org.apache.axis2.databinding.utils.ConverterUtil.getAnyTypeObject(reader,
-                                                java.sql.xsd.ExtensionMapper.class));
+                                                resource.sql.xsd.ExtensionMapper.class));
                                        
                                          reader.next();
                                      

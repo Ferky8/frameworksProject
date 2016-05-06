@@ -383,7 +383,7 @@
                             if (!"insertarRestaurante".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (InsertarRestaurante)java.sql.xsd.ExtensionMapper.getTypeObject(
+                                return (InsertarRestaurante)resource.sql.xsd.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         

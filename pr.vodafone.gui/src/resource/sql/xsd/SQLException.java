@@ -1,45 +1,44 @@
 
 /**
- * BorrarCliente.java
+ * SQLException.java
  *
  * This file was auto-generated from WSDL
  * by the Apache Axis2 version: 1.6.4  Built on : Dec 28, 2015 (10:04:10 GMT)
  */
 
             
-                package pr.justeat.dao;
+                package resource.sql.xsd;
             
 
             /**
-            *  BorrarCliente bean class
+            *  SQLException bean class
             */
             @SuppressWarnings({"unchecked","unused"})
         
-        public  class BorrarCliente
+        public  class SQLException
         implements org.apache.axis2.databinding.ADBBean{
-        
-                public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
-                "http://dao.justeat.pr",
-                "borrarCliente",
-                "ns4");
-
+        /* This type was generated from the piece of schema that had
+                name = SQLException
+                Namespace URI = http://sql.java/xsd
+                Namespace Prefix = ns2
+                */
             
 
                         /**
-                        * field for Dni
+                        * field for SQLState
                         */
 
                         
-                                    protected java.lang.String localDni ;
+                                    protected java.lang.String localSQLState ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
                            *   in the serialized XML
                            */
-                           protected boolean localDniTracker = false ;
+                           protected boolean localSQLStateTracker = false ;
 
-                           public boolean isDniSpecified(){
-                               return localDniTracker;
+                           public boolean isSQLStateSpecified(){
+                               return localSQLStateTracker;
                            }
 
                            
@@ -48,20 +47,107 @@
                            * Auto generated getter method
                            * @return java.lang.String
                            */
-                           public  java.lang.String getDni(){
-                               return localDni;
+                           public  java.lang.String getSQLState(){
+                               return localSQLState;
                            }
 
                            
                         
                             /**
                                * Auto generated setter method
-                               * @param param Dni
+                               * @param param SQLState
                                */
-                               public void setDni(java.lang.String param){
-                            localDniTracker = true;
+                               public void setSQLState(java.lang.String param){
+                            localSQLStateTracker = true;
                                    
-                                            this.localDni=param;
+                                            this.localSQLState=param;
+                                       
+
+                               }
+                            
+
+                        /**
+                        * field for ErrorCode
+                        */
+
+                        
+                                    protected int localErrorCode ;
+                                
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localErrorCodeTracker = false ;
+
+                           public boolean isErrorCodeSpecified(){
+                               return localErrorCodeTracker;
+                           }
+
+                           
+
+                           /**
+                           * Auto generated getter method
+                           * @return int
+                           */
+                           public  int getErrorCode(){
+                               return localErrorCode;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param ErrorCode
+                               */
+                               public void setErrorCode(int param){
+                            
+                                       // setting primitive attribute tracker to true
+                                       localErrorCodeTracker =
+                                       param != java.lang.Integer.MIN_VALUE;
+                                   
+                                            this.localErrorCode=param;
+                                       
+
+                               }
+                            
+
+                        /**
+                        * field for NextException
+                        */
+
+                        
+                                    protected resource.sql.xsd.SQLException localNextException ;
+                                
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localNextExceptionTracker = false ;
+
+                           public boolean isNextExceptionSpecified(){
+                               return localNextExceptionTracker;
+                           }
+
+                           
+
+                           /**
+                           * Auto generated getter method
+                           * @return resource.sql.xsd.SQLException
+                           */
+                           public  resource.sql.xsd.SQLException getNextException(){
+                               return localNextException;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param NextException
+                               */
+                               public void setNextException(resource.sql.xsd.SQLException param){
+                            localNextExceptionTracker = true;
+                                   
+                                            this.localNextException=param;
                                        
 
                                }
@@ -82,8 +168,8 @@
 
         
                org.apache.axiom.om.OMDataSource dataSource =
-                       new org.apache.axis2.databinding.ADBDataSource(this,MY_QNAME);
-               return factory.createOMElement(dataSource,MY_QNAME);
+                       new org.apache.axis2.databinding.ADBDataSource(this,parentQName);
+               return factory.createOMElement(dataSource,parentQName);
             
         }
 
@@ -112,25 +198,25 @@
                   if (serializeType){
                
 
-                   java.lang.String namespacePrefix = registerPrefix(xmlWriter,"http://dao.justeat.pr");
+                   java.lang.String namespacePrefix = registerPrefix(xmlWriter,"http://sql.java/xsd");
                    if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)){
                        writeAttribute("xsi","http://www.w3.org/2001/XMLSchema-instance","type",
-                           namespacePrefix+":borrarCliente",
+                           namespacePrefix+":SQLException",
                            xmlWriter);
                    } else {
                        writeAttribute("xsi","http://www.w3.org/2001/XMLSchema-instance","type",
-                           "borrarCliente",
+                           "SQLException",
                            xmlWriter);
                    }
 
                
                    }
-                if (localDniTracker){
-                                    namespace = "http://dao.justeat.pr";
-                                    writeStartElement(null, namespace, "dni", xmlWriter);
+                if (localSQLStateTracker){
+                                    namespace = "http://sql.java/xsd";
+                                    writeStartElement(null, namespace, "SQLState", xmlWriter);
                              
 
-                                          if (localDni==null){
+                                          if (localSQLState==null){
                                               // write the nil attribute
                                               
                                                      writeAttribute("xsi","http://www.w3.org/2001/XMLSchema-instance","nil","1",xmlWriter);
@@ -138,20 +224,45 @@
                                           }else{
 
                                         
-                                                   xmlWriter.writeCharacters(localDni);
+                                                   xmlWriter.writeCharacters(localSQLState);
                                             
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             }
+                             } if (localErrorCodeTracker){
+                                    namespace = "http://sql.java/xsd";
+                                    writeStartElement(null, namespace, "errorCode", xmlWriter);
+                             
+                                               if (localErrorCode==java.lang.Integer.MIN_VALUE) {
+                                           
+                                                         throw new org.apache.axis2.databinding.ADBException("errorCode cannot be null!!");
+                                                      
+                                               } else {
+                                                    xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localErrorCode));
+                                               }
+                                    
+                                   xmlWriter.writeEndElement();
+                             } if (localNextExceptionTracker){
+                                    if (localNextException==null){
+
+                                        writeStartElement(null, "http://sql.java/xsd", "nextException", xmlWriter);
+
+                                       // write the nil attribute
+                                      writeAttribute("xsi","http://www.w3.org/2001/XMLSchema-instance","nil","1",xmlWriter);
+                                      xmlWriter.writeEndElement();
+                                    }else{
+                                     localNextException.serialize(new javax.xml.namespace.QName("http://sql.java/xsd","nextException"),
+                                        xmlWriter);
+                                    }
+                                }
                     xmlWriter.writeEndElement();
                
 
         }
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
-            if(namespace.equals("http://dao.justeat.pr")){
-                return "ns4";
+            if(namespace.equals("http://sql.java/xsd")){
+                return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -328,13 +439,26 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                 if (localDniTracker){
-                                      elementList.add(new javax.xml.namespace.QName("http://dao.justeat.pr",
-                                                                      "dni"));
+                 if (localSQLStateTracker){
+                                      elementList.add(new javax.xml.namespace.QName("http://sql.java/xsd",
+                                                                      "SQLState"));
                                  
-                                         elementList.add(localDni==null?null:
-                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localDni));
-                                    }
+                                         elementList.add(localSQLState==null?null:
+                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localSQLState));
+                                    } if (localErrorCodeTracker){
+                                      elementList.add(new javax.xml.namespace.QName("http://sql.java/xsd",
+                                                                      "errorCode"));
+                                 
+                                elementList.add(
+                                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localErrorCode));
+                            } if (localNextExceptionTracker){
+                            elementList.add(new javax.xml.namespace.QName("http://sql.java/xsd",
+                                                                      "nextException"));
+                            
+                            
+                                    elementList.add(localNextException==null?null:
+                                    localNextException);
+                                }
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
             
@@ -359,9 +483,9 @@
         * Postcondition: If this object is an element, the reader is positioned at its end element
         *                If this object is a complex type, the reader is positioned at the end element of its outer element
         */
-        public static BorrarCliente parse(javax.xml.stream.XMLStreamReader reader) throws java.lang.Exception{
-            BorrarCliente object =
-                new BorrarCliente();
+        public static SQLException parse(javax.xml.stream.XMLStreamReader reader) throws java.lang.Exception{
+            SQLException object =
+                new SQLException();
 
             int event;
             java.lang.String nillableValue = null;
@@ -385,10 +509,10 @@
 
                     java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(":")+1);
                     
-                            if (!"borrarCliente".equals(type)){
+                            if (!"SQLException".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (BorrarCliente)resource.sql.xsd.ExtensionMapper.getTypeObject(
+                                return (SQLException)resource.sql.xsd.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -413,7 +537,7 @@
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://dao.justeat.pr","dni").equals(reader.getName())){
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://sql.java/xsd","SQLState").equals(reader.getName())){
                                 
                                        nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
                                        if (!"true".equals(nillableValue) && !"1".equals(nillableValue)){
@@ -421,7 +545,7 @@
 
                                     java.lang.String content = reader.getElementText();
                                     
-                                              object.setDni(
+                                              object.setSQLState(
                                                     org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
                                             
                                        } else {
@@ -432,6 +556,56 @@
                                       
                                         reader.next();
                                     
+                              }  // End of if for expected property start element
+                                
+                                    else {
+                                        
+                                    }
+                                
+                                    
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+                                
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://sql.java/xsd","errorCode").equals(reader.getName())){
+                                
+                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
+                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
+                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"errorCode" +"  cannot be null");
+                                    }
+                                    
+
+                                    java.lang.String content = reader.getElementText();
+                                    
+                                              object.setErrorCode(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToInt(content));
+                                              
+                                        reader.next();
+                                    
+                              }  // End of if for expected property start element
+                                
+                                    else {
+                                        
+                                               object.setErrorCode(java.lang.Integer.MIN_VALUE);
+                                           
+                                    }
+                                
+                                    
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+                                
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://sql.java/xsd","nextException").equals(reader.getName())){
+                                
+                                      nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
+                                      if ("true".equals(nillableValue) || "1".equals(nillableValue)){
+                                          object.setNextException(null);
+                                          reader.next();
+                                            
+                                            reader.next();
+                                          
+                                      }else{
+                                    
+                                                object.setNextException(resource.sql.xsd.SQLException.Factory.parse(reader));
+                                              
+                                        reader.next();
+                                    }
                               }  // End of if for expected property start element
                                 
                                     else {

@@ -18,7 +18,7 @@ public class GestorBD {
     
     private String dataSource = "//localhost/justeat";
     private String username = "root";
-    private String password = "deusto";
+    private String password = "";
     private String driver = "com.mysql.jdbc.Driver";
     private String protocol = "jdbc:mysql";    
     

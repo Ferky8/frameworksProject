@@ -7,7 +7,7 @@
  */
 
         
-            package java.sql.xsd;
+            package resource.sql.xsd;
         
             /**
             *  ExtensionMapper class
@@ -45,7 +45,7 @@
                   "http://sql.java/xsd".equals(namespaceURI) &&
                   "SQLException".equals(typeName)){
                    
-                            return  java.sql.xsd.SQLException.Factory.parse(reader);
+                            return  resource.sql.xsd.SQLException.Factory.parse(reader);
                         
 
                   }
@@ -71,6 +71,14 @@
                   }
 
               
+                  if (
+                  "http://dao.justeat.pr/xsd".equals(namespaceURI) &&
+                  "GestorBD".equals(typeName)){
+                   
+                            return  pr.justeat.dao.xsd.GestorBD.Factory.parse(reader);
+                        
+
+                  }
 
               
              throw new org.apache.axis2.databinding.ADBException("Unsupported type " + namespaceURI + " " + typeName);
