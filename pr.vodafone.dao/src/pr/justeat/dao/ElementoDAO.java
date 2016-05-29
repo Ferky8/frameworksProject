@@ -18,7 +18,7 @@ public class ElementoDAO {
 	{
 		if (sqlSessionFactory == null){
 			try {				
-				String resource = "conf/mybatis-config.xml";
+				String resource = "confi/mybatis-config.xml";
 				Reader reader = Resources.getResourceAsReader(resource);
 				sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
 			}catch (Exception e){

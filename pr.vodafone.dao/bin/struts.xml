@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+	
+
+<struts>
+
+    <constant name="struts.devMode" value="true" />
+    <package name="default" extends="struts-default">
+		<default-interceptor-ref name="paramsPrepareParamsStack"/>
+        
+		<!-- Login Form Configuration -->
+        <action name="showLogin">
+			<result>/jsp/login.jsp</result>
+        </action>
+
+        <action name="doLogin" class="pr.justeat.struts2.Login">
+            <result  name="input">/jsp/login.jsp</result>
+			<result  name="error">/jsp/login.jsp</result>
+			<result type="redirectAction">
+				<param name="username">${username}</param>
+				<param name="actionName">pedidos</param>
+			</result>
+        </action>
+        
+        <action name="pedidos" class="pr.justeat.struts2.PedidoAction" method="listing">
+			<result>/jsp/pedidos.jsp</result>
+        </action>
+        
+        <action name="showCliente" class="pr.justeat.struts2.ClienteAction">
+			<result>/jsp/cliente.jsp</result>
+        </action>
+
+		<action name="showElementos" class="pr.justeat.struts2.ElementoAction">
+			<result>/jsp/elementos.jsp</result>
+        </action>
+
+
+
+         <!-- Add actions here -->
+    </package>
+
+
+    <!-- Add packages here -->
+
+</struts>

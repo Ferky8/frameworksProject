@@ -18,7 +18,7 @@ public class GestorBD {
     
     private String dataSource = "//localhost/justeat";
     private String username = "root";
-    private String password = "";
+    private String password = "deusto";
     private String driver = "com.mysql.jdbc.Driver";
     private String protocol = "jdbc:mysql";    
     
@@ -240,7 +240,36 @@ public class GestorBD {
 		}
     	
         Vector<Pedido> pedidos = new Vector<Pedido>();
-    	String select = "select * from PEDIDOS order by fecha";
+    	String select = "select * from PEDIDOS order by fecha desc";
+        Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery(select);
+        while (rs.next()){
+        	Pedido pedido = new Pedido();
+        	pedido.setIdPedido(rs.getInt("idPedido"));
+        	pedido.setRestaurante(rs.getString("restaurante"));
+        	pedido.setFecha(rs.getString("fecha"));
+        	pedido.setEntregado(rs.getBoolean("entregado"));
+        	pedido.setTipoEntrega(rs.getString("tipoEntrega"));
+        	pedido.setTipoPago(rs.getString("tipoPago"));
+        	pedido.setPromocion(rs.getString("promocion"));
+        	pedido.setDni(rs.getString("dni"));
+        	pedidos.add(pedido);
+        }
+        rs.close();
+        stmt.close();
+        desconectar();
+        return pedidos;
+    }
+    
+    public Vector<Pedido> obtenerPedidosRestaurante(String restaurante) throws SQLException{   
+    	try {
+			conectar();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+    	
+        Vector<Pedido> pedidos = new Vector<Pedido>();
+    	String select = "select * from PEDIDOS where restaurante=" + restaurante + " order by fecha desc";
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(select);
         while (rs.next()){
