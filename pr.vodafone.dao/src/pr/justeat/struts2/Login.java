@@ -13,11 +13,14 @@ public  class Login  extends ActionSupport {
 			addActionError("Compulsory to specify both username and password!");
 			return INPUT;
 		}
-		if(!getUsername().equals(getPassword())){
-            addActionError(getText("invalid_login_details"));
-            return ERROR;
-		}else{
+		
+		if((getUsername().equals("1") && getPassword().equals("1") 
+				|| (getUsername().equals("2") && getPassword().equals("2")) 
+				|| (getUsername().equals("3") && getPassword().equals("3")))) {
 			return SUCCESS;
+		}else {
+			addActionError(getText("invalid_login_details"));
+            return ERROR;
 		}
 	}
 
