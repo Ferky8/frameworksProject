@@ -6,7 +6,7 @@
 
 <struts>
 
-    <constant name="struts.devMode" value="true" />
+    <constant name="struts.devMode" value="false" />
     <package name="default" extends="struts-default">
 		<default-interceptor-ref name="paramsPrepareParamsStack"/>
         

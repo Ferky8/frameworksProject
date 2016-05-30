@@ -29,7 +29,7 @@ public class ClienteDAO {
 		return sqlSessionFactory;
 	}
 	
-	public Cliente getCliente(int dni)
+	public Cliente getCliente(String dni)
 	{			
 		Cliente cl = null;
 		SqlSession session = getSqlSessionFactory().openSession();

@@ -99,7 +99,7 @@ public class TestMyBatis {
 	
 
 		try {
-			Cliente cl = clienteDAO.getCliente(111);
+			Cliente cl = clienteDAO.getCliente("111");
 			System.out.println("*** CLIENTE CON EL DNI 111 ***");
 			System.out.println(cl.getNombre());
 		} catch (Exception e) {

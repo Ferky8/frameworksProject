@@ -1,6 +1,5 @@
 package pr.justeat.struts2;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -9,7 +8,7 @@ import org.apache.commons.logging.LogFactory;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.Preparable;
 
-import pr.justeat.dao.GestorBD;
+import pr.justeat.dao.ElementoDAO;
 import pr.justeat.dao.dto.Elemento;
 
 public class ElementoAction extends ActionSupport implements Preparable {
@@ -18,6 +17,7 @@ public class ElementoAction extends ActionSupport implements Preparable {
 
 	private List<Elemento> elementos = null;
 	private int idPedido;
+	private ElementoDAO elementoDAO = new ElementoDAO();
 	
 	public List<Elemento> getElementos() {
         return this.elementos;
@@ -32,9 +32,6 @@ public class ElementoAction extends ActionSupport implements Preparable {
 	}
 	
 	public void prepare() throws Exception {
-		GestorBD gbd = new GestorBD();
-		gbd.conectar();
-		this.elementos = gbd.obtenerElementosPedido(idPedido);
-		gbd.desconectar();
+		this.elementos = elementoDAO.getElementosByPedido(idPedido);
 	}	
 }

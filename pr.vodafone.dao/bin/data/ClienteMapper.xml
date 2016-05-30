@@ -6,7 +6,7 @@
 
 <mapper namespace="es.deusto.mybatis.example.ClienteMapper">
 
-	<select	id="getCliente" parameterType="int" resultType="Cliente">
+	<select	id="getCliente" parameterType="java.lang.String" resultType="Cliente">
 		SELECT * FROM CLIENTES WHERE DNI=#{dni}
 	</select>
 	

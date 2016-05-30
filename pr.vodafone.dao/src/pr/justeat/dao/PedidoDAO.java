@@ -79,6 +79,18 @@ public class PedidoDAO {
 		return pedidos;
 	}
 	
+	public List<Pedido> getPedidosByRestaurante(String restaurante) throws Exception
+	{
+		List<Pedido> pedidos = null;
+		SqlSession session = getSqlSessionFactory().openSession();
+		try{
+			pedidos = session.selectList("getPedidosByRestaurante", restaurante);
+		}finally{
+			session.close();
+		}
+		return pedidos;
+	}
+	
 	public List<Pedido> getPedidosByClienteAndEstado(String dni, boolean entregado) throws Exception
 	{
 		List<Pedido> pedidos = null;
